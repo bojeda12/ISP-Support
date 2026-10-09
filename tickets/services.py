@@ -94,3 +94,13 @@ def update_ticket_details(*, ticket, title, description, priority, assigned_tech
             ticket=current, user=user, description=f"Ticket updated: {', '.join(changed_fields)}"
         )
     return current
+
+
+@transaction.atomic
+def record_ticket_action(*, ticket, description: str, user=None):
+    """Conserva una acción importante sin repetir idéntica evidencia en reintentos."""
+    current = Ticket.objects.select_for_update().get(pk=ticket.pk)
+    event, _ = TicketEvent.objects.get_or_create(
+        ticket=current, description=description, defaults={"user": user}
+    )
+    return event

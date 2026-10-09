@@ -7,7 +7,7 @@ from django.db import transaction
 from django.utils import timezone
 
 from customers.models import InternetService
-from tickets.services import create_ticket
+from tickets.services import create_ticket, record_ticket_action
 from .engine import administrative_assessment, evaluate
 from .models import DiagnosticRun, SimulationState
 from .simulation import NetworkMetrics, Scenario, simulate
@@ -77,16 +77,24 @@ def escalation_payload(run: DiagnosticRun) -> dict | None:
     }
 
 
-def escalate_diagnostic(*, run: DiagnosticRun, user=None):
+@transaction.atomic
+def escalate_diagnostic(*, run: DiagnosticRun, user=None, reported_actions=()):
     payload = escalation_payload(run)
     if payload is None:
         return None
     if run.conversation_id is None:
         raise ValidationError("A conversation is required for duplicate-safe escalation.")
-    return create_ticket(
+    payload["reported_actions"] = list(reported_actions)
+    ticket = create_ticket(
         customer=run.internet_service.customer, internet_service=run.internet_service,
         conversation=run.conversation,
         incident_key=f"diagnostic-{run.internet_service_id}-{run.result_code.lower()}",
         title=payload["summary"], description=json.dumps(payload, ensure_ascii=False, indent=2),
         priority=payload["suggested_priority"], user=user,
     )
+    if payload["reported_actions"]:
+        record_ticket_action(
+            ticket=ticket, user=user,
+            description="Customer-reported actions: " + " ".join(payload["reported_actions"]),
+        )
+    return ticket

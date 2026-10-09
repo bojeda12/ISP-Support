@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib import admin
 from django.core.exceptions import PermissionDenied, ValidationError
+from django.urls import reverse
+from django.utils.html import format_html, format_html_join
 
 from .models import Ticket, TicketEvent
 from .services import change_ticket_status, create_ticket, update_ticket_details, validate_transition
@@ -44,9 +46,22 @@ class TicketAdmin(admin.ModelAdmin):
     list_display = ("number", "title", "customer", "internet_service", "priority", "status", "assigned_technician", "created_at")
     search_fields = ("number", "title", "incident_key", "customer__name", "customer__external_id", "internet_service__service_identifier")
     list_filter = ("status", "priority", "assigned_technician", "created_at")
-    readonly_fields = ("id", "number", "created_at", "updated_at", "resolved_at")
+    readonly_fields = ("id", "number", "created_at", "updated_at", "resolved_at", "support_context")
     list_select_related = ("customer", "internet_service", "assigned_technician")
     inlines = (TicketEventInline,)
+
+    @admin.display(description="Conversation and diagnostics")
+    def support_context(self, obj):
+        if not obj or not obj.conversation_id:
+            return "No associated conversation."
+        runs = obj.conversation.diagnostic_runs.filter(internet_service_id=obj.internet_service_id).order_by("-created_at")
+        links = format_html_join(" · ", '<a href="{}">{} — {} ({})</a>', (
+            (reverse("admin:diagnostics_diagnosticrun_change", args=[run.pk]), run.result_code, run.get_result_display(), run.created_at)
+            for run in runs
+        ))
+        return format_html('<a href="{}">View conversation #{}</a><p>{}</p>',
+                           reverse("admin:conversations_conversation_change", args=[obj.conversation_id]),
+                           obj.conversation_id, links or "No diagnostics.")
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)

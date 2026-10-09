@@ -19,15 +19,15 @@ class Customer(models.Model):
 
 class InternetService(models.Model):
     class Status(models.TextChoices):
-        ACTIVE = "ACTIVE", "Activo"
-        SUSPENDED = "SUSPENDED", "Suspendido"
-        CANCELLED = "CANCELLED", "Cancelado"
+        ACTIVE = "ACTIVE", "Active"
+        SUSPENDED = "SUSPENDED", "Suspended"
+        CANCELLED = "CANCELLED", "Canceled"
 
     class ConnectivityStatus(models.TextChoices):
-        UNKNOWN = "UNKNOWN", "Desconocida"
-        ONLINE = "ONLINE", "En línea"
-        OFFLINE = "OFFLINE", "Sin conexión"
-        DEGRADED = "DEGRADED", "Degradada"
+        UNKNOWN = "UNKNOWN", "Unknown"
+        ONLINE = "ONLINE", "Online"
+        OFFLINE = "OFFLINE", "Offline"
+        DEGRADED = "DEGRADED", "Degraded"
 
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT, related_name="services")
     service_identifier = models.CharField(max_length=100, unique=True)

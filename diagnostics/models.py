@@ -17,14 +17,14 @@ class SimulationState(models.Model):
 
 class DiagnosticRun(models.Model):
     class Source(models.TextChoices):
-        SIMULATION = "simulation", "Simulación"
-        EXTERNAL = "external", "Externo"
+        SIMULATION = "simulation", "Simulation"
+        EXTERNAL = "external", "External"
 
     class Result(models.TextChoices):
-        UNKNOWN = "UNKNOWN", "Desconocido"
-        PASSED = "PASSED", "Correcto"
-        FAILED = "FAILED", "Fallo"
-        DEGRADED = "DEGRADED", "Degradado"
+        UNKNOWN = "UNKNOWN", "Unknown"
+        PASSED = "PASSED", "Passed"
+        FAILED = "FAILED", "Failed"
+        DEGRADED = "DEGRADED", "Degraded"
 
     internet_service = models.ForeignKey(
         "customers.InternetService", on_delete=models.PROTECT, related_name="diagnostic_runs"
@@ -45,7 +45,7 @@ class DiagnosticRun(models.Model):
     completed_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
-        permissions = [("run_simulated_diagnostic", "Puede ejecutar diagnósticos simulados internos")]
+        permissions = [("run_simulated_diagnostic", "Can run internal simulated diagnostics")]
 
     def clean(self):
         super().clean()

@@ -1,0 +1,7 @@
+Original ISP Support demo illustrations. Dedicated to the public domain under CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/). Generic illustrative shapes, no real manufacturer diagrams or wiring instructions.
+
+This CC0 dedication applies only to the original SVG illustrations. Files in
+demo_photos/ are AI-generated references supplied and authorized by the user for
+this internal demonstration, not equipment-verified product photographs. They
+are not covered by the SVG dedication. See demo_photos/README_ASSETS.txt and
+demo_photos/manifest.json for provenance, restrictions and replacement policy.

@@ -1,359 +1,214 @@
 # ISP Support
 
-Backend modular para la demo de soporte técnico de un proveedor de Internet.
-Día 3: modelos de soporte, administración de tickets y motor de diagnóstico con
-simulación determinista. No contiene datos reales, integraciones con el ISP ni IA.
+Local Django support demo for a US Internet service provider. Python 3.14.5,
+Django REST Framework, temporary SQLite, simulated diagnostics, bilingual
+conversations, automatic tickets, private photo analysis and a Bootstrap widget.
+No real ISP systems, network commands or SMS are connected.
 
-## Requisitos y dependencias
+## Run locally on Windows
 
-Windows 11, PowerShell y Python 3.14.5. Se conserva el entorno `.venv` existente.
-Django 5.2 LTS admite Python 3.14 desde 5.2.8. Las versiones exactas instaladas
-están fijadas en `requirements.txt`; DRF proporciona la API y asgiref, sqlparse y
-tzdata son dependencias de Django (tzdata es necesaria en Windows).
-
-## Inicio local
-
-Desde la raíz del proyecto:
+Keep the existing `.venv`. From the project directory in PowerShell:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe manage.py migrate
-.\.venv\Scripts\python.exe manage.py check
-.\.venv\Scripts\python.exe manage.py test
-.\.venv\Scripts\python.exe manage.py runserver
-```
-
-No es necesario activar el entorno virtual ni cambiar la política de ejecución.
-Visitar `http://127.0.0.1:8000/api/health/` o ejecutar:
-
-```powershell
-Invoke-RestMethod http://127.0.0.1:8000/api/health/
-```
-
-Devuelve HTTP 200, `application/json` y `{"status": "ok"}`. Es público y no
-consulta la base de datos: verifica que la aplicación responde, no la disponibilidad
-de servicios externos. POST devuelve HTTP 405.
-
-## Estructura
-
-- `config/`: configuración, selección de base de datos y rutas principales.
-- `api/`: rutas HTTP, vista y pruebas de salud.
-- `customers/`: futura lógica de clientes.
-- `conversations/`: futuras conversaciones.
-- `diagnostics/`: futuros diagnósticos.
-- `tickets/`: futura gestión de tickets.
-- `messaging/`: futura integración de mensajería.
-
-Los modelos y sus migraciones están en cada aplicación; `tickets/services.py`
-centraliza creación y cambios de estado. El Admin utiliza estos servicios.
-No existen endpoints públicos para modificar clientes o tickets.
-
-## Variables de entorno
-
-`.env.example` documenta las variables; no contiene secretos. **Los archivos
-`.env` no se cargan automáticamente**: se utiliza `os.environ` para evitar otra
-dependencia. Definir las variables en PowerShell antes de iniciar Django:
-
-```powershell
-$env:DJANGO_DEBUG = 'true'
-$env:DJANGO_ALLOWED_HOSTS = 'localhost,127.0.0.1,[::1]'
-$env:DB_ENGINE = 'sqlite'
-```
-
-SQLite guarda datos locales en `db.sqlite3`, excluido de Git. En desarrollo se
-genera una clave efímera en cada proceso si `DJANGO_SECRET_KEY` está vacía; las
-sesiones firmadas pueden invalidarse al reiniciar. Para una clave local estable:
-
-```powershell
-$env:DJANGO_SECRET_KEY = & .\.venv\Scripts\python.exe -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
-```
-
-Con `DJANGO_DEBUG=false`, una clave explícita es obligatoria. El servidor de
-desarrollo no es un despliegue de producción. Las futuras APIs requieren
-autenticación por defecto; salud permite acceso anónimo.
-
-## PostgreSQL posteriormente
-
-La selección está preparada, pero no se instala un controlador ni se conecta
-PostgreSQL en el día 1. Cuando exista una base autorizada, instalar una versión
-de `psycopg[binary]` compatible con Python 3.14, fijarla en requirements.txt y
-definir `DB_ENGINE=postgresql`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`
-y `DB_PORT`. Todas son obligatorias en ese modo. Obtener credenciales por un
-canal seguro y ejecutar migraciones sobre la base autorizada. Cambiar de motor
-no transfiere automáticamente los datos de SQLite.
-
-## Validación
-
-```powershell
-.\.venv\Scripts\python.exe -m pip check
-.\.venv\Scripts\python.exe manage.py makemigrations --check --dry-run
-.\.venv\Scripts\python.exe manage.py check
-.\.venv\Scripts\python.exe manage.py test --verbosity 2
-```
-
-Las pruebas cubren salud, relaciones, mensajes, tickets, transiciones, permisos,
-historial, restricciones de duplicados y datos demo. No se requieren pytest ni
-servicios externos.
-
-## Modelos del Día 2
-
-| Modelo | Relaciones y propósito |
-| --- | --- |
-| Customer | UUID interno, external_id único ficticio, nombre, contacto opcional y fechas |
-| InternetService | Varios por cliente; identificador único, plan, velocidad y CPE opcional |
-| Conversation | Cliente obligatorio, servicio opcional, idioma es/en, estado y fechas |
-| Message | Varios por conversación; emisor, contenido y fecha; orden cronológico |
-| DiagnosticRun | Servicio obligatorio, conversación opcional, escenario, resultado, JSON, fuente y fechas |
-| Ticket | UUID, referencia ISP única, cliente, servicio, conversación opcional, incidencia, prioridad, estado, técnico y fechas |
-| TicketEvent | Historial cronológico por ticket, usuario opcional y estados anterior/nuevo |
-
-`InternetService.status` es administrativo (ACTIVE/SUSPENDED/CANCELLED);
-`connectivity_status` es técnico (UNKNOWN/ONLINE/OFFLINE/DEGRADED). Una suspensión
-no prueba un fallo de conectividad. Las relaciones principales usan PROTECT para
-conservar referencias; borrar usuarios deja sus asignaciones y eventos con usuario
-nulo. Los mensajes y eventos dependen de su conversación y ticket respectivamente.
-La validación de modelos rechaza conversaciones, diagnósticos y tickets que
-mezclen clientes o servicios. No utilizar actualizaciones masivas del ORM para
-eludir estas validaciones o los servicios de negocio.
-
-## Tickets y transiciones
-
-Utilizar `create_ticket(...)` y `change_ticket_status(...)` de
-`tickets/services.py`. Cada creación/cambio y su evento se guardan en una
-transacción. Ejemplo desde `manage.py shell` con objetos ficticios existentes:
-
-```python
-from tickets.services import create_ticket, change_ticket_status
-
-ticket = create_ticket(
-    customer=customer, internet_service=service, conversation=conversation,
-    incident_key="poe-disconnected", title="PoE desconectado",
-    description="Incidencia ficticia para la demo",
-)
-ticket = change_ticket_status(ticket=ticket, new_status="IN_PROGRESS")
-```
-
-`incident_key` es una clave estable de la incidencia, normalizada a minúsculas.
-Con conversación, repetir creación para la misma clave devuelve el ticket OPEN
-o IN_PROGRESS existente sin sobrescribirlo ni duplicar su evento. Una restricción
-única condicional protege también la base de datos. Sin conversación, cada llamada
-crea un ticket independiente. Incidencias resueltas permiten un ticket nuevo;
-reabrir el anterior se rechaza si ya existe otro activo para la misma clave.
-
-| Estado actual | Siguientes estados permitidos |
-| --- | --- |
-| OPEN | IN_PROGRESS |
-| IN_PROGRESS | OPEN, RESOLVED |
-| RESOLVED | IN_PROGRESS, CLOSED |
-| CLOSED | Ninguno |
-
-Resolver fija `resolved_at`; reabrir lo limpia; cerrar conserva la fecha.
-Cerrar requiere un usuario autenticado con permiso `tickets.close_ticket`.
-El servicio se puede invocar internamente sin usuario para las demás operaciones;
-un futuro adaptador público deberá aplicar autenticación y autorización.
-Las garantías de transición e historial requieren utilizar el servicio, no
-`Ticket.objects.update(...)` ni escrituras directas de estado.
-
-## Datos ficticios
-
-```powershell
 .\.venv\Scripts\python.exe manage.py seed_demo
-.\.venv\Scripts\python.exe manage.py seed_demo
-```
-
-Cada ejecución conserva registros existentes. Crea como máximo cinco clientes,
-cinco servicios y una ejecución inicial por servicio sin historial simulado:
-
-- DEMO-CUSTOMER-001: activo, sin conexión, PoE desconectado.
-- DEMO-CUSTOMER-002: activo, conectividad degradada y señal débil.
-- DEMO-CUSTOMER-003: suspendido administrativamente, conectividad desconocida.
-- DEMO-CUSTOMER-004: activo, conexión aparentemente normal.
-- DEMO-CUSTOMER-005: activo, señal aceptable y rendimiento bajo.
-
-Los external_id y service_identifier DEMO-* son diferentes de los UUID/IDs
-internos. El comando no crea tickets, conversaciones ni usuarios. No ejecuta
-diagnósticos ni accede a equipos. Si un identificador reservado pertenece a otro
-registro, aborta y revierte toda la ejecución sin modificar datos ajenos. No
-restablece ediciones manuales de los datos demo.
-
-Los escenarios se guardan en `diagnostics.SimulationState`, uno por servicio.
-Repetir el seed no cambia el escenario actual ni añade diagnósticos si ya existe
-historial simulado. Los diagnósticos del Día 2 se conservan tal como estaban;
-sus campos nuevos `result_code` y `assessment` quedan vacíos. Las nuevas
-ejecuciones tienen métricas y evaluaciones completas.
-
-## Django Admin
-
-Crear un superusuario local de forma interactiva y arrancar el servidor:
-
-```powershell
 .\.venv\Scripts\python.exe manage.py createsuperuser
-.\.venv\Scripts\python.exe manage.py runserver
+.\.venv\Scripts\python.exe manage.py runserver 127.0.0.1:8000
 ```
 
-Entrar en `http://127.0.0.1:8000/admin/` con las credenciales elegidas. No guardar
-contraseñas en el repositorio. Los siete modelos están registrados con búsquedas
-y filtros. En Tickets se puede crear, asignar técnico, editar prioridad y cambiar
-estado respetando las transiciones. El historial aparece en la ficha y es de solo
-lectura; UUID, referencia y fechas calculadas tampoco se editan. Se registra el
-usuario de cada cambio de estado y de las ediciones de campos en Admin.
-Para delegar el cierre a personal sin superusuario, conceder `close_ticket`
-además de los permisos habituales de acceso y cambio de tickets. El Admin
-deshabilita la eliminación de tickets e historial.
+Skip superuser creation if one already exists. Configure `.env` using
+`.env.example`; the minimum local demo configuration is:
 
-## Motor de diagnóstico del Día 3
+```dotenv
+DJANGO_ENV=development
+DJANGO_DEBUG=true
+ENABLE_DEMO_CHAT=true
+AI_PROVIDER=demo
+DJANGO_TIME_ZONE=UTC
+```
 
-- `diagnostics/simulation.py`: cinco escenarios deterministas y `NetworkMetrics`.
-  No contiene llamadas de red. La descarga se calcula respecto al plan contratado.
-- `diagnostics/thresholds.py`: RSSI mínimo -75 dBm, SNR mínimo 20 dB, descarga
-  mínima 70% del plan, latencia máxima 100 ms y pérdida máxima 3%. Son valores
-  exclusivos de la simulación, no criterios universales ni recomendaciones para
-  infraestructura real. Los valores en el límite se consideran aceptables.
-- `diagnostics/engine.py`: primero distingue suspensión/inactividad administrativa;
-  después evalúa ausencia de respuesta, señal y rendimiento, en ese orden.
-  Datos incompletos no bastan para afirmar recuperación. Devuelve código, resumen,
-  hallazgos, recomendaciones, siguiente acción y sugerencia de escalamiento.
-- `diagnostics/services.py`: relee el estado administrativo desde el ORM, consulta
-  únicamente servicios inscritos en la demo y guarda una nueva ejecución atómica.
-  Un servicio suspendido/cancelado no invoca el simulador técnico. No modifica el
-  estado administrativo ni `InternetService.connectivity_status`; el diagnóstico
-  conserva su propia instantánea de métricas.
-- `diagnostics/api.py` y `serializers.py`: adaptación HTTP, validación y permisos.
+Open **http://127.0.0.1:8000/demo/** and sign in through Django Admin. A superuser
+can use the demo; other operators must be active staff with
+`conversations.use_demo_chat`. The welcome screen requires an explicit English
+or Spanish choice and Continue. Then select a fictional service and connect.
+No shared demo password, browser API key or fixed JavaScript token is provided.
 
-La migración `diagnostics/0002_alter_diagnosticrun_options_diagnosticrun_assessment_and_more`
-añade `SimulationState`, `result_code`, `assessment` y el permiso interno sin
-eliminar ni reinterpretar resultados previos. `result` conserva las categorías
-UNKNOWN/PASSED/FAILED/DEGRADED. El Admin permite consultar los diagnósticos como
-historial de solo lectura.
+The UI, login and Admin use US English. Conversation language is independent:
+clear English/Spanish messages adapt subsequent responses, ambiguous messages
+such as OK retain the previous language, and the conversation selector provides
+an explicit override for the next message. Previous customer messages remain
+unchanged. Refresh restores the conversation and bypasses initial selection for
+an existing conversation. Changing services starts a new chat and requires a
+fresh confirmation if a conversation was already active.
 
-| Servicio ficticio | Escenario inicial | Código esperado |
-| --- | --- | --- |
-| DEMO-SERVICE-001 | CPE_OFFLINE | CPE_UNREACHABLE |
-| DEMO-SERVICE-002 | WEAK_SIGNAL | SIGNAL_DEGRADED |
-| DEMO-SERVICE-003 | ADMIN_SUSPENDED | SERVICE_SUSPENDED |
-| DEMO-SERVICE-004 | HEALTHY | NO_FAULT_DETECTED |
-| DEMO-SERVICE-005 | LOW_THROUGHPUT | PERFORMANCE_DEGRADED |
+`DJANGO_TIME_ZONE` accepts an IANA zone name. UTC is only the default, not an
+assumption about the ISP location. Admin and widget display that configured
+zone; timestamps remain timezone-aware. Installations include `tzdata` for
+Windows. Restart the server after changing environment configuration.
 
-## Ejecutar y presentar los escenarios
+## Demo scenarios
+
+`seed_demo` is idempotent and only manages its deterministic fictional records.
+
+| Service | Scenario |
+| --- | --- |
+| DEMO-SERVICE-001 | Active service, unreachable CPE / disconnected PoE simulation |
+| DEMO-SERVICE-002 | Active service, weak wireless signal |
+| DEMO-SERVICE-003 | Administratively suspended account |
+| DEMO-SERVICE-004 | Healthy simulated link |
+| DEMO-SERVICE-005 | Degraded simulated performance |
+
+For the offline flow, send “My internet is not working.” Four protected guides
+explain locating a generic PoE injector, observing an indicator if present,
+inspecting accessible Ethernet connections and asking for a new diagnostic.
+Then send “Ya revisé los cables, pero todavía no funciona.” The assistant should
+respond in Spanish, acknowledge the checks and show an OPEN ticket without
+immediately repeating the physical instructions. Ticket number and current
+status also appear in the context panel. No visit or repair is promised.
+
+The diagnostic engine and ticket services control measurements, escalation,
+state transitions and duplicate prevention independently of language or AI.
+Technical assessments and ticket summaries use English. A bounded data migration
+translates known generated historical technical phrases, preserving original
+customer messages and unrecognized free-form notes.
+
+## API and session contracts
+
+- `GET /api/health/`: public health check, `{ "status": "ok" }`.
+- `POST /api/chat/`: send `message` and **either** `service_id` for a new chat
+  **or** `conversation_id` to continue. Optional `language` is an explicit
+  override. Omit it during ordinary adaptive continuation.
+- `GET /api/conversations/<id>/messages/`: authorized history, up to 50 messages.
+  Use returned `next_before` as `?before=<id>` for older pages. Responses include
+  protected photo references, diagnostics, guide references and current tickets.
+- `GET /api/instructions/?language=en` (or `es`): replaceable guide catalog.
+- `GET /api/instructions/<id>/`: authorized SVG image, private/no-store.
+- `POST /api/conversations/<id>/photos/`: multipart `photo`, JPEG or PNG only.
+- `GET /api/conversations/<id>/photos/`: authorized photo metadata list.
+- `GET /api/photos/<uuid>/` and `/content/`: authorized metadata and image.
+- `GET /demo/state/`: selected service, conversation, confirmation and timezone.
+- `POST /demo/language/`: confirm initial `language=en` or `es` using CSRF.
+- `POST /demo/session/`: select a verified fictional `service_id` using CSRF.
+
+Web access uses Django login cookies plus a server-side, operator/service-scoped
+DemoChatSession that expires after one hour. Starting a browser chat without
+language confirmation is rejected server-side. Selecting another service revokes
+the previous demo session. Demo routes/authentication are disabled outside
+DEBUG development/test. CSRF remains enabled for all cookie-based writes.
+
+The existing CLI header flow remains compatible. Issue a short-lived scoped
+token locally (treat its output as a credential; never commit or embed it):
 
 ```powershell
-.\.venv\Scripts\python.exe manage.py migrate
-.\.venv\Scripts\python.exe manage.py seed_demo
-.\.venv\Scripts\python.exe manage.py demo_diagnostic DEMO-SERVICE-001
-.\.venv\Scripts\python.exe manage.py demo_diagnostic DEMO-SERVICE-002
-.\.venv\Scripts\python.exe manage.py demo_diagnostic DEMO-SERVICE-003
-.\.venv\Scripts\python.exe manage.py demo_diagnostic DEMO-SERVICE-004
-.\.venv\Scripts\python.exe manage.py demo_diagnostic DEMO-SERVICE-005
+.\.venv\Scripts\python.exe manage.py create_demo_session DEMO-SERVICE-001 --operator YOUR_STAFF_USERNAME
 ```
 
-Cada comando devuelve JSON y añade un DiagnosticRun. Para presentar recuperación:
+Use the returned token in `Authorization: Demo <token>` for CLI API requests.
+Browser confirmation requirements do not alter this existing CLI contract.
+Internal diagnostic routes retain their staff permissions and do not accept
+demo customer tokens. There are no public customer/ticket modification routes.
+
+## Photos and OpenAI
+
+Upload only fictional or authorized equipment photos, without passwords or
+personal information. Start a conversation before attaching a photo. The server
+checks real file format, a 5 MiB limit, dimensions (4096 per side / 12 megapixels),
+corruption and animation. Pillow normalizes images to JPEG and removes EXIF.
+Private files stay under `private_media/`, excluded from Git and never served by
+a public media route. Cross-service access is rejected for history and photos.
+Arbitrary remote image URLs are not accepted.
+
+DemoAI requires no API key and explicitly labels simulated photo results. A
+photo never confirms connectivity or electrical safety and cannot execute
+commands, change accounts or authorize ticket transitions.
+
+For optional backend-only OpenAI mode, set `AI_PROVIDER=openai`,
+`OPENAI_API_KEY`, `OPENAI_MODEL` and `OPENAI_VISION_MODEL` in `.env`. Use models
+available to your account with the required structured output and image-input
+capabilities. No real API calls are made during automated tests. The adapter
+uses the official Responses API with validated structured output, store=False,
+a timeout and no automatic retries or tools. See the official
+[structured outputs guide](https://developers.openai.com/api/docs/guides/structured-outputs?api-mode=responses).
+
+Real text and image calls incur model/token-dependent charges; image detail and
+resolution affect cost. Check current [OpenAI pricing](https://openai.com/api/pricing/)
+and configure account budget limits before enabling paid mode. Missing keys,
+unsupported models, quota/rate limits, timeouts, refusals, incomplete output and
+upstream failures produce safe errors rather than network actions. Review the
+conversation before manually retrying an uncertain operation: the server may
+already have saved the message or photo. The widget never automatically repeats
+writes, but exactly-once delivery across tabs/network failures is not guaranteed.
+
+Development `.env` loading uses python-dotenv with override=False; existing
+process variables win. `.env`, database files, `.venv`, private images and logs
+are ignored by Git. Configure a persistent secret key for a stable local session;
+production requires an explicit key and DEBUG=False. PostgreSQL is supported
+through the database environment configuration; install its driver only when
+actually switching. Do not enable demo access on a production deployment.
+
+## Replace the instructional catalog
+
+Catalog definitions are in `conversations/instructions.py`; original SVG assets
+are in `conversations/instruction_assets/` and released as CC0-1.0 demo artwork.
+Each reference includes guide ID, step number, equipment type, vendor/model
+compatibility, safe asset path, English/Spanish descriptions, alternative text,
+safety instructions, source and license. These generic assets do not assert
+port assignments, voltages or LED meanings for unknown equipment.
+
+Replace catalog entries/assets with authorized, model-accurate ISP material
+without changing the orchestrator or diagnostic rules. Keep IDs stable when
+replacing an existing asset. New formats need an explicit safe content-type
+allowlist in the protected endpoint. Cards remain readable when images fail;
+click/tap an image to enlarge it in an accessible dialog, close with the button
+or Escape. All text uses textContent, not HTML injection; images use authorized
+fetch and revocable Blob URLs. Bootstrap 5.3.8 CSS is vendored locally with MIT
+license and does not require a CDN, npm, React or a frontend build step.
+
+## Technical administration
+
+Open **http://127.0.0.1:8000/admin/**. The widget's Technical panel filters OPEN
+tickets. Ticket forms include customer, service, priority, status, assigned
+technician, event history and links to the conversation and diagnostics. Assign
+appropriate Django view permissions for Ticket, TicketEvent, Customer,
+InternetService, Conversation, Message and DiagnosticRun. Changes require the
+corresponding change permissions; closing tickets retains its specific business
+authorization. Operator permission alone does not grant technical Admin access.
+
+## Verification
 
 ```powershell
-# Preparar desconexión ficticia y registrar el antes.
-.\.venv\Scripts\python.exe manage.py demo_diagnostic DEMO-SERVICE-001 --scenario CPE_OFFLINE
-# Tras confirmar la intervención ficticia del cliente, registrar el después.
-.\.venv\Scripts\python.exe manage.py demo_diagnostic DEMO-SERVICE-001 --scenario HEALTHY
+.\.venv\Scripts\python.exe manage.py check
+.\.venv\Scripts\python.exe manage.py makemigrations --check --dry-run
+.\.venv\Scripts\python.exe manage.py test
+node --check conversations/static/conversations/demo.js
+node --test tests/frontend.test.cjs
 ```
 
-La intervención solo cambia el escenario simulado. No confirma que el PoE fuera
-la causa original ni toca equipos. El comando requiere acceso local de operador;
-no es una operación disponible mediante la API. `ADMIN_SUSPENDED` requiere que
-el servicio ya esté suspendido en su estado administrativo y el comando no cambia
-ese estado. Los operadores pueden cambiarlo conscientemente desde el Admin.
+Node is optional and used only for dependency-free JavaScript tests. Python
+requirements remain unchanged. Tests cover bilingual preference/adaptation,
+ambiguous text, guide ordering, ticket flow, scoped history, CSRF, permissions,
+private photographs, invalid formats/size limits and provider failures. Browser
+verification covers welcome, guides, image zoom, refresh and desktop/mobile
+layouts; evidence is stored in `docs/day5/`.
 
-## API interna
+## Future production identity flow — documentation only
 
-`POST /api/diagnostics/run/` exige autenticación, `is_staff=True` y el permiso
-`diagnostics.run_simulated_diagnostic` (o superusuario). No basta con ser personal
-sin el permiso. El acceso es global a los servicios de la demo para ese personal.
-Utiliza la autenticación existente de DRF: sesión con CSRF o autenticación básica
-para desarrollo local. No se añade un sistema de tokens.
+1. A customer opens the chatbot on the ISP website.
+2. The ISP customer portal authenticates them, or a registered phone number is
+   verified with a short-lived SMS OTP through an approved identity workflow.
+3. Django resolves only the customer's authorized services.
+4. The customer selects a service if multiple services are available.
+5. Personalized support starts with scoped conversation access.
 
-El cuerpo utiliza el ID entero real de InternetService, visible en Admin o shell,
-y el ID entero opcional de Conversation. No utiliza el UUID del cliente ni el
-identificador externo en lugar de ese ID. Consultar los IDs locales:
+A phone number alone must never expose private customer information. No real OTP
+or SMS is implemented: the ISP database and provider contracts are not known.
 
-```powershell
-.\.venv\Scripts\python.exe manage.py shell -c "from customers.models import InternetService; print(list(InternetService.objects.values('id', 'service_identifier')))"
-```
+Remaining work includes broader bilingual phrasing evaluation, live-account
+OpenAI validation, actual device/browser testing, equipment-specific authorized
+photos, production identity, retention policy and cost/rate controls. Original
+customer text is preserved. This remains a local demo, not production software.
+Day 6 development has not started.
 
-Ejemplo de cuerpo (sustituir 1 por el ID local):
-
-```json
-{"service_id": 1}
-```
-
-Respuesta HTTP 201; extracto de una CPE sin respuesta:
-
-```json
-{
-  "service_id": 1,
-  "scenario": "CPE_OFFLINE",
-  "result": "FAILED",
-  "result_code": "CPE_UNREACHABLE",
-  "source": "simulation",
-  "metrics": {
-    "cpe_online": false,
-    "rssi_dbm": null,
-    "snr_db": null,
-    "latency_ms": null,
-    "packet_loss_percent": null,
-    "download_mbps": null,
-    "ap_identifier": null
-  }
-}
-```
-
-Extracto tras recuperación con plan de 100 Mbps:
-
-```json
-{
-  "scenario": "HEALTHY",
-  "result_code": "NO_FAULT_DETECTED",
-  "metrics": {
-    "cpe_online": true,
-    "rssi_dbm": -58,
-    "snr_db": 30,
-    "latency_ms": 12,
-    "packet_loss_percent": 0,
-    "download_mbps": 95.0,
-    "ap_identifier": "DEMO-AP-01"
-  }
-}
-```
-
-La respuesta completa también incluye `id`, `conversation_id`, `result`, `source`,
-`assessment` con las explicaciones y `started_at`, `completed_at`, `created_at`.
-Una suspensión devuelve SERVICE_SUSPENDED, métricas completamente nulas y acción
-CONTACT_ADMINISTRATION, sin escalamiento técnico. No ofrece reactivación automática.
-
-Sin autenticación o permiso responde 403 con la configuración actual de sesión;
-entradas inválidas, IDs inexistentes, servicio fuera de la demo o conversación
-incompatible responden 400. GET responde 405 para personal autorizado. Campos
-adicionales, incluido `scenario`, se rechazan: no se pueden inyectar métricas ni
-seleccionar escenarios desde HTTP. No crea tickets automáticamente.
-
-## Escalamiento explícito
-
-`escalation_payload(run)` entrega cliente/servicio, ejecución, código, resumen,
-mediciones, acciones recomendadas y prioridad. Devuelve None cuando no corresponde
-escalamiento técnico. Para CPE_UNREACHABLE recomienda primero comprobar alimentación
-y cables accesibles y repetir el diagnóstico; el PoE es solo una posible causa.
-Señal débil y rendimiento bajo proponen revisión técnica con prioridad MEDIUM;
-ausencia de respuesta propone HIGH. No hay escalamiento técnico por suspensión.
-
-`escalate_diagnostic(run=run, user=operator)` es una decisión explícita del operador
-o de un futuro orquestador. Reutiliza `tickets.services.create_ticket` y requiere
-que la ejecución tenga conversación para garantizar su control de duplicados.
-La clave estable es `diagnostic-<service_id>-<result_code en minúsculas>`. Repetir el escalamiento
-para la misma conversación/servicio/clasificación reutiliza el ticket activo y no añade
-otro evento. Sin conversación se rechaza; no crea conversaciones artificiales.
-No cambia ni cierra tickets después de una recuperación.
-
-## Límites de esta entrega
-
-No hay mediciones reales, IA, SMS, adaptadores de red ni automatización completa
-del diálogo. El éxito simulado confirma únicamente las métricas de la demo. Las
-reglas y umbrales requieren validación del ISP antes de usarse con datos reales.
-La siguiente entrega podrá integrar el flujo conversacional sobre estos servicios;
-el Día 4 no está implementado.
+Conversational context fixes, effective provider inspection, test results and
+manual reproduction: [verification report](docs/day5/conversational-context.md).

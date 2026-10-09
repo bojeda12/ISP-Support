@@ -1,0 +1,68 @@
+{% load static %}
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ISP Support · Support center</title>
+  <link rel="stylesheet" href="{% static 'conversations/vendor/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'conversations/demo.css' %}">
+  <script src="{% static 'conversations/demo-core.js' %}" defer></script>
+  <script src="{% static 'conversations/demo.js' %}" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#message-input" data-i18n="skip">Skip to chat</a>
+<div class="app-shell">
+  <aside class="sidebar">
+    <a href="{% url 'demo' %}" class="brand"><span class="brand-mark" aria-hidden="true">i<span>sp</span></span><span>ISP<span class="brand-light"> Support</span></span></a>
+    <div class="sidebar-caption" data-i18n="workspace">SUPPORT WORKSPACE</div>
+    <nav aria-label="Main navigation">
+      <a class="nav-item active" href="{% url 'demo' %}" aria-current="page" aria-label="Customer support" data-label="support"><span aria-hidden="true">◉</span><span data-i18n="support">Customer support</span><span class="nav-dot"></span></a>
+      <a class="nav-item" href="/admin/tickets/ticket/?status__exact=OPEN" aria-label="Technical panel" data-label="techPanel"><span aria-hidden="true">▤</span><span data-i18n="techPanel">Technical panel</span><span aria-hidden="true">↗</span></a>
+    </nav>
+    <div class="sidebar-note"><span class="shield" aria-hidden="true">◇</span><strong data-i18n="demoSpace">A demonstration space</strong><p data-i18n="demoNote">Fictional services. Simulated diagnostics. No connection to real equipment.</p><span class="environment-chip">LOCAL · DEMO</span></div>
+    <div class="operator"><div class="operator-avatar" aria-hidden="true">O</div><div><strong>{{ request.user.get_username }}</strong><small data-i18n="operator">Authorized operator</small></div><a href="/admin/" aria-label="Django Admin">↗</a></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><div><span class="breadcrumb-label">ISP Support</span><span class="breadcrumb-separator">/</span><strong data-i18n="supportCenter">Support center</strong></div><span class="local-label"><span></span><span data-i18n="localDemo">Local demo</span></span></header>
+    <main class="main-content">
+      <div class="page-heading"><div><p class="eyebrow" data-i18n="hereToHelp">WE ARE HERE TO HELP</p><h1 data-i18n="headline">Your connection, in good hands.</h1><p class="page-subtitle" data-i18n="subtitle">Check your service, ask questions and get step-by-step guidance.</p></div><div class="language-control"><label for="language" data-i18n="language">Language</label><select id="language" class="form-select form-select-sm"><option value="es">Español</option><option value="en">English</option></select></div></div>
+      <div id="notice" class="notice" role="alert" hidden></div>
+
+      <section id="welcome-screen" class="welcome-screen" aria-labelledby="welcome-title">
+        <span class="welcome-emblem" aria-hidden="true">N</span>
+        <p class="eyebrow">PERSONAL SUPPORT. CLEAR ANSWERS.</p>
+        <h2 id="welcome-title">Welcome to ISP Support</h2>
+        <p>Choose your preferred language</p>
+        <form id="welcome-form">
+          <fieldset><legend class="visually-hidden">Preferred conversation language</legend>
+            <label class="language-choice"><input type="radio" name="initial-language" value="en" required><span><strong>English</strong><small>Get support in English</small></span></label>
+            <label class="language-choice"><input type="radio" name="initial-language" value="es" required><span><strong>Español</strong><small>Recibe asistencia en español</small></span></label>
+          </fieldset>
+          <button id="welcome-continue" class="btn btn-primary" type="submit" disabled>Continue <span aria-hidden="true">→</span></button>
+        </form>
+        <small>You can change your conversation language at any time.</small>
+      </section>
+      <dialog id="image-zoom" class="image-zoom" aria-labelledby="zoom-title"><button id="close-zoom" type="button" aria-label="Close enlarged image">×</button><h2 id="zoom-title"></h2><img id="zoom-image" alt=""><p id="zoom-description"></p></dialog>
+      <div class="support-grid" id="support-workspace" hidden>
+        <section class="chat-panel" aria-label="Support chat">
+          <header class="chat-header"><div class="assistant-avatar" aria-hidden="true">N<span></span></div><div><h2>Nexo <span data-i18n="assistant">· Support assistant</span></h2><div class="connection-line"><span id="connection-dot" class="status-dot"></span><span id="connection-label" role="status">Select a service</span></div></div><span class="ai-badge" data-i18n="guidedSupport">GUIDED SUPPORT</span></header>
+          <div class="chat-scroll" id="chat-scroll"><div class="conversation-date" data-i18n="conversation">YOUR CONVERSATION</div><button id="load-older" type="button" class="older-button" data-i18n="older" hidden>View earlier messages</button><div id="messages" role="log" aria-live="polite" aria-relevant="additions"></div><div id="typing" class="typing" role="status" hidden><span class="mini-avatar" aria-hidden="true">N</span><span class="typing-dots" aria-hidden="true"><i></i><i></i><i></i></span><span data-i18n="processing">Nexo is processing…</span></div></div>
+          <div class="quick-prompts" id="quick-prompts"><button type="button" data-prompt="offline"><span aria-hidden="true">⌁</span><span data-i18n="noInternet">No Internet</span></button><button type="button" data-prompt="slow"><span aria-hidden="true">◷</span><span data-i18n="slowInternet">Slow Internet</span></button><button type="button" data-prompt="ticket"><span aria-hidden="true">▤</span><span data-i18n="myTicket">Check my ticket</span></button></div>
+          <div id="photo-preview" class="photo-preview" hidden><img id="preview-image" alt="Photo preview"><div><strong id="preview-name"></strong><small data-i18n="photoWarning">Do not include passwords or personal data.</small></div><button id="upload-photo" type="button" class="btn btn-sm btn-primary" data-i18n="sendPhoto">Send photo</button><button id="cancel-photo" type="button" class="remove-photo" aria-label="Cancel photo">×</button></div>
+          <form id="chat-form" class="composer" autocomplete="off">{% csrf_token %}<div class="composer-row"><label for="photo-input" class="attach-button" id="attach-label" tabindex="0" title="Attach JPEG or PNG photograph"><span aria-hidden="true">＋</span><span class="visually-hidden" data-i18n="attach">Attach photograph</span></label><input id="photo-input" class="visually-hidden" type="file" accept="image/jpeg,image/png"><textarea id="message-input" rows="1" maxlength="2000" placeholder="Write your message…" aria-label="Message" disabled></textarea><button id="send-button" class="send-button" type="submit" disabled><span data-i18n="send">Send</span><span aria-hidden="true">↗</span></button></div><div class="composer-footer"><span data-i18n="privateChat">◇ Private conversation · Demonstration data only</span><span id="character-count">0 / 2000</span></div></form>
+        </section>
+        <aside class="context-panel">
+          <section class="context-card service-card"><div class="card-heading"><span class="card-icon" aria-hidden="true">⌁</span><h2 data-i18n="yourService">Your service</h2><span class="demo-pill">DEMO</span></div><form id="service-form"><label for="service-select" class="form-label" data-i18n="selectService">Select a fictional service</label><select id="service-select" class="form-select"><option value="" data-i18n="chooseService">Choose service…</option>{% for service in services %}<option value="{{ service.pk }}">{{ service.service_identifier }} · {{ service.customer.external_id }}</option>{% endfor %}</select><button class="btn btn-primary w-100 mt-3" id="connect-button" type="submit" data-i18n="connect">Connect to assistant</button></form><div class="service-details"><span data-i18n="plan">Plan</span><strong id="service-plan">—</strong></div><div class="service-details"><span data-i18n="session">Session</span><strong id="session-summary" data-i18n="notStarted">Not started</strong></div></section>
+          <section class="context-card"><div class="card-heading"><span class="card-icon" aria-hidden="true">◴</span><h2 data-i18n="diagnostic">Diagnostic</h2></div><div id="diagnostic-summary" class="empty-summary"><span class="empty-icon" aria-hidden="true">⌁</span><strong data-i18n="readyToCheck">Ready to check your connection</strong><p data-i18n="diagnosticHint">Tell the assistant what is happening to start a check.</p></div></section>
+          <section class="context-card"><div class="card-heading"><span class="card-icon" aria-hidden="true">▤</span><h2 data-i18n="technicalFollowup">Technical follow-up</h2></div><div id="ticket-summary"><p class="muted-note" data-i18n="ticketHint">If technical review is needed, your ticket number will appear here.</p></div></section>
+          <div class="safety-note"><span aria-hidden="true">◇</span><div><strong data-i18n="safetyTitle">Your safety comes first</strong><p data-i18n="safetyText">Check only accessible connections. Do not climb onto the roof or handle electrical wiring.</p></div></div>
+        </aside>
+      </div>
+      <footer class="page-footer"><span>© ISP Support</span><span data-i18n="footer">Personal support. Clear information.</span><button id="refresh-history" type="button" data-i18n="refresh">Refresh conversation</button></footer>
+    </main>
+  </div>
+</div>
+<noscript>This demo requires JavaScript.</noscript>
+</body>
+</html>

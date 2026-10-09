@@ -17,9 +17,11 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.management.utils import get_random_secret_key
 
 from .environment import database_config
+from .env_loading import load_development_env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_development_env(BASE_DIR)
 
 
 # Quick-start development settings - unsuitable for production
@@ -117,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = os.getenv("DJANGO_TIME_ZONE", "UTC")
 
 USE_I18N = True
 
@@ -138,3 +140,24 @@ REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
 }
+
+# La sesión de chat de demostración nunca habilita acceso de clientes de producción.
+DJANGO_ENV = os.getenv("DJANGO_ENV", "development")
+ENABLE_DEMO_CHAT = os.getenv("ENABLE_DEMO_CHAT", "false").lower() == "true"
+AI_PROVIDER = os.getenv("AI_PROVIDER", "demo")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "")
+try:
+    AI_TIMEOUT_SECONDS = float(os.getenv("AI_TIMEOUT_SECONDS", "15"))
+except ValueError as error:
+    raise ImproperlyConfigured("AI_TIMEOUT_SECONDS must be numeric") from error
+if not 1 <= AI_TIMEOUT_SECONDS <= 60:
+    raise ImproperlyConfigured("AI_TIMEOUT_SECONDS must be between 1 and 60")
+CHAT_MAX_MESSAGE_LENGTH = 2000
+CHAT_HISTORY_MESSAGES = 10
+CHAT_HISTORY_CHARACTERS = 8000
+OPENAI_VISION_MODEL = os.getenv("OPENAI_VISION_MODEL", "")
+PRIVATE_MEDIA_ROOT = BASE_DIR / "private_media"
+PHOTO_MAX_BYTES = 5 * 1024 * 1024
+PHOTO_MAX_PIXELS = 12_000_000
+PHOTO_MAX_DIMENSION = 4096

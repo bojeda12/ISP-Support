@@ -11,16 +11,16 @@ def generate_ticket_number():
 
 class Ticket(models.Model):
     class Priority(models.TextChoices):
-        LOW = "LOW", "Baja"
-        MEDIUM = "MEDIUM", "Media"
-        HIGH = "HIGH", "Alta"
-        URGENT = "URGENT", "Urgente"
+        LOW = "LOW", "Low"
+        MEDIUM = "MEDIUM", "Medium"
+        HIGH = "HIGH", "High"
+        URGENT = "URGENT", "Urgent"
 
     class Status(models.TextChoices):
-        OPEN = "OPEN", "Abierto"
-        IN_PROGRESS = "IN_PROGRESS", "En progreso"
-        RESOLVED = "RESOLVED", "Resuelto"
-        CLOSED = "CLOSED", "Cerrado"
+        OPEN = "OPEN", "Open"
+        IN_PROGRESS = "IN_PROGRESS", "In progress"
+        RESOLVED = "RESOLVED", "Resolved"
+        CLOSED = "CLOSED", "Closed"
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     number = models.CharField(max_length=36, unique=True, default=generate_ticket_number, editable=False)
