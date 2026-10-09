@@ -1,8 +1,8 @@
 # ISP Support
 
 Backend modular para la demo de soporte técnico de un proveedor de Internet.
-Primera entrega: estructura, configuración y endpoint de salud. No contiene datos
-reales, integraciones con el ISP, IA ni modelos de negocio completos.
+Día 2: estructura, configuración, endpoint de salud, modelos de soporte y
+administración de tickets. No contiene datos reales, integraciones con el ISP ni IA.
 
 ## Requisitos y dependencias
 
@@ -44,11 +44,9 @@ de servicios externos. POST devuelve HTTP 405.
 - `tickets/`: futura gestión de tickets.
 - `messaging/`: futura integración de mensajería.
 
-Cada aplicación incluye `apps.py`, `models.py`, `admin.py`, `views.py`, `tests.py`
-y `migrations/__init__.py`, generados por Django. Los modelos están vacíos.
-Al implementar funcionalidades, ubicar los adaptadores HTTP en `api/` de cada
-aplicación y la lógica de negocio en `services.py`, evitando lógica en vistas o
-en configuración. No se crean abstracciones vacías adicionales en esta entrega.
+Los modelos y sus migraciones están en cada aplicación; `tickets/services.py`
+centraliza creación y cambios de estado. El Admin utiliza estos servicios.
+No existen endpoints públicos para modificar clientes o tickets.
 
 ## Variables de entorno
 
@@ -93,5 +91,105 @@ no transfiere automáticamente los datos de SQLite.
 .\.venv\Scripts\python.exe manage.py test --verbosity 2
 ```
 
-Las pruebas comprueban respuesta HTTP, JSON, acceso anónimo, ausencia de acceso
-a base de datos y rechazo de POST. No se requieren pytest ni servicios externos.
+Las pruebas cubren salud, relaciones, mensajes, tickets, transiciones, permisos,
+historial, restricciones de duplicados y datos demo. No se requieren pytest ni
+servicios externos.
+
+## Modelos del Día 2
+
+| Modelo | Relaciones y propósito |
+| --- | --- |
+| Customer | UUID interno, external_id único ficticio, nombre, contacto opcional y fechas |
+| InternetService | Varios por cliente; identificador único, plan, velocidad y CPE opcional |
+| Conversation | Cliente obligatorio, servicio opcional, idioma es/en, estado y fechas |
+| Message | Varios por conversación; emisor, contenido y fecha; orden cronológico |
+| DiagnosticRun | Servicio obligatorio, conversación opcional, escenario, resultado, JSON, fuente y fechas |
+| Ticket | UUID, referencia ISP única, cliente, servicio, conversación opcional, incidencia, prioridad, estado, técnico y fechas |
+| TicketEvent | Historial cronológico por ticket, usuario opcional y estados anterior/nuevo |
+
+`InternetService.status` es administrativo (ACTIVE/SUSPENDED/CANCELLED);
+`connectivity_status` es técnico (UNKNOWN/ONLINE/OFFLINE/DEGRADED). Una suspensión
+no prueba un fallo de conectividad. Las relaciones principales usan PROTECT para
+conservar referencias; borrar usuarios deja sus asignaciones y eventos con usuario
+nulo. Los mensajes y eventos dependen de su conversación y ticket respectivamente.
+La validación de modelos rechaza conversaciones, diagnósticos y tickets que
+mezclen clientes o servicios. No utilizar actualizaciones masivas del ORM para
+eludir estas validaciones o los servicios de negocio.
+
+## Tickets y transiciones
+
+Utilizar `create_ticket(...)` y `change_ticket_status(...)` de
+`tickets/services.py`. Cada creación/cambio y su evento se guardan en una
+transacción. Ejemplo desde `manage.py shell` con objetos ficticios existentes:
+
+```python
+from tickets.services import create_ticket, change_ticket_status
+
+ticket = create_ticket(
+    customer=customer, internet_service=service, conversation=conversation,
+    incident_key="poe-disconnected", title="PoE desconectado",
+    description="Incidencia ficticia para la demo",
+)
+ticket = change_ticket_status(ticket=ticket, new_status="IN_PROGRESS")
+```
+
+`incident_key` es una clave estable de la incidencia, normalizada a minúsculas.
+Con conversación, repetir creación para la misma clave devuelve el ticket OPEN
+o IN_PROGRESS existente sin sobrescribirlo ni duplicar su evento. Una restricción
+única condicional protege también la base de datos. Sin conversación, cada llamada
+crea un ticket independiente. Incidencias resueltas permiten un ticket nuevo;
+reabrir el anterior se rechaza si ya existe otro activo para la misma clave.
+
+| Estado actual | Siguientes estados permitidos |
+| --- | --- |
+| OPEN | IN_PROGRESS |
+| IN_PROGRESS | OPEN, RESOLVED |
+| RESOLVED | IN_PROGRESS, CLOSED |
+| CLOSED | Ninguno |
+
+Resolver fija `resolved_at`; reabrir lo limpia; cerrar conserva la fecha.
+Cerrar requiere un usuario autenticado con permiso `tickets.close_ticket`.
+El servicio se puede invocar internamente sin usuario para las demás operaciones;
+un futuro adaptador público deberá aplicar autenticación y autorización.
+Las garantías de transición e historial requieren utilizar el servicio, no
+`Ticket.objects.update(...)` ni escrituras directas de estado.
+
+## Datos ficticios
+
+```powershell
+.\.venv\Scripts\python.exe manage.py seed_demo
+.\.venv\Scripts\python.exe manage.py seed_demo
+```
+
+Cada ejecución conserva registros existentes. Crea como máximo tres clientes,
+tres servicios y tres escenarios DiagnosticRun con source=simulation:
+
+- DEMO-CUSTOMER-001: activo, sin conexión, PoE desconectado.
+- DEMO-CUSTOMER-002: activo, conectividad degradada, señal débil y 8 Mbps simulados.
+- DEMO-CUSTOMER-003: suspendido administrativamente, conectividad desconocida.
+
+Los external_id y service_identifier DEMO-* son diferentes de los UUID/IDs
+internos. El comando no crea tickets, conversaciones ni usuarios. No ejecuta
+diagnósticos ni accede a equipos. Si un identificador reservado pertenece a otro
+registro, aborta y revierte toda la ejecución sin modificar datos ajenos. No
+restablece ediciones manuales de los datos demo.
+
+## Django Admin
+
+Crear un superusuario local de forma interactiva y arrancar el servidor:
+
+```powershell
+.\.venv\Scripts\python.exe manage.py createsuperuser
+.\.venv\Scripts\python.exe manage.py runserver
+```
+
+Entrar en `http://127.0.0.1:8000/admin/` con las credenciales elegidas. No guardar
+contraseñas en el repositorio. Los siete modelos están registrados con búsquedas
+y filtros. En Tickets se puede crear, asignar técnico, editar prioridad y cambiar
+estado respetando las transiciones. El historial aparece en la ficha y es de solo
+lectura; UUID, referencia y fechas calculadas tampoco se editan. Se registra el
+usuario de cada cambio de estado y de las ediciones de campos en Admin.
+Para delegar el cierre a personal sin superusuario, conceder `close_ticket`
+además de los permisos habituales de acceso y cambio de tickets. El Admin
+deshabilita la eliminación de tickets e historial.
+
