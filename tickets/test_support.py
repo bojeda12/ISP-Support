@@ -141,9 +141,9 @@ class SupportTests(TestCase):
         customer.name = "Nombre demo editado"
         customer.save()
         call_command("seed_demo", stdout=out)
-        self.assertEqual(Customer.objects.count(), 4)
-        self.assertEqual(InternetService.objects.count(), 4)
-        self.assertEqual(DiagnosticRun.objects.count(), 3)
+        self.assertEqual(Customer.objects.count(), 6)
+        self.assertEqual(InternetService.objects.count(), 6)
+        self.assertEqual(DiagnosticRun.objects.count(), 5)
         customer.refresh_from_db()
         self.assertEqual(customer.name, "Nombre demo editado")
         self.customer.refresh_from_db()

@@ -1,8 +1,8 @@
 # ISP Support
 
 Backend modular para la demo de soporte técnico de un proveedor de Internet.
-Día 2: estructura, configuración, endpoint de salud, modelos de soporte y
-administración de tickets. No contiene datos reales, integraciones con el ISP ni IA.
+Día 3: modelos de soporte, administración de tickets y motor de diagnóstico con
+simulación determinista. No contiene datos reales, integraciones con el ISP ni IA.
 
 ## Requisitos y dependencias
 
@@ -161,18 +161,26 @@ Las garantías de transición e historial requieren utilizar el servicio, no
 .\.venv\Scripts\python.exe manage.py seed_demo
 ```
 
-Cada ejecución conserva registros existentes. Crea como máximo tres clientes,
-tres servicios y tres escenarios DiagnosticRun con source=simulation:
+Cada ejecución conserva registros existentes. Crea como máximo cinco clientes,
+cinco servicios y una ejecución inicial por servicio sin historial simulado:
 
 - DEMO-CUSTOMER-001: activo, sin conexión, PoE desconectado.
-- DEMO-CUSTOMER-002: activo, conectividad degradada, señal débil y 8 Mbps simulados.
+- DEMO-CUSTOMER-002: activo, conectividad degradada y señal débil.
 - DEMO-CUSTOMER-003: suspendido administrativamente, conectividad desconocida.
+- DEMO-CUSTOMER-004: activo, conexión aparentemente normal.
+- DEMO-CUSTOMER-005: activo, señal aceptable y rendimiento bajo.
 
 Los external_id y service_identifier DEMO-* son diferentes de los UUID/IDs
 internos. El comando no crea tickets, conversaciones ni usuarios. No ejecuta
 diagnósticos ni accede a equipos. Si un identificador reservado pertenece a otro
 registro, aborta y revierte toda la ejecución sin modificar datos ajenos. No
 restablece ediciones manuales de los datos demo.
+
+Los escenarios se guardan en `diagnostics.SimulationState`, uno por servicio.
+Repetir el seed no cambia el escenario actual ni añade diagnósticos si ya existe
+historial simulado. Los diagnósticos del Día 2 se conservan tal como estaban;
+sus campos nuevos `result_code` y `assessment` quedan vacíos. Las nuevas
+ejecuciones tienen métricas y evaluaciones completas.
 
 ## Django Admin
 
@@ -193,3 +201,159 @@ Para delegar el cierre a personal sin superusuario, conceder `close_ticket`
 además de los permisos habituales de acceso y cambio de tickets. El Admin
 deshabilita la eliminación de tickets e historial.
 
+## Motor de diagnóstico del Día 3
+
+- `diagnostics/simulation.py`: cinco escenarios deterministas y `NetworkMetrics`.
+  No contiene llamadas de red. La descarga se calcula respecto al plan contratado.
+- `diagnostics/thresholds.py`: RSSI mínimo -75 dBm, SNR mínimo 20 dB, descarga
+  mínima 70% del plan, latencia máxima 100 ms y pérdida máxima 3%. Son valores
+  exclusivos de la simulación, no criterios universales ni recomendaciones para
+  infraestructura real. Los valores en el límite se consideran aceptables.
+- `diagnostics/engine.py`: primero distingue suspensión/inactividad administrativa;
+  después evalúa ausencia de respuesta, señal y rendimiento, en ese orden.
+  Datos incompletos no bastan para afirmar recuperación. Devuelve código, resumen,
+  hallazgos, recomendaciones, siguiente acción y sugerencia de escalamiento.
+- `diagnostics/services.py`: relee el estado administrativo desde el ORM, consulta
+  únicamente servicios inscritos en la demo y guarda una nueva ejecución atómica.
+  Un servicio suspendido/cancelado no invoca el simulador técnico. No modifica el
+  estado administrativo ni `InternetService.connectivity_status`; el diagnóstico
+  conserva su propia instantánea de métricas.
+- `diagnostics/api.py` y `serializers.py`: adaptación HTTP, validación y permisos.
+
+La migración `diagnostics/0002_alter_diagnosticrun_options_diagnosticrun_assessment_and_more`
+añade `SimulationState`, `result_code`, `assessment` y el permiso interno sin
+eliminar ni reinterpretar resultados previos. `result` conserva las categorías
+UNKNOWN/PASSED/FAILED/DEGRADED. El Admin permite consultar los diagnósticos como
+historial de solo lectura.
+
+| Servicio ficticio | Escenario inicial | Código esperado |
+| --- | --- | --- |
+| DEMO-SERVICE-001 | CPE_OFFLINE | CPE_UNREACHABLE |
+| DEMO-SERVICE-002 | WEAK_SIGNAL | SIGNAL_DEGRADED |
+| DEMO-SERVICE-003 | ADMIN_SUSPENDED | SERVICE_SUSPENDED |
+| DEMO-SERVICE-004 | HEALTHY | NO_FAULT_DETECTED |
+| DEMO-SERVICE-005 | LOW_THROUGHPUT | PERFORMANCE_DEGRADED |
+
+## Ejecutar y presentar los escenarios
+
+```powershell
+.\.venv\Scripts\python.exe manage.py migrate
+.\.venv\Scripts\python.exe manage.py seed_demo
+.\.venv\Scripts\python.exe manage.py demo_diagnostic DEMO-SERVICE-001
+.\.venv\Scripts\python.exe manage.py demo_diagnostic DEMO-SERVICE-002
+.\.venv\Scripts\python.exe manage.py demo_diagnostic DEMO-SERVICE-003
+.\.venv\Scripts\python.exe manage.py demo_diagnostic DEMO-SERVICE-004
+.\.venv\Scripts\python.exe manage.py demo_diagnostic DEMO-SERVICE-005
+```
+
+Cada comando devuelve JSON y añade un DiagnosticRun. Para presentar recuperación:
+
+```powershell
+# Preparar desconexión ficticia y registrar el antes.
+.\.venv\Scripts\python.exe manage.py demo_diagnostic DEMO-SERVICE-001 --scenario CPE_OFFLINE
+# Tras confirmar la intervención ficticia del cliente, registrar el después.
+.\.venv\Scripts\python.exe manage.py demo_diagnostic DEMO-SERVICE-001 --scenario HEALTHY
+```
+
+La intervención solo cambia el escenario simulado. No confirma que el PoE fuera
+la causa original ni toca equipos. El comando requiere acceso local de operador;
+no es una operación disponible mediante la API. `ADMIN_SUSPENDED` requiere que
+el servicio ya esté suspendido en su estado administrativo y el comando no cambia
+ese estado. Los operadores pueden cambiarlo conscientemente desde el Admin.
+
+## API interna
+
+`POST /api/diagnostics/run/` exige autenticación, `is_staff=True` y el permiso
+`diagnostics.run_simulated_diagnostic` (o superusuario). No basta con ser personal
+sin el permiso. El acceso es global a los servicios de la demo para ese personal.
+Utiliza la autenticación existente de DRF: sesión con CSRF o autenticación básica
+para desarrollo local. No se añade un sistema de tokens.
+
+El cuerpo utiliza el ID entero real de InternetService, visible en Admin o shell,
+y el ID entero opcional de Conversation. No utiliza el UUID del cliente ni el
+identificador externo en lugar de ese ID. Consultar los IDs locales:
+
+```powershell
+.\.venv\Scripts\python.exe manage.py shell -c "from customers.models import InternetService; print(list(InternetService.objects.values('id', 'service_identifier')))"
+```
+
+Ejemplo de cuerpo (sustituir 1 por el ID local):
+
+```json
+{"service_id": 1}
+```
+
+Respuesta HTTP 201; extracto de una CPE sin respuesta:
+
+```json
+{
+  "service_id": 1,
+  "scenario": "CPE_OFFLINE",
+  "result": "FAILED",
+  "result_code": "CPE_UNREACHABLE",
+  "source": "simulation",
+  "metrics": {
+    "cpe_online": false,
+    "rssi_dbm": null,
+    "snr_db": null,
+    "latency_ms": null,
+    "packet_loss_percent": null,
+    "download_mbps": null,
+    "ap_identifier": null
+  }
+}
+```
+
+Extracto tras recuperación con plan de 100 Mbps:
+
+```json
+{
+  "scenario": "HEALTHY",
+  "result_code": "NO_FAULT_DETECTED",
+  "metrics": {
+    "cpe_online": true,
+    "rssi_dbm": -58,
+    "snr_db": 30,
+    "latency_ms": 12,
+    "packet_loss_percent": 0,
+    "download_mbps": 95.0,
+    "ap_identifier": "DEMO-AP-01"
+  }
+}
+```
+
+La respuesta completa también incluye `id`, `conversation_id`, `result`, `source`,
+`assessment` con las explicaciones y `started_at`, `completed_at`, `created_at`.
+Una suspensión devuelve SERVICE_SUSPENDED, métricas completamente nulas y acción
+CONTACT_ADMINISTRATION, sin escalamiento técnico. No ofrece reactivación automática.
+
+Sin autenticación o permiso responde 403 con la configuración actual de sesión;
+entradas inválidas, IDs inexistentes, servicio fuera de la demo o conversación
+incompatible responden 400. GET responde 405 para personal autorizado. Campos
+adicionales, incluido `scenario`, se rechazan: no se pueden inyectar métricas ni
+seleccionar escenarios desde HTTP. No crea tickets automáticamente.
+
+## Escalamiento explícito
+
+`escalation_payload(run)` entrega cliente/servicio, ejecución, código, resumen,
+mediciones, acciones recomendadas y prioridad. Devuelve None cuando no corresponde
+escalamiento técnico. Para CPE_UNREACHABLE recomienda primero comprobar alimentación
+y cables accesibles y repetir el diagnóstico; el PoE es solo una posible causa.
+Señal débil y rendimiento bajo proponen revisión técnica con prioridad MEDIUM;
+ausencia de respuesta propone HIGH. No hay escalamiento técnico por suspensión.
+
+`escalate_diagnostic(run=run, user=operator)` es una decisión explícita del operador
+o de un futuro orquestador. Reutiliza `tickets.services.create_ticket` y requiere
+que la ejecución tenga conversación para garantizar su control de duplicados.
+La clave estable es `diagnostic-<service_id>-<result_code en minúsculas>`. Repetir el escalamiento
+para la misma conversación/servicio/clasificación reutiliza el ticket activo y no añade
+otro evento. Sin conversación se rechaza; no crea conversaciones artificiales.
+No cambia ni cierra tickets después de una recuperación.
+
+## Límites de esta entrega
+
+No hay mediciones reales, IA, SMS, adaptadores de red ni automatización completa
+del diálogo. El éxito simulado confirma únicamente las métricas de la demo. Las
+reglas y umbrales requieren validación del ISP antes de usarse con datos reales.
+La siguiente entrega podrá integrar el flujo conversacional sobre estos servicios;
+el Día 4 no está implementado.
