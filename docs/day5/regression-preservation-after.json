@@ -1,0 +1,78 @@
+{
+  "conversations_chatturn": {
+    "count": 62,
+    "unchanged": true
+  },
+  "conversations_conversation": {
+    "count": 23,
+    "unchanged": true
+  },
+  "conversations_conversationphoto": {
+    "count": 22,
+    "unchanged": true
+  },
+  "conversations_demochatsession": {
+    "count": 26,
+    "unchanged": true
+  },
+  "conversations_message": {
+    "count": 188,
+    "unchanged": true
+  },
+  "customers_customer": {
+    "count": 5,
+    "unchanged": true
+  },
+  "customers_internetservice": {
+    "count": 5,
+    "unchanged": true
+  },
+  "diagnostics_diagnosticrun": {
+    "count": 48,
+    "unchanged": true
+  },
+  "diagnostics_simulationstate": {
+    "count": 5,
+    "unchanged": true
+  },
+  "knowledge_caseaudit": {
+    "count": 0,
+    "unchanged": true
+  },
+  "knowledge_caseresolution": {
+    "count": 0,
+    "unchanged": true
+  },
+  "knowledge_caseusage": {
+    "count": 0,
+    "unchanged": true
+  },
+  "knowledge_knowledgesection": {
+    "count": 29,
+    "unchanged": true
+  },
+  "knowledge_referencedocument": {
+    "count": 1,
+    "unchanged": true
+  },
+  "knowledge_supportorganization": {
+    "count": 0,
+    "unchanged": true
+  },
+  "knowledge_supportorganization_members": {
+    "count": 0,
+    "unchanged": true
+  },
+  "knowledge_troubleshootingcategory": {
+    "count": 6,
+    "unchanged": true
+  },
+  "tickets_ticket": {
+    "count": 13,
+    "unchanged": true
+  },
+  "tickets_ticketevent": {
+    "count": 26,
+    "unchanged": true
+  }
+}

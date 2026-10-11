@@ -1,0 +1,816 @@
+{
+  "conversation_id": 17,
+  "ticket": "ISP-66A7779A7A27",
+  "diagnostics": 2,
+  "responses": [
+    {
+      "message_id": 148,
+      "time": "2026-10-10 18:34:11.866801+00:00",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": false,
+        "response_source": "openai_generated",
+        "intent": "NO_INTERNET",
+        "fallback_reason": null,
+        "answer_provider": "openai",
+        "tool_result": {
+          "executed": true,
+          "reason": "authorized_simulation",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation",
+          "diagnostic_id": 39,
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          }
+        },
+        "handoff_state": "SELF_SERVICE",
+        "handoff_result": {
+          "requested": false,
+          "accepted": false,
+          "ticket_created_this_turn": false
+        },
+        "model_call_attempted": true,
+        "model_call_succeeded": true,
+        "classification_succeeded": true,
+        "reply_succeeded": true,
+        "proposed_action": "ask_question",
+        "executed_action": "recheck",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": false,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      },
+      "model_recorded": "not recorded historically",
+      "diagnostic_age_seconds": 1.24,
+      "progress": {
+        "supplied_evidence": [],
+        "evidence_reports": {},
+        "pending_questions": [],
+        "answered_questions": [],
+        "evidence_exhausted": false,
+        "customer_reported_checks": [],
+        "diminishing_customer_checks": false,
+        "workflow_state": "SELF_SERVICE"
+      },
+      "retrieval": {
+        "retrieval_succeeded": true,
+        "context_injected": false,
+        "usage": "retrieved_not_used",
+        "injection_reason": "external_sharing_disabled",
+        "citation_origin": "none"
+      }
+    },
+    {
+      "message_id": 150,
+      "time": "2026-10-10 18:34:24.385252+00:00",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": false,
+        "response_source": "openai_generated",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": null,
+        "answer_provider": "openai",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "handoff_state": "SELF_SERVICE",
+        "handoff_result": {
+          "requested": false,
+          "accepted": false,
+          "ticket_created_this_turn": false
+        },
+        "model_call_attempted": true,
+        "model_call_succeeded": true,
+        "classification_succeeded": true,
+        "reply_succeeded": true,
+        "proposed_action": "ask_question",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": false,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      },
+      "model_recorded": "not recorded historically",
+      "diagnostic_age_seconds": 13.76,
+      "progress": {
+        "supplied_evidence": [
+          "indicators"
+        ],
+        "evidence_reports": {
+          "indicators": {
+            "text": "is it good?",
+            "verified": false,
+            "message_id": 149
+          }
+        },
+        "pending_questions": [
+          "other_photo"
+        ],
+        "answered_questions": [],
+        "evidence_exhausted": false,
+        "customer_reported_checks": [],
+        "diminishing_customer_checks": false,
+        "workflow_state": "SELF_SERVICE"
+      },
+      "retrieval": {
+        "retrieval_succeeded": true,
+        "context_injected": false,
+        "usage": "cited",
+        "injection_reason": "external_sharing_disabled",
+        "citation_origin": "django_local"
+      }
+    },
+    {
+      "message_id": 152,
+      "time": "2026-10-10 18:35:12.853900+00:00",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": false,
+        "response_source": "openai_generated",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": null,
+        "answer_provider": "openai",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "handoff_state": "SELF_SERVICE",
+        "handoff_result": {
+          "requested": false,
+          "accepted": false,
+          "ticket_created_this_turn": false
+        },
+        "model_call_attempted": true,
+        "model_call_succeeded": true,
+        "classification_succeeded": true,
+        "reply_succeeded": true,
+        "proposed_action": "ask_question",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      },
+      "model_recorded": "not recorded historically",
+      "diagnostic_age_seconds": 62.23,
+      "progress": {
+        "supplied_evidence": [
+          "indicators",
+          "cable_path"
+        ],
+        "evidence_reports": {
+          "indicators": {
+            "text": "is it good?",
+            "verified": false,
+            "message_id": 149
+          },
+          "cable_path": {
+            "text": "no younonly need to know if internet cable is connected you don need the purpose of other connections",
+            "verified": false,
+            "message_id": 151
+          }
+        },
+        "pending_questions": [],
+        "answered_questions": [
+          {
+            "question": "other_photo",
+            "answer": "no younonly need to know if internet cable is connected you don need the purpose of other connections",
+            "verified": false,
+            "message_id": 151
+          }
+        ],
+        "evidence_exhausted": false,
+        "customer_reported_checks": [
+          {
+            "message_id": 151,
+            "status": "attempted_uncertain",
+            "text": "no younonly need to know if internet cable is connected you don need the purpose of other connections",
+            "verified": false,
+            "attempted": true
+          }
+        ],
+        "diminishing_customer_checks": false,
+        "workflow_state": "SELF_SERVICE"
+      },
+      "retrieval": {
+        "retrieval_succeeded": true,
+        "context_injected": false,
+        "usage": "cited",
+        "injection_reason": "external_sharing_disabled",
+        "citation_origin": "django_local"
+      }
+    },
+    {
+      "message_id": 154,
+      "time": "2026-10-10 18:36:06.100111+00:00",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": false,
+        "response_source": "openai_generated",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": null,
+        "answer_provider": "openai",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "handoff_state": "SELF_SERVICE",
+        "handoff_result": {
+          "requested": false,
+          "accepted": false,
+          "ticket_created_this_turn": false
+        },
+        "model_call_attempted": true,
+        "model_call_succeeded": true,
+        "classification_succeeded": true,
+        "reply_succeeded": true,
+        "proposed_action": "ask_question",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      },
+      "model_recorded": "not recorded historically",
+      "diagnostic_age_seconds": 115.48,
+      "progress": {
+        "supplied_evidence": [
+          "indicators",
+          "cable_path"
+        ],
+        "evidence_reports": {
+          "indicators": {
+            "text": "i dont know why do u need to know the number of the port is just one internet cable blinking green and red",
+            "verified": false,
+            "message_id": 153
+          },
+          "cable_path": {
+            "text": "i dont know why do u need to know the number of the port is just one internet cable blinking green and red",
+            "verified": false,
+            "message_id": 153
+          }
+        },
+        "pending_questions": [
+          "indicator_label"
+        ],
+        "answered_questions": [
+          {
+            "question": "other_photo",
+            "answer": "no younonly need to know if internet cable is connected you don need the purpose of other connections",
+            "verified": false,
+            "message_id": 151
+          }
+        ],
+        "evidence_exhausted": false,
+        "customer_reported_checks": [
+          {
+            "message_id": 151,
+            "status": "attempted_uncertain",
+            "text": "no younonly need to know if internet cable is connected you don need the purpose of other connections",
+            "verified": false,
+            "attempted": true
+          },
+          {
+            "message_id": 153,
+            "status": "attempted_uncertain",
+            "text": "i dont know why do u need to know the number of the port is just one internet cable blinking green and red",
+            "verified": false,
+            "attempted": true
+          }
+        ],
+        "diminishing_customer_checks": false,
+        "workflow_state": "SELF_SERVICE"
+      },
+      "retrieval": {
+        "retrieval_succeeded": true,
+        "context_injected": false,
+        "usage": "cited",
+        "injection_reason": "external_sharing_disabled",
+        "citation_origin": "django_local"
+      }
+    },
+    {
+      "message_id": 156,
+      "time": "2026-10-10 18:36:41.435911+00:00",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": false,
+        "response_source": "openai_generated",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": null,
+        "answer_provider": "openai",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "handoff_state": "SELF_SERVICE",
+        "handoff_result": {
+          "requested": false,
+          "accepted": false,
+          "ticket_created_this_turn": false
+        },
+        "model_call_attempted": true,
+        "model_call_succeeded": true,
+        "classification_succeeded": true,
+        "reply_succeeded": true,
+        "proposed_action": "ask_question",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      },
+      "model_recorded": "not recorded historically",
+      "diagnostic_age_seconds": 150.81,
+      "progress": {
+        "supplied_evidence": [
+          "indicators",
+          "cable_path"
+        ],
+        "evidence_reports": {
+          "indicators": {
+            "text": "if i said is the only port is obvious that is port 1",
+            "verified": false,
+            "message_id": 155
+          },
+          "cable_path": {
+            "text": "if i said is the only port is obvious that is port 1",
+            "verified": false,
+            "message_id": 155
+          }
+        },
+        "pending_questions": [],
+        "answered_questions": [
+          {
+            "question": "other_photo",
+            "answer": "no younonly need to know if internet cable is connected you don need the purpose of other connections",
+            "verified": false,
+            "message_id": 151
+          },
+          {
+            "question": "indicator_label",
+            "answer": "if i said is the only port is obvious that is port 1",
+            "verified": false,
+            "message_id": 155
+          }
+        ],
+        "evidence_exhausted": false,
+        "customer_reported_checks": [
+          {
+            "message_id": 151,
+            "status": "attempted_uncertain",
+            "text": "no younonly need to know if internet cable is connected you don need the purpose of other connections",
+            "verified": false,
+            "attempted": true
+          },
+          {
+            "message_id": 153,
+            "status": "attempted_uncertain",
+            "text": "i dont know why do u need to know the number of the port is just one internet cable blinking green and red",
+            "verified": false,
+            "attempted": true
+          },
+          {
+            "message_id": 155,
+            "status": "attempted_uncertain",
+            "text": "if i said is the only port is obvious that is port 1",
+            "verified": false,
+            "attempted": true
+          }
+        ],
+        "diminishing_customer_checks": false,
+        "workflow_state": "SELF_SERVICE"
+      },
+      "retrieval": {
+        "retrieval_succeeded": true,
+        "context_injected": false,
+        "usage": "cited",
+        "injection_reason": "external_sharing_disabled",
+        "citation_origin": "django_local"
+      }
+    },
+    {
+      "message_id": 158,
+      "time": "2026-10-10 18:37:59.031658+00:00",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": false,
+        "response_source": "openai_generated",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": null,
+        "answer_provider": "openai",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "handoff_state": "SELF_SERVICE",
+        "handoff_result": {
+          "requested": false,
+          "accepted": false,
+          "ticket_created_this_turn": false
+        },
+        "model_call_attempted": true,
+        "model_call_succeeded": true,
+        "classification_succeeded": true,
+        "reply_succeeded": true,
+        "proposed_action": "ask_question",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      },
+      "model_recorded": "not recorded historically",
+      "diagnostic_age_seconds": 228.41,
+      "progress": {
+        "supplied_evidence": [
+          "indicators",
+          "cable_path"
+        ],
+        "evidence_reports": {
+          "indicators": {
+            "text": "yes is the same device biy as you can see is labeled as ethernet and ethernet has 4 ports you doint need the infot of that ypou only need to knw if the port in intert is working",
+            "verified": false,
+            "message_id": 157
+          },
+          "cable_path": {
+            "text": "yes is the same device biy as you can see is labeled as ethernet and ethernet has 4 ports you doint need the infot of that ypou only need to knw if the port in intert is working",
+            "verified": false,
+            "message_id": 157
+          }
+        },
+        "pending_questions": [],
+        "answered_questions": [
+          {
+            "question": "other_photo",
+            "answer": "no younonly need to know if internet cable is connected you don need the purpose of other connections",
+            "verified": false,
+            "message_id": 151
+          },
+          {
+            "question": "indicator_label",
+            "answer": "if i said is the only port is obvious that is port 1",
+            "verified": false,
+            "message_id": 155
+          }
+        ],
+        "evidence_exhausted": false,
+        "customer_reported_checks": [
+          {
+            "message_id": 151,
+            "status": "attempted_uncertain",
+            "text": "no younonly need to know if internet cable is connected you don need the purpose of other connections",
+            "verified": false,
+            "attempted": true
+          },
+          {
+            "message_id": 153,
+            "status": "attempted_uncertain",
+            "text": "i dont know why do u need to know the number of the port is just one internet cable blinking green and red",
+            "verified": false,
+            "attempted": true
+          },
+          {
+            "message_id": 155,
+            "status": "attempted_uncertain",
+            "text": "if i said is the only port is obvious that is port 1",
+            "verified": false,
+            "attempted": true
+          },
+          {
+            "message_id": 157,
+            "status": "attempted_uncertain",
+            "text": "yes is the same device biy as you can see is labeled as ethernet and ethernet has 4 ports you doint need the infot of that ypou only need to knw if the port in intert is working",
+            "verified": false,
+            "attempted": true
+          }
+        ],
+        "diminishing_customer_checks": false,
+        "workflow_state": "SELF_SERVICE"
+      },
+      "retrieval": {
+        "retrieval_succeeded": true,
+        "context_injected": false,
+        "usage": "cited",
+        "injection_reason": "external_sharing_disabled",
+        "citation_origin": "django_local"
+      }
+    },
+    {
+      "message_id": 160,
+      "time": "2026-10-10 18:38:22.275712+00:00",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": true,
+        "response_source": "reply_error_fallback",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": "invalid_citation",
+        "answer_provider": "django",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "handoff_state": "SELF_SERVICE",
+        "handoff_result": {
+          "requested": false,
+          "accepted": false,
+          "ticket_created_this_turn": false
+        },
+        "model_call_attempted": true,
+        "model_call_succeeded": true,
+        "classification_succeeded": true,
+        "reply_succeeded": true,
+        "proposed_action": "ask_question",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      },
+      "model_recorded": "not recorded historically",
+      "diagnostic_age_seconds": 251.65,
+      "progress": {
+        "supplied_evidence": [
+          "indicators",
+          "cable_path"
+        ],
+        "evidence_reports": {
+          "indicators": {
+            "text": "no is not providinf internet",
+            "verified": false,
+            "message_id": 159
+          },
+          "cable_path": {
+            "text": "no is not providinf internet",
+            "verified": false,
+            "message_id": 159
+          }
+        },
+        "pending_questions": [],
+        "answered_questions": [
+          {
+            "question": "other_photo",
+            "answer": "no younonly need to know if internet cable is connected you don need the purpose of other connections",
+            "verified": false,
+            "message_id": 151
+          },
+          {
+            "question": "indicator_label",
+            "answer": "if i said is the only port is obvious that is port 1",
+            "verified": false,
+            "message_id": 155
+          }
+        ],
+        "evidence_exhausted": false,
+        "customer_reported_checks": [
+          {
+            "message_id": 151,
+            "status": "attempted_uncertain",
+            "text": "no younonly need to know if internet cable is connected you don need the purpose of other connections",
+            "verified": false,
+            "attempted": true
+          },
+          {
+            "message_id": 153,
+            "status": "attempted_uncertain",
+            "text": "i dont know why do u need to know the number of the port is just one internet cable blinking green and red",
+            "verified": false,
+            "attempted": true
+          },
+          {
+            "message_id": 155,
+            "status": "attempted_uncertain",
+            "text": "if i said is the only port is obvious that is port 1",
+            "verified": false,
+            "attempted": true
+          },
+          {
+            "message_id": 157,
+            "status": "attempted_uncertain",
+            "text": "yes is the same device biy as you can see is labeled as ethernet and ethernet has 4 ports you doint need the infot of that ypou only need to knw if the port in intert is working",
+            "verified": false,
+            "attempted": true
+          },
+          {
+            "message_id": 159,
+            "status": "attempted_uncertain",
+            "text": "no is not providinf internet",
+            "verified": false,
+            "attempted": true
+          }
+        ],
+        "diminishing_customer_checks": false,
+        "workflow_state": "SELF_SERVICE"
+      },
+      "retrieval": {
+        "retrieval_succeeded": true,
+        "context_injected": false,
+        "usage": "cited",
+        "injection_reason": "external_sharing_disabled",
+        "citation_origin": "django_local"
+      }
+    },
+    {
+      "message_id": 162,
+      "time": "2026-10-10 18:39:13.597600+00:00",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": true,
+        "response_source": "django_template",
+        "intent": "REQUEST_TECHNICIAN",
+        "fallback_reason": "invalid_citation",
+        "answer_provider": "django",
+        "tool_result": {
+          "executed": true,
+          "reason": "authorized_simulation",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation",
+          "diagnostic_id": 40,
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          }
+        },
+        "handoff_state": "HANDOFF_PENDING",
+        "handoff_result": {
+          "requested": true,
+          "accepted": true,
+          "ticket_created_this_turn": true
+        },
+        "model_call_attempted": true,
+        "model_call_succeeded": true,
+        "classification_succeeded": true,
+        "reply_succeeded": true,
+        "proposed_action": "recommend_escalation",
+        "executed_action": "handoff",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": true,
+          "available_evidence_reviewed": false
+        }
+      },
+      "model_recorded": "not recorded historically",
+      "diagnostic_age_seconds": 1.56,
+      "progress": {
+        "supplied_evidence": [
+          "indicators",
+          "cable_path"
+        ],
+        "evidence_reports": {
+          "indicators": {
+            "text": "if i dont have internt and i already tried everithing you told me you should probably open a ticket",
+            "verified": false,
+            "message_id": 161
+          },
+          "cable_path": {
+            "text": "if i dont have internt and i already tried everithing you told me you should probably open a ticket",
+            "verified": false,
+            "message_id": 161
+          }
+        },
+        "pending_questions": [],
+        "answered_questions": [
+          {
+            "question": "other_photo",
+            "answer": "no younonly need to know if internet cable is connected you don need the purpose of other connections",
+            "verified": false,
+            "message_id": 151
+          },
+          {
+            "question": "indicator_label",
+            "answer": "if i said is the only port is obvious that is port 1",
+            "verified": false,
+            "message_id": 155
+          }
+        ],
+        "evidence_exhausted": false,
+        "customer_reported_checks": [
+          {
+            "message_id": 151,
+            "status": "attempted_uncertain",
+            "text": "no younonly need to know if internet cable is connected you don need the purpose of other connections",
+            "verified": false,
+            "attempted": true
+          },
+          {
+            "message_id": 153,
+            "status": "attempted_uncertain",
+            "text": "i dont know why do u need to know the number of the port is just one internet cable blinking green and red",
+            "verified": false,
+            "attempted": true
+          },
+          {
+            "message_id": 155,
+            "status": "attempted_uncertain",
+            "text": "if i said is the only port is obvious that is port 1",
+            "verified": false,
+            "attempted": true
+          },
+          {
+            "message_id": 157,
+            "status": "attempted_uncertain",
+            "text": "yes is the same device biy as you can see is labeled as ethernet and ethernet has 4 ports you doint need the infot of that ypou only need to knw if the port in intert is working",
+            "verified": false,
+            "attempted": true
+          },
+          {
+            "message_id": 159,
+            "status": "attempted_uncertain",
+            "text": "no is not providinf internet",
+            "verified": false,
+            "attempted": true
+          },
+          {
+            "message_id": 161,
+            "status": "attempted_uncertain",
+            "text": "if i dont have internt and i already tried everithing you told me you should probably open a ticket",
+            "verified": false,
+            "attempted": true
+          }
+        ],
+        "diminishing_customer_checks": false,
+        "workflow_state": "HANDOFF_PENDING"
+      },
+      "retrieval": {
+        "retrieval_succeeded": true,
+        "context_injected": false,
+        "usage": "retrieved_not_used",
+        "injection_reason": "external_sharing_disabled",
+        "citation_origin": "none"
+      }
+    }
+  ]
+}

@@ -8,6 +8,7 @@ from .media_api import AuthorizedMediaView
 from .models import ConversationPhoto
 from .photos import photo_payload
 from .replies import diagnostic_payload
+from knowledge.services import historical_customer_text
 
 
 class ConversationMessagesView(AuthorizedMediaView):
@@ -26,6 +27,8 @@ class ConversationMessagesView(AuthorizedMediaView):
         rows = list(messages[:51])
         page = list(reversed(rows[:50]))
         data = []
+        from .quick_replies import offers
+        latest_assistant = conversation.messages.filter(sender='assistant').order_by('-pk').first()
         for message in page:
             meta = message.metadata
             diagnostic = DiagnosticRun.objects.filter(pk=meta.get("diagnostic_id"), conversation=conversation).first()
@@ -34,8 +37,11 @@ class ConversationMessagesView(AuthorizedMediaView):
             # Únicamente claves de presentación generadas por el backend.
             display_key = meta.get("display_key") if meta.get("display_key") in {"CPE_ESCALATED", "CPE_FOLLOW_UP"} else None
             data.append({
-                "id": message.pk, "sender": message.sender, "content": message.content,
+                "id": message.pk, "sender": message.sender, "content": historical_customer_text(message),
                 "created_at": message.created_at.isoformat(),
+                'request_id':meta.get('request_id'),
+                'operation_outcome':meta.get('operation_outcome'),
+                'quick_replies': offers(message, conversation.language) if latest_assistant and message.pk == latest_assistant.pk else [],
                 "diagnostic": diagnostic_payload(diagnostic, conversation.language, display_key) if diagnostic else None,
                 "ticket": {"id": str(ticket.pk), "number": ticket.number, "status": ticket.status} if ticket else None,
                 "images": [entry for image_id in meta.get("image_ids", []) if (entry := find_instruction(image_id))],

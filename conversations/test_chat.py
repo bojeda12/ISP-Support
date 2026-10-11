@@ -318,7 +318,9 @@ class OpenAIProviderTests(SimpleTestCase):
             result = OpenAIProvider().interpret(message="Hello", history=[], language="en")
             self.assertEqual(result.intent, Intent.GREETING)
             call = client.responses.parse.call_args.kwargs
-            self.assertIs(call["text_format"], Interpretation)
+            from .ai import DecisionInterpretation
+            self.assertIs(call["text_format"], DecisionInterpretation)
+            self.assertTrue(call["text_format"].model_fields['decision'].is_required())
             self.assertFalse(call["store"])
             self.assertNotIn("tools", call)
             self.assertEqual(factory.call_args.kwargs["max_retries"], 0)

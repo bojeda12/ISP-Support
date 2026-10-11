@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import health
 from diagnostics.api import RunDiagnosticView
-from conversations.api import ChatView
+from conversations.api import ChatView, ChatTurnView
 from conversations.history_api import ConversationMessagesView
 from conversations.media_api import (
     InstructionCatalogView, InstructionImageView, ConversationPhotosView, PhotoDetailView, PhotoContentView,
@@ -13,6 +13,7 @@ urlpatterns = [
     path("health/", health, name="health"),
     path("diagnostics/run/", RunDiagnosticView.as_view(), name="diagnostic-run"),
     path("chat/", ChatView.as_view(), name="chat"),
+    path('chat/turn/',ChatTurnView.as_view(),name='chat-turn'),
     path("conversations/<int:conversation_id>/messages/", ConversationMessagesView.as_view(), name="conversation-messages"),
     path("instructions/", InstructionCatalogView.as_view(), name="instruction-catalog"),
     path("instructions/<slug:image_id>/", InstructionImageView.as_view(), name="instruction-image"),

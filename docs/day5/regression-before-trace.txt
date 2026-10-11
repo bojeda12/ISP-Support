@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "<stdin>", line 16, in <module>
+  File "C:\Users\bojeda\AppData\Local\Python\pythoncore-3.14-64\Lib\contextlib.py", line 85, in inner
+    return func(*args, **kwds)
+  File "C:\Users\bojeda\Projects\ISP-Support\conversations\adaptive.py", line 214, in authorized_recheck
+    raise ValidationError('Diagnostic frequency limit reached.')
+django.core.exceptions.ValidationError: ['Diagnostic frequency limit reached.']

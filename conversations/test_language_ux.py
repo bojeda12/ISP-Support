@@ -60,7 +60,10 @@ class LanguageUXTests(TestCase):
     def test_guides_follow_active_language_and_steps(self):
         self.select("en")
         first=self.send("No Internet").json()
-        second=self.send("No tengo Internet",first["conversation_id"]).json()
+        # Cambiar idioma no reinicia la guía: la repetición debe solicitarse expresamente.
+        switched=self.send("No tengo Internet",first["conversation_id"]).json()
+        self.assertEqual(switched['images'], [])
+        second=self.send("Muestra la guía de nuevo",first["conversation_id"]).json()
         for language,result in (("en",first),("es",second)):
             self.assertEqual([entry["step_number"] for entry in result["images"]],[1,2,3,4])
             self.assertTrue(all(entry["language"]==language for entry in result["images"]))

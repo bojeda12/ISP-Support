@@ -602,6 +602,8 @@ h1 {
 .quick-prompts button:disabled {
   opacity:.5;
 }
+.contextual-replies { padding: 10px 0 0; max-width: 100%; }
+.contextual-replies button { min-height: 36px; font-size: 12px; white-space: normal; text-align: left; }
 .composer {
   padding:12px 24px 17px;
 }
@@ -1192,3 +1194,7 @@ h1 {
 .instruction-card .guide-description { font-size:11px; font-weight:400; line-height:1.7; padding:0; }
 .instruction-card .guide-safety { font-size:10px; font-weight:400; line-height:1.6; color:#62768e; margin-top:9px; padding:9px 0 0; border-top:1px solid var(--line); }
 @media(max-width:760px) { .illustration-grid { grid-template-columns:1fr; } .welcome-screen { padding:26px 18px; margin:10px auto; } .welcome-screen h2 { font-size:24px; } .welcome-screen fieldset { grid-template-columns:1fr; } }
+
+/* La vista cliente comparte tarjetas y chat; sin columna de herramientas internas. */
+body[data-chat-mode="customer"] .app-shell { grid-template-columns:minmax(0,1fr); }
+body[data-chat-mode="customer"] .workspace { width:100%; max-width:1440px; margin-inline:auto; }

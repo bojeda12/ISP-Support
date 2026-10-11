@@ -1,6 +1,7 @@
 """Catálogo local: ilustraciones propias y referencias suministradas para demo."""
 
 from pathlib import Path
+import logging
 
 from django.urls import reverse
 
@@ -10,6 +11,8 @@ PHOTO_ASSETS = {
     "lights": "poe_power_indicator_demo.jpg",
     "ethernet": "ethernet_inspection_demo.jpg",
 }
+GUIDE_TOPICS = {'cpe-offline': ('poe','lights','ethernet','recheck'), 'router-review': ('router',)}
+SCENARIO_GUIDES = {'CPE_UNREACHABLE':'cpe-offline','PERFORMANCE_DEGRADED':'router-review'}
 PHOTO_CAPTIONS = {
     "en": "AI-generated generic example, not verified ISP equipment. Labels and connections may be inaccurate; this is not a wiring guide.",
     "es": "Ejemplo genérico generado con IA, no verificado para equipos del ISP. Las etiquetas y conexiones pueden ser inexactas; no es una guía de cableado.",
@@ -37,8 +40,9 @@ def catalog(language: str) -> list[dict]:
         "language": language, "equipment_type": equipment, "compatible_equipment": ["DEMO-GENERIC"],
         "vendor_compatibility": ["generic_demo"], "model_compatibility": ["DEMO-GENERIC"],
         "safety_instructions": "Stay on the ground. Do not open power supplies, climb roofs, move antennas or handle electrical wiring." if language == "en" else "Permanece en el suelo. No abras fuentes de alimentación, subas al techo, muevas antenas ni manipules instalaciones eléctricas.",
-        "path": f"{topic}-{language}.svg", "url": reverse("api:instruction-image", args=[f"{topic}-{language}"]),
-        "mime_type": "image/svg+xml",
+        "path": f"demo_photos/{PHOTO_ASSETS[topic]}" if topic in ('poe','lights','ethernet') else f"{topic}-{language}.svg",
+        "url": reverse("api:instruction-image", args=[f"{topic}-{language}"]),
+        "mime_type": "image/jpeg" if topic in ('poe','lights','ethernet') else "image/svg+xml",
         "source": "original_demo", "license": "CC0-1.0",
     } for topic, (step, equipment, titles, descriptions) in GUIDES.items()]
     for entry in entries:
@@ -62,10 +66,30 @@ def find_instruction(image_id: str):
 
 
 def relevant_images(result_code: str | None, language: str) -> list[dict]:
-    topics = {
-        "CPE_UNREACHABLE": ["poe", "lights", "ethernet", "recheck"],
-        "SIGNAL_DEGRADED": ["ethernet"],
-        "PERFORMANCE_DEGRADED": ["ethernet", "router"],
-    }.get(result_code, [])
+    # Radio: revisión técnica sin guía CPE. Rendimiento: revisión local genérica del router.
+    topics = GUIDE_TOPICS.get(SCENARIO_GUIDES.get(result_code), ())
     entries = {item["id"]: item for item in catalog(language)}
-    return [entries[f"{topic}-{language}"] for topic in topics]
+    selected = [entries[f"{topic}-{language}"] for topic in topics]
+    if any(not (ASSET_ROOT / item['path']).is_file() for item in selected):
+        logging.getLogger(__name__).warning('Approved guide asset unavailable; guide omitted')
+        return []
+    return selected
+
+
+def catalog_errors():
+    errors = []
+    expected = [('poe','poe_locate_demo.jpg'),('lights','poe_power_indicator_demo.jpg'),('ethernet','ethernet_inspection_demo.jpg'),('recheck',None)]
+    for language in ('en','es'):
+        entries = {item['id']:item for item in catalog(language)}
+        for number,(topic,filename) in enumerate(expected,1):
+            entry = entries[f'{topic}-{language}']
+            path = f'demo_photos/{filename}' if filename else f'recheck-{language}.svg'
+            mime = 'image/jpeg' if filename else 'image/svg+xml'
+            if (entry['step_number'],entry['path'],entry['mime_type']) != (number,path,mime):
+                errors.append(f'Invalid mapping: {entry["id"]}')
+            asset = ASSET_ROOT / path
+            if not asset.is_file():
+                errors.append(f'Missing asset: {entry["id"]}')
+            elif filename and not asset.read_bytes().startswith(b'\xff\xd8\xff'):
+                errors.append(f'Invalid JPEG: {entry["id"]}')
+    return errors

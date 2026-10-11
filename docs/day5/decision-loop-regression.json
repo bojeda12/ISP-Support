@@ -1,0 +1,1117 @@
+{
+  "conversations.test_decisions.DecisionFlowTests.test_actual_sequence_executes_recheck_and_one_ticket": [
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "ANSWER_CUSTOMER",
+          "required_fact": "",
+          "reason": "Requested detail does not change the generic connectivity action or is already supplied."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "none",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "RUN_AUTHORIZED_RECHECK",
+        "tool_execution": "recheck",
+        "tool_result": {
+          "executed": true,
+          "reason": "authorized_simulation",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation",
+          "diagnostic_id": 7,
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          }
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE. Ticket ISP-A5E9D12CE6D4: OPEN.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "REQUEST_TECHNICAL_REVIEW",
+          "required_fact": "",
+          "reason": "Existing technical-review predicates satisfied by actual measurements and reported evidence."
+        },
+        "executed": "REQUEST_TECHNICAL_REVIEW",
+        "tool_execution": "technical_review",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    }
+  ],
+  "conversations.test_decisions.DecisionFlowTests.test_classification_failure_keeps_saved_evidence_and_escalates": [
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "ANSWER_CUSTOMER",
+          "required_fact": "",
+          "reason": "Requested detail does not change the generic connectivity action or is already supplied."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "none",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "RUN_AUTHORIZED_RECHECK",
+        "tool_execution": "recheck",
+        "tool_result": {
+          "executed": true,
+          "reason": "authorized_simulation",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation",
+          "diagnostic_id": 7,
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          }
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity. You reported cable connections, device/cable purpose, lights. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed. Ticket ISP-AA4BC4AC25BE: OPEN.",
+      "decision": {
+        "proposed": {
+          "action": "ANSWER_CUSTOMER",
+          "required_fact": "",
+          "reason": "Provider unavailable; evaluate preserved reports with existing server policy."
+        },
+        "authorized": {
+          "action": "REQUEST_TECHNICAL_REVIEW",
+          "required_fact": "",
+          "reason": "Existing technical-review predicates satisfied by actual measurements and reported evidence."
+        },
+        "executed": "REQUEST_TECHNICAL_REVIEW",
+        "tool_execution": "technical_review",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "timeout"
+    }
+  ],
+  "conversations.test_decisions.DecisionFlowTests.test_healthy_recheck_does_not_escalate": [
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "ANSWER_CUSTOMER",
+          "required_fact": "",
+          "reason": "Requested detail does not change the generic connectivity action or is already supplied."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "none",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is NO_FAULT_DETECTED.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "VERIFY_CUSTOMER_CONNECTIVITY",
+          "required_fact": "",
+          "reason": "Healthy simulated result; customer restoration still requires confirmation."
+        },
+        "executed": "RUN_AUTHORIZED_RECHECK",
+        "tool_execution": "recheck",
+        "tool_result": {
+          "executed": true,
+          "reason": "authorized_simulation",
+          "result_code": "NO_FAULT_DETECTED",
+          "source": "simulation",
+          "diagnostic_id": 7,
+          "metrics": {
+            "cpe_online": true,
+            "rssi_dbm": -58,
+            "snr_db": 30,
+            "latency_ms": 12,
+            "packet_loss_percent": 0,
+            "download_mbps": 95.0
+          }
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is NO_FAULT_DETECTED.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "VERIFY_CUSTOMER_CONNECTIVITY",
+          "required_fact": "",
+          "reason": "Simulation cannot establish customer browsing restoration."
+        },
+        "executed": "VERIFY_CUSTOMER_CONNECTIVITY",
+        "tool_execution": "none",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is NO_FAULT_DETECTED.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "VERIFY_CUSTOMER_CONNECTIVITY",
+          "required_fact": "",
+          "reason": "Simulation cannot establish customer browsing restoration."
+        },
+        "executed": "VERIFY_CUSTOMER_CONNECTIVITY",
+        "tool_execution": "none",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is NO_FAULT_DETECTED.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "VERIFY_CUSTOMER_CONNECTIVITY",
+          "required_fact": "",
+          "reason": "Simulation cannot establish customer browsing restoration."
+        },
+        "executed": "VERIFY_CUSTOMER_CONNECTIVITY",
+        "tool_execution": "none",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is NO_FAULT_DETECTED.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "VERIFY_CUSTOMER_CONNECTIVITY",
+          "required_fact": "",
+          "reason": "Simulation cannot establish customer browsing restoration."
+        },
+        "executed": "VERIFY_CUSTOMER_CONNECTIVITY",
+        "tool_execution": "none",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    }
+  ],
+  "conversations.test_decisions.DecisionFlowTests.test_invalid_citation_cannot_undo_recheck_or_ticket": [
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "ANSWER_CUSTOMER",
+          "required_fact": "",
+          "reason": "Requested detail does not change the generic connectivity action or is already supplied."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "none",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "invalid_citation"
+    },
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity. You reported cable connections. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "RUN_AUTHORIZED_RECHECK",
+        "tool_execution": "recheck",
+        "tool_result": {
+          "executed": true,
+          "reason": "authorized_simulation",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation",
+          "diagnostic_id": 7,
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          }
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "invalid_citation"
+    },
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity. You reported cable connections, device/cable purpose. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "invalid_citation"
+    },
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity. You reported cable connections, device/cable purpose, lights. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "invalid_citation"
+    },
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity. You reported cable connections, device/cable purpose, lights. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "invalid_citation"
+    },
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity. You reported cable connections, device/cable purpose, lights. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed. Ticket ISP-87B1D9402E68: OPEN.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "REQUEST_TECHNICAL_REVIEW",
+          "required_fact": "",
+          "reason": "Existing technical-review predicates satisfied by actual measurements and reported evidence."
+        },
+        "executed": "REQUEST_TECHNICAL_REVIEW",
+        "tool_execution": "technical_review",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "invalid_citation"
+    }
+  ],
+  "conversations.test_decisions.DecisionFlowTests.test_material_power_question_records_reason_and_pending_fact": [],
+  "conversations.test_decisions.DecisionFlowTests.test_redundant_question_has_one_repair_then_useful_fallback": [
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "ANSWER_CUSTOMER",
+          "required_fact": "",
+          "reason": "Requested detail does not change the generic connectivity action or is already supplied."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "none",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "redundant_evidence_request"
+    },
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity. You reported cable connections. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "RUN_AUTHORIZED_RECHECK",
+        "tool_execution": "recheck",
+        "tool_result": {
+          "executed": true,
+          "reason": "authorized_simulation",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation",
+          "diagnostic_id": 7,
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          }
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "redundant_evidence_request"
+    },
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity. You reported cable connections, device/cable purpose. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "redundant_evidence_request"
+    },
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity. You reported cable connections, device/cable purpose, lights. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "redundant_evidence_request"
+    },
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity. You reported cable connections, device/cable purpose, lights. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "redundant_evidence_request"
+    },
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity. You reported cable connections, device/cable purpose, lights. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed. Ticket ISP-7927D943201D: OPEN.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "REQUEST_TECHNICAL_REVIEW",
+          "required_fact": "",
+          "reason": "Existing technical-review predicates satisfied by actual measurements and reported evidence."
+        },
+        "executed": "REQUEST_TECHNICAL_REVIEW",
+        "tool_execution": "technical_review",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "redundant_evidence_request"
+    }
+  ],
+  "conversations.test_decisions.DecisionFlowTests.test_reply_failure_preserves_operational_progress": [
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "ANSWER_CUSTOMER",
+          "required_fact": "",
+          "reason": "Requested detail does not change the generic connectivity action or is already supplied."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "none",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "timeout"
+    },
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity. You reported cable connections. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "RUN_AUTHORIZED_RECHECK",
+        "tool_execution": "recheck",
+        "tool_result": {
+          "executed": true,
+          "reason": "authorized_simulation",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation",
+          "diagnostic_id": 7,
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          }
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "timeout"
+    },
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity. You reported cable connections, device/cable purpose. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "timeout"
+    },
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity. You reported cable connections, device/cable purpose, lights. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "timeout"
+    },
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity. You reported cable connections, device/cable purpose, lights. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "timeout"
+    },
+    {
+      "response": "The photo provides limited visual evidence; it cannot confirm Internet connectivity. You reported cable connections, device/cable purpose, lights. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed. Ticket ISP-21C49D72561C: OPEN.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "REQUEST_TECHNICAL_REVIEW",
+          "required_fact": "",
+          "reason": "Existing technical-review predicates satisfied by actual measurements and reported evidence."
+        },
+        "executed": "REQUEST_TECHNICAL_REVIEW",
+        "tool_execution": "technical_review",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": true,
+      "fallback_reason": "timeout"
+    }
+  ],
+  "conversations.test_decisions.DecisionFlowTests.test_stale_reused_result_is_refreshed_before_escalation": [
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "ANSWER_CUSTOMER",
+          "required_fact": "",
+          "reason": "Requested detail does not change the generic connectivity action or is already supplied."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "none",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "RUN_AUTHORIZED_RECHECK",
+        "tool_execution": "recheck",
+        "tool_result": {
+          "executed": true,
+          "reason": "authorized_simulation",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation",
+          "diagnostic_id": 7,
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          }
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "RUN_AUTHORIZED_RECHECK",
+          "required_fact": "",
+          "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+        },
+        "executed": "ANSWER_CUSTOMER",
+        "tool_execution": "reuse",
+        "tool_result": {
+          "executed": false,
+          "reason": "no_new_evidence",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation"
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    },
+    {
+      "response": "Your local cable and light reports cannot confirm Internet access. The photo analysis is simulated, not a verification of its contents. The actual simulated result is CPE_UNREACHABLE. Ticket ISP-70F09C5C90B9: OPEN.",
+      "decision": {
+        "proposed": {
+          "action": "REQUEST_NECESSARY_EVIDENCE",
+          "required_fact": "indicator_label",
+          "reason": "Identify the port."
+        },
+        "authorized": {
+          "action": "REQUEST_TECHNICAL_REVIEW",
+          "required_fact": "",
+          "reason": "Existing technical-review predicates satisfied by actual measurements and reported evidence."
+        },
+        "executed": "REQUEST_TECHNICAL_REVIEW",
+        "tool_execution": "technical_review",
+        "tool_result": {
+          "executed": true,
+          "reason": "authorized_simulation",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation",
+          "diagnostic_id": 8,
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          }
+        }
+      },
+      "fallback": false,
+      "fallback_reason": null
+    }
+  ]
+}

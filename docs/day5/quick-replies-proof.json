@@ -1,0 +1,783 @@
+{
+  "provider": "DemoAI; OpenAI constructor blocked",
+  "conversation_id": 1,
+  "chat_turn_count": 3,
+  "messages": [
+    {
+      "id": 1,
+      "conversation_id": 1,
+      "sender": "customer",
+      "content": "I have no Internet.",
+      "metadata": {
+        "quick_reply": {
+          "id": "no_internet",
+          "label": "No Internet",
+          "labels": {
+            "en": "No Internet",
+            "es": "Sin Internet"
+          },
+          "message": "I have no Internet.",
+          "question_message_id": null,
+          "scope": null
+        },
+        "intent": "NO_INTERNET",
+        "reported_actions": [],
+        "request_id": "34680d43-4bd7-40a3-bad3-6763e6c8bab2"
+      }
+    },
+    {
+      "id": 2,
+      "conversation_id": 1,
+      "sender": "assistant",
+      "content": "The CPE is not responding in the simulation; the cause is unconfirmed. Check the PoE injector power and indicators and safely accessible cables and connectors. PoE is only one possible cause. Do not climb onto the roof or handle electrical wiring. Tell me when you have completed the checks so I can run the diagnostic again.",
+      "metadata": {
+        "intent": "NO_INTERNET",
+        "provider_status": "ok",
+        "requires_action": "CHECK_PHYSICAL_CONNECTIONS_AND_RETEST",
+        "image_ids": [
+          "poe-en",
+          "lights-en",
+          "ethernet-en",
+          "recheck-en"
+        ],
+        "display_key": null,
+        "context": {
+          "reported_issue": "NO_INTERNET",
+          "customer_response": {
+            "id": "no_internet",
+            "label": "No Internet",
+            "labels": {
+              "en": "No Internet",
+              "es": "Sin Internet"
+            },
+            "message": "I have no Internet.",
+            "question_message_id": null,
+            "scope": null
+          },
+          "decision_contract": false,
+          "service_id": 1,
+          "language": "en",
+          "shown_guides": [
+            "poe-en",
+            "lights-en",
+            "ethernet-en",
+            "recheck-en"
+          ],
+          "customer_claims": [],
+          "equipment_claim": null,
+          "unresolved_questions": [],
+          "answered_questions": [],
+          "diminishing_customer_checks": false,
+          "supplied_evidence": [],
+          "evidence_reports": {},
+          "evidence_exhausted": false,
+          "workflow_state": "SELF_SERVICE",
+          "support_preference": "unchanged",
+          "asked_questions": [],
+          "issue_category": "NO_INTERNET",
+          "investigation_strategy": {
+            "category": "NO_INTERNET",
+            "relevant_evidence": [
+              "cable_path",
+              "power",
+              "indicators",
+              "cpe_reachability"
+            ],
+            "available_tools": [
+              "simulated_connectivity"
+            ],
+            "safe_checks": [
+              "Visually inspect accessible cable seating and power indicators."
+            ],
+            "documentation_requirements": [
+              "Exact model only for model-specific wiring or indicator semantics."
+            ],
+            "escalation_criteria": [
+              "Existing authorized ticket workflow and actual service diagnostics."
+            ],
+            "knowledge_sources": [
+              "Approved documents",
+              "Verified and reviewed organization cases"
+            ],
+            "measurement_policy": "Only actual authorized simulator results are measurements; other capabilities are unavailable."
+          },
+          "remaining_useful_checks": [
+            "cable_path",
+            "power",
+            "indicators",
+            "cpe_reachability"
+          ],
+          "completed_checks": [],
+          "discussed_photo_ids": [],
+          "troubleshooting_stage": "rechecked",
+          "customer_reported_checks": [],
+          "confirmed_completed_checks": [],
+          "uncertain_checks": [],
+          "next_recommended_action": "none",
+          "additional_checks": "available",
+          "trusted_verified_checks": [],
+          "diagnostic": {
+            "id": 6,
+            "result_code": "CPE_UNREACHABLE",
+            "source": "simulation"
+          },
+          "ticket": null,
+          "photos": [],
+          "photo": null,
+          "pending_questions": [],
+          "latest_diagnostic": {
+            "id": 6,
+            "result_code": "CPE_UNREACHABLE",
+            "source": "simulation"
+          },
+          "active_ticket": null,
+          "photo_observations": [],
+          "equipment_observed": []
+        },
+        "provenance": {
+          "effective_provider": "demo",
+          "classification_call_attempted": false,
+          "reply_call_attempted": false,
+          "fallback_used": false,
+          "response_source": "django_template",
+          "intent": "NO_INTERNET",
+          "fallback_reason": null,
+          "answer_provider": "django",
+          "tool_result": {
+            "executed": true,
+            "reason": "authorized_simulation",
+            "result_code": "CPE_UNREACHABLE",
+            "source": "simulation",
+            "diagnostic_id": 6,
+            "completed_at": "2026-10-10T20:36:38.184100+00:00",
+            "fresh": true,
+            "metrics": {
+              "cpe_online": false,
+              "rssi_dbm": null,
+              "snr_db": null,
+              "latency_ms": null,
+              "packet_loss_percent": null,
+              "download_mbps": null
+            }
+          },
+          "escalation_policy": "not_applied",
+          "handoff_state": "SELF_SERVICE",
+          "handoff_result": {
+            "requested": false,
+            "accepted": false,
+            "ticket_created_this_turn": false
+          },
+          "model_call_attempted": false,
+          "model_call_succeeded": false,
+          "classification_succeeded": true,
+          "reply_succeeded": false,
+          "proposed_action": "none",
+          "executed_action": "recheck",
+          "decision": {
+            "proposed": {
+              "action": "ANSWER_CUSTOMER",
+              "required_fact": "none",
+              "reason": ""
+            },
+            "authorized": {
+              "action": "RUN_AUTHORIZED_RECHECK",
+              "required_fact": "",
+              "reason": "Initial authorized service assessment required."
+            },
+            "executed": "RUN_AUTHORIZED_RECHECK",
+            "tool_execution": "recheck",
+            "tool_result": {
+              "executed": true,
+              "reason": "authorized_simulation",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation",
+              "diagnostic_id": 6,
+              "completed_at": "2026-10-10T20:36:38.184100+00:00",
+              "fresh": true,
+              "metrics": {
+                "cpe_online": false,
+                "rssi_dbm": null,
+                "snr_db": null,
+                "latency_ms": null,
+                "packet_loss_percent": null,
+                "download_mbps": null
+              }
+            }
+          },
+          "reply_validated": false,
+          "model": null,
+          "review_predicates": {
+            "policy_enabled": true,
+            "simulated_cpe_failure": true,
+            "fresh_result": true,
+            "unresolved_outage": true,
+            "guide_presented": true,
+            "reported_attempt": false,
+            "two_failed_measurements": false,
+            "available_evidence_reviewed": false
+          }
+        },
+        "knowledge": {
+          "retrieved_sections": [],
+          "retrieved_sources": [],
+          "equipment_model": null,
+          "conflict": false,
+          "source_mismatch": false,
+          "usage": "none",
+          "retrieval_attempted": true,
+          "retrieval_succeeded": false,
+          "retrieval_error": null,
+          "customer_displayed": false,
+          "internal_citations_retained": false,
+          "citation_origin": "none",
+          "context_injected": false,
+          "injection_reason": "no_generation_call",
+          "similar_cases": [],
+          "case_context_injected": false
+        },
+        "citations": [],
+        "diagnostic_id": 6,
+        "ticket_id": null
+      }
+    },
+    {
+      "id": 3,
+      "conversation_id": 1,
+      "sender": "customer",
+      "content": "I checked the accessible power, the PoE equipment if present, and the Internet cables. Everything is connected, but I still have no Internet.",
+      "metadata": {
+        "quick_reply": {
+          "id": "checked",
+          "label": "Yes, I checked",
+          "labels": {
+            "en": "Yes, I checked",
+            "es": "Sí, lo revisé"
+          },
+          "message": "I checked the accessible power, the PoE equipment if present, and the Internet cables. Everything is connected, but I still have no Internet.",
+          "question_message_id": 2,
+          "scope": "basic_checks"
+        },
+        "intent": "CONFIRM_PHYSICAL_CHECK",
+        "reported_actions": [
+          "Customer reports checking PoE and accessible connections; not independently verified."
+        ],
+        "request_id": "76822a85-67e5-495d-925c-91a5f406b3c3"
+      }
+    },
+    {
+      "id": 4,
+      "conversation_id": 1,
+      "sender": "assistant",
+      "content": "Thank you for completing those accessible checks. The new simulated diagnostic still receives no response from the CPE. The issue has been escalated for technical review; you do not need to repeat the same checks now. Your issue is recorded under ticket ISP-C3A8E07DA711. No visit or repair has been confirmed.",
+      "metadata": {
+        "intent": "CONFIRM_PHYSICAL_CHECK",
+        "provider_status": "ok",
+        "requires_action": "WAIT_FOR_TECHNICAL_REVIEW",
+        "image_ids": [],
+        "display_key": "CPE_ESCALATED",
+        "context": {
+          "reported_issue": "NO_INTERNET",
+          "customer_response": {
+            "id": "checked",
+            "label": "Yes, I checked",
+            "labels": {
+              "en": "Yes, I checked",
+              "es": "Sí, lo revisé"
+            },
+            "message": "I checked the accessible power, the PoE equipment if present, and the Internet cables. Everything is connected, but I still have no Internet.",
+            "question_message_id": 2,
+            "scope": "basic_checks"
+          },
+          "decision_contract": false,
+          "service_id": 1,
+          "language": "en",
+          "shown_guides": [
+            "poe-en",
+            "lights-en",
+            "ethernet-en",
+            "recheck-en"
+          ],
+          "customer_claims": [
+            {
+              "kind": "completed_checks",
+              "text": "I checked the accessible power, the PoE equipment if present, and the Internet cables. Everything is connected, but I still have no Internet.",
+              "verified": false
+            }
+          ],
+          "equipment_claim": null,
+          "unresolved_questions": [],
+          "answered_questions": [],
+          "diminishing_customer_checks": false,
+          "supplied_evidence": [
+            "cable_path",
+            "power"
+          ],
+          "evidence_reports": {
+            "cable_path": {
+              "text": "I checked the accessible power, the PoE equipment if present, and the Internet cables. Everything is connected, but I still have no Internet.",
+              "verified": false,
+              "message_id": 3
+            },
+            "power": {
+              "text": "I checked the accessible power, the PoE equipment if present, and the Internet cables. Everything is connected, but I still have no Internet.",
+              "verified": false,
+              "message_id": 3
+            }
+          },
+          "evidence_exhausted": false,
+          "workflow_state": "SELF_SERVICE",
+          "support_preference": "unchanged",
+          "asked_questions": [],
+          "issue_category": "NO_INTERNET",
+          "investigation_strategy": {
+            "category": "NO_INTERNET",
+            "relevant_evidence": [
+              "cable_path",
+              "power",
+              "indicators",
+              "cpe_reachability"
+            ],
+            "available_tools": [
+              "simulated_connectivity"
+            ],
+            "safe_checks": [
+              "Visually inspect accessible cable seating and power indicators."
+            ],
+            "documentation_requirements": [
+              "Exact model only for model-specific wiring or indicator semantics."
+            ],
+            "escalation_criteria": [
+              "Existing authorized ticket workflow and actual service diagnostics."
+            ],
+            "knowledge_sources": [
+              "Approved documents",
+              "Verified and reviewed organization cases"
+            ],
+            "measurement_policy": "Only actual authorized simulator results are measurements; other capabilities are unavailable."
+          },
+          "remaining_useful_checks": [
+            "indicators"
+          ],
+          "completed_checks": [
+            {
+              "text": "I checked the accessible power, the PoE equipment if present, and the Internet cables. Everything is connected, but I still have no Internet.",
+              "verified": false
+            }
+          ],
+          "discussed_photo_ids": [],
+          "troubleshooting_stage": "technical_review",
+          "customer_reported_checks": [
+            {
+              "message_id": 3,
+              "text": "I checked the accessible power, the PoE equipment if present, and the Internet cables. Everything is connected, but I still have no Internet.",
+              "verified": false,
+              "status": "customer_reported_complete"
+            }
+          ],
+          "confirmed_completed_checks": [
+            {
+              "message_id": 3,
+              "text": "I checked the accessible power, the PoE equipment if present, and the Internet cables. Everything is connected, but I still have no Internet.",
+              "verified": false,
+              "status": "customer_reported_complete"
+            }
+          ],
+          "uncertain_checks": [],
+          "next_recommended_action": "technical_review",
+          "additional_checks": "available",
+          "trusted_verified_checks": [],
+          "diagnostic": {
+            "id": 7,
+            "result_code": "CPE_UNREACHABLE",
+            "source": "simulation"
+          },
+          "ticket": {
+            "number": "ISP-C3A8E07DA711",
+            "status": "OPEN"
+          },
+          "photos": [],
+          "photo": null,
+          "pending_questions": [],
+          "latest_diagnostic": {
+            "id": 7,
+            "result_code": "CPE_UNREACHABLE",
+            "source": "simulation"
+          },
+          "active_ticket": {
+            "number": "ISP-C3A8E07DA711",
+            "status": "OPEN"
+          },
+          "photo_observations": [],
+          "equipment_observed": []
+        },
+        "provenance": {
+          "effective_provider": "demo",
+          "classification_call_attempted": false,
+          "reply_call_attempted": false,
+          "fallback_used": false,
+          "response_source": "django_template",
+          "intent": "CONFIRM_PHYSICAL_CHECK",
+          "fallback_reason": null,
+          "answer_provider": "django",
+          "tool_result": {
+            "executed": true,
+            "reason": "authorized_simulation",
+            "result_code": "CPE_UNREACHABLE",
+            "source": "simulation",
+            "diagnostic_id": 7,
+            "completed_at": "2026-10-10T20:37:09.318611+00:00",
+            "fresh": true,
+            "metrics": {
+              "cpe_online": false,
+              "rssi_dbm": null,
+              "snr_db": null,
+              "latency_ms": null,
+              "packet_loss_percent": null,
+              "download_mbps": null
+            }
+          },
+          "escalation_policy": "confirmed_report_existing_policy",
+          "handoff_state": "SELF_SERVICE",
+          "handoff_result": {
+            "requested": false,
+            "accepted": false,
+            "ticket_created_this_turn": true
+          },
+          "model_call_attempted": false,
+          "model_call_succeeded": false,
+          "classification_succeeded": true,
+          "reply_succeeded": false,
+          "proposed_action": "none",
+          "executed_action": "recheck",
+          "decision": {
+            "proposed": {
+              "action": "ANSWER_CUSTOMER",
+              "required_fact": "none",
+              "reason": ""
+            },
+            "authorized": {
+              "action": "REQUEST_TECHNICAL_REVIEW",
+              "required_fact": "",
+              "reason": "Existing confirmed-check escalation policy executed after the authorized result."
+            },
+            "executed": "REQUEST_TECHNICAL_REVIEW",
+            "tool_execution": "recheck",
+            "tool_result": {
+              "executed": true,
+              "reason": "authorized_simulation",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation",
+              "diagnostic_id": 7,
+              "completed_at": "2026-10-10T20:37:09.318611+00:00",
+              "fresh": true,
+              "metrics": {
+                "cpe_online": false,
+                "rssi_dbm": null,
+                "snr_db": null,
+                "latency_ms": null,
+                "packet_loss_percent": null,
+                "download_mbps": null
+              }
+            }
+          },
+          "reply_validated": false,
+          "model": null,
+          "review_predicates": {
+            "policy_enabled": true,
+            "simulated_cpe_failure": true,
+            "fresh_result": true,
+            "unresolved_outage": true,
+            "guide_presented": true,
+            "reported_attempt": true,
+            "two_failed_measurements": true,
+            "available_evidence_reviewed": false
+          }
+        },
+        "knowledge": {
+          "retrieved_sections": [],
+          "retrieved_sources": [],
+          "equipment_model": null,
+          "conflict": false,
+          "source_mismatch": false,
+          "usage": "none",
+          "retrieval_attempted": true,
+          "retrieval_succeeded": false,
+          "retrieval_error": null,
+          "customer_displayed": false,
+          "internal_citations_retained": false,
+          "citation_origin": "none",
+          "context_injected": false,
+          "injection_reason": "no_generation_call",
+          "similar_cases": [],
+          "case_context_injected": false
+        },
+        "citations": [],
+        "diagnostic_id": 7,
+        "ticket_id": "d9d74153-aa6a-48d6-aeaf-f58b51039c46"
+      }
+    },
+    {
+      "id": 5,
+      "conversation_id": 1,
+      "sender": "customer",
+      "content": "I still don't have Internet.",
+      "metadata": {
+        "intent": "NO_INTERNET",
+        "reported_actions": [],
+        "request_id": "56ecc925-ce49-4b06-bb7e-4940cf1694aa"
+      }
+    },
+    {
+      "id": 6,
+      "conversation_id": 1,
+      "sender": "assistant",
+      "content": "Your connection problem remains recorded for technical review. You do not need to repeat the same checks now. The latest simulated check still cannot reach the outdoor equipment; the cause is unconfirmed. Ticket ISP-C3A8E07DA711: OPEN.",
+      "metadata": {
+        "intent": "NO_INTERNET",
+        "provider_status": "ok",
+        "requires_action": "WAIT_FOR_TECHNICAL_REVIEW",
+        "image_ids": [],
+        "display_key": "CPE_FOLLOW_UP",
+        "context": {
+          "reported_issue": "NO_INTERNET",
+          "customer_response": null,
+          "decision_contract": false,
+          "service_id": 1,
+          "language": "en",
+          "shown_guides": [
+            "poe-en",
+            "lights-en",
+            "ethernet-en",
+            "recheck-en"
+          ],
+          "customer_claims": [
+            {
+              "kind": "completed_checks",
+              "text": "I checked the accessible power, the PoE equipment if present, and the Internet cables. Everything is connected, but I still have no Internet.",
+              "verified": false
+            }
+          ],
+          "equipment_claim": null,
+          "unresolved_questions": [],
+          "answered_questions": [],
+          "diminishing_customer_checks": false,
+          "supplied_evidence": [
+            "cable_path",
+            "power"
+          ],
+          "evidence_reports": {
+            "cable_path": {
+              "text": "I checked the accessible power, the PoE equipment if present, and the Internet cables. Everything is connected, but I still have no Internet.",
+              "verified": false,
+              "message_id": 3
+            },
+            "power": {
+              "text": "I checked the accessible power, the PoE equipment if present, and the Internet cables. Everything is connected, but I still have no Internet.",
+              "verified": false,
+              "message_id": 3
+            }
+          },
+          "evidence_exhausted": false,
+          "workflow_state": "SELF_SERVICE",
+          "support_preference": "unchanged",
+          "asked_questions": [],
+          "issue_category": "NO_INTERNET",
+          "investigation_strategy": {
+            "category": "NO_INTERNET",
+            "relevant_evidence": [
+              "cable_path",
+              "power",
+              "indicators",
+              "cpe_reachability"
+            ],
+            "available_tools": [
+              "simulated_connectivity"
+            ],
+            "safe_checks": [
+              "Visually inspect accessible cable seating and power indicators."
+            ],
+            "documentation_requirements": [
+              "Exact model only for model-specific wiring or indicator semantics."
+            ],
+            "escalation_criteria": [
+              "Existing authorized ticket workflow and actual service diagnostics."
+            ],
+            "knowledge_sources": [
+              "Approved documents",
+              "Verified and reviewed organization cases"
+            ],
+            "measurement_policy": "Only actual authorized simulator results are measurements; other capabilities are unavailable."
+          },
+          "remaining_useful_checks": [
+            "indicators"
+          ],
+          "completed_checks": [
+            {
+              "text": "I checked the accessible power, the PoE equipment if present, and the Internet cables. Everything is connected, but I still have no Internet.",
+              "verified": false
+            }
+          ],
+          "discussed_photo_ids": [],
+          "troubleshooting_stage": "technical_review",
+          "customer_reported_checks": [
+            {
+              "message_id": 3,
+              "text": "I checked the accessible power, the PoE equipment if present, and the Internet cables. Everything is connected, but I still have no Internet.",
+              "verified": false,
+              "status": "customer_reported_complete"
+            }
+          ],
+          "confirmed_completed_checks": [
+            {
+              "message_id": 3,
+              "text": "I checked the accessible power, the PoE equipment if present, and the Internet cables. Everything is connected, but I still have no Internet.",
+              "verified": false,
+              "status": "customer_reported_complete"
+            }
+          ],
+          "uncertain_checks": [],
+          "next_recommended_action": "technical_review",
+          "additional_checks": "available",
+          "trusted_verified_checks": [],
+          "diagnostic": {
+            "id": 7,
+            "result_code": "CPE_UNREACHABLE",
+            "source": "simulation"
+          },
+          "ticket": {
+            "number": "ISP-C3A8E07DA711",
+            "status": "OPEN"
+          },
+          "photos": [],
+          "photo": null,
+          "pending_questions": [],
+          "latest_diagnostic": {
+            "id": 7,
+            "result_code": "CPE_UNREACHABLE",
+            "source": "simulation"
+          },
+          "active_ticket": {
+            "number": "ISP-C3A8E07DA711",
+            "status": "OPEN"
+          },
+          "photo_observations": [],
+          "equipment_observed": []
+        },
+        "provenance": {
+          "effective_provider": "demo",
+          "classification_call_attempted": false,
+          "reply_call_attempted": false,
+          "fallback_used": false,
+          "response_source": "django_template",
+          "intent": "NO_INTERNET",
+          "fallback_reason": null,
+          "answer_provider": "django",
+          "tool_result": {
+            "executed": false,
+            "reason": "no_new_evidence",
+            "result_code": "CPE_UNREACHABLE",
+            "source": "simulation",
+            "diagnostic_id": 7,
+            "completed_at": "2026-10-10T20:37:09.318611+00:00",
+            "fresh": true
+          },
+          "escalation_policy": "diagnostic_assessment",
+          "handoff_state": "SELF_SERVICE",
+          "handoff_result": {
+            "requested": false,
+            "accepted": false,
+            "ticket_created_this_turn": false
+          },
+          "model_call_attempted": false,
+          "model_call_succeeded": false,
+          "classification_succeeded": true,
+          "reply_succeeded": false,
+          "proposed_action": "none",
+          "executed_action": "reuse",
+          "decision": {
+            "proposed": {
+              "action": "ANSWER_CUSTOMER",
+              "required_fact": "none",
+              "reason": ""
+            },
+            "authorized": {
+              "action": "REPORT_EXISTING_TICKET",
+              "required_fact": "",
+              "reason": "Existing authorized ticket; no further questionnaire."
+            },
+            "executed": "REPORT_EXISTING_TICKET",
+            "tool_execution": "reuse",
+            "tool_result": {
+              "executed": false,
+              "reason": "no_new_evidence",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation",
+              "diagnostic_id": 7,
+              "completed_at": "2026-10-10T20:37:09.318611+00:00",
+              "fresh": true
+            }
+          },
+          "reply_validated": false,
+          "model": null,
+          "review_predicates": {
+            "policy_enabled": true,
+            "simulated_cpe_failure": true,
+            "fresh_result": true,
+            "unresolved_outage": true,
+            "guide_presented": true,
+            "reported_attempt": true,
+            "two_failed_measurements": true,
+            "available_evidence_reviewed": false
+          }
+        },
+        "knowledge": {
+          "retrieved_sections": [],
+          "retrieved_sources": [],
+          "equipment_model": null,
+          "conflict": false,
+          "source_mismatch": false,
+          "usage": "none",
+          "retrieval_attempted": true,
+          "retrieval_succeeded": false,
+          "retrieval_error": null,
+          "customer_displayed": false,
+          "internal_citations_retained": false,
+          "citation_origin": "none",
+          "context_injected": false,
+          "injection_reason": "no_generation_call",
+          "similar_cases": [],
+          "case_context_injected": false
+        },
+        "citations": [],
+        "diagnostic_id": 7,
+        "ticket_id": "d9d74153-aa6a-48d6-aeaf-f58b51039c46"
+      }
+    }
+  ],
+  "diagnostics": [
+    {
+      "id": 6,
+      "result_code": "CPE_UNREACHABLE",
+      "source": "simulation",
+      "completed_at": "2026-10-10 20:36:38.184100"
+    },
+    {
+      "id": 7,
+      "result_code": "CPE_UNREACHABLE",
+      "source": "simulation",
+      "completed_at": "2026-10-10 20:37:09.318611"
+    }
+  ],
+  "tickets": [
+    {
+      "number": "ISP-C3A8E07DA711",
+      "status": "OPEN"
+    }
+  ],
+  "mobile": {
+    "width": 375,
+    "scroll_width": 375,
+    "composer_available": true,
+    "attachment_available": true
+  }
+}

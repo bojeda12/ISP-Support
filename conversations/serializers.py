@@ -39,3 +39,16 @@ class ChatSerializer(serializers.Serializer):
                 raise serializers.ValidationError({"conversation_id": "Conversation is not available."})
             attrs["conversation"] = conversation
         return attrs
+
+
+class ChatTurnSerializer(ChatSerializer):
+    message = serializers.CharField(trim_whitespace=True,required=False,allow_blank=True,default='')
+    photo = serializers.FileField(required=False)
+    request_id = serializers.UUIDField()
+    quick_reply = serializers.JSONField(required=False)
+
+    def validate(self,attrs):
+        attrs = super().validate(attrs)
+        if not attrs.get('message') and not attrs.get('photo') and not attrs.get('quick_reply'):
+            raise serializers.ValidationError('Supply text, a photograph, or both.')
+        return attrs

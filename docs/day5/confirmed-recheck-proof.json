@@ -1,0 +1,1994 @@
+{
+  "original_conversation": {
+    "id": 18,
+    "diagnostics": [
+      {
+        "id": 41,
+        "result_code": "CPE_UNREACHABLE",
+        "created_at": "2026-10-10 19:01:41.500522+00:00",
+        "completed_at": "2026-10-10 19:01:41.500031+00:00"
+      },
+      {
+        "id": 42,
+        "result_code": "CPE_UNREACHABLE",
+        "created_at": "2026-10-10 19:02:10.621451+00:00",
+        "completed_at": "2026-10-10 19:02:10.620903+00:00"
+      }
+    ],
+    "ticket_count": 0,
+    "responses": [
+      {
+        "id": 164,
+        "created_at": "2026-10-10 19:01:44.328585+00:00",
+        "text": "The CPE is not responding in the simulation; the cause is unconfirmed. Check the PoE injector power and indicators and safely accessible cables and connectors. PoE is only one possible cause. Do not climb onto the roof or handle electrical wiring. Tell me when you have completed the checks so I can run the diagnostic again.",
+        "provenance": {
+          "effective_provider": "openai",
+          "classification_call_attempted": true,
+          "reply_call_attempted": true,
+          "fallback_used": true,
+          "response_source": "django_template",
+          "intent": "NO_INTERNET",
+          "fallback_reason": "redundant_evidence_request",
+          "answer_provider": "django",
+          "tool_result": {
+            "executed": true,
+            "reason": "authorized_simulation",
+            "result_code": "CPE_UNREACHABLE",
+            "source": "simulation",
+            "diagnostic_id": 41,
+            "metrics": {
+              "cpe_online": false,
+              "rssi_dbm": null,
+              "snr_db": null,
+              "latency_ms": null,
+              "packet_loss_percent": null,
+              "download_mbps": null
+            }
+          },
+          "handoff_state": "SELF_SERVICE",
+          "handoff_result": {
+            "requested": false,
+            "accepted": false,
+            "ticket_created_this_turn": false
+          },
+          "model_call_attempted": true,
+          "model_call_succeeded": false,
+          "classification_succeeded": true,
+          "reply_succeeded": false,
+          "proposed_action": "ask_question",
+          "executed_action": "recheck",
+          "decision": {
+            "proposed": {
+              "action": "REQUEST_NECESSARY_EVIDENCE",
+              "required_fact": "details about the connection status or error symptoms",
+              "reason": "To diagnose the internet failure, more information about the issue is necessary."
+            },
+            "authorized": {
+              "action": "RUN_AUTHORIZED_RECHECK",
+              "required_fact": "",
+              "reason": "Initial authorized service assessment required."
+            },
+            "executed": "RUN_AUTHORIZED_RECHECK",
+            "tool_execution": "recheck",
+            "tool_result": {
+              "executed": true,
+              "reason": "authorized_simulation",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation",
+              "diagnostic_id": 41,
+              "metrics": {
+                "cpe_online": false,
+                "rssi_dbm": null,
+                "snr_db": null,
+                "latency_ms": null,
+                "packet_loss_percent": null,
+                "download_mbps": null
+              }
+            }
+          },
+          "reply_validated": false,
+          "model": "gpt-4.1-mini",
+          "review_predicates": {
+            "policy_enabled": true,
+            "simulated_cpe_failure": true,
+            "fresh_result": true,
+            "unresolved_outage": true,
+            "guide_presented": true,
+            "reported_attempt": false,
+            "two_failed_measurements": false,
+            "available_evidence_reviewed": false
+          }
+        }
+      },
+      {
+        "id": 166,
+        "created_at": "2026-10-10 19:02:13.905068+00:00",
+        "text": "The photo provides limited visual evidence; it cannot confirm Internet connectivity. You reported cable path, power. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed.",
+        "provenance": {
+          "effective_provider": "openai",
+          "classification_call_attempted": true,
+          "reply_call_attempted": true,
+          "fallback_used": true,
+          "response_source": "reply_error_fallback",
+          "intent": "PHOTO_QUESTION",
+          "fallback_reason": "redundant_evidence_request",
+          "answer_provider": "django",
+          "tool_result": {
+            "executed": true,
+            "reason": "authorized_simulation",
+            "result_code": "CPE_UNREACHABLE",
+            "source": "simulation",
+            "diagnostic_id": 42,
+            "metrics": {
+              "cpe_online": false,
+              "rssi_dbm": null,
+              "snr_db": null,
+              "latency_ms": null,
+              "packet_loss_percent": null,
+              "download_mbps": null
+            }
+          },
+          "handoff_state": "SELF_SERVICE",
+          "handoff_result": {
+            "requested": false,
+            "accepted": false,
+            "ticket_created_this_turn": false
+          },
+          "model_call_attempted": true,
+          "model_call_succeeded": false,
+          "classification_succeeded": true,
+          "reply_succeeded": false,
+          "proposed_action": "none",
+          "executed_action": "recheck",
+          "decision": {
+            "proposed": {
+              "action": "RUN_AUTHORIZED_RECHECK",
+              "required_fact": "Customer confirmation of completed physical checks of accessible cables and PoE",
+              "reason": "The customer confirms they have checked all physical connections and everything is connected, which supports running an authorized recheck to further diagnose the issue."
+            },
+            "authorized": {
+              "action": "RUN_AUTHORIZED_RECHECK",
+              "required_fact": "",
+              "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+            },
+            "executed": "RUN_AUTHORIZED_RECHECK",
+            "tool_execution": "recheck",
+            "tool_result": {
+              "executed": true,
+              "reason": "authorized_simulation",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation",
+              "diagnostic_id": 42,
+              "metrics": {
+                "cpe_online": false,
+                "rssi_dbm": null,
+                "snr_db": null,
+                "latency_ms": null,
+                "packet_loss_percent": null,
+                "download_mbps": null
+              }
+            }
+          },
+          "reply_validated": false,
+          "model": "gpt-4.1-mini",
+          "review_predicates": {
+            "policy_enabled": true,
+            "simulated_cpe_failure": true,
+            "fresh_result": true,
+            "unresolved_outage": true,
+            "guide_presented": true,
+            "reported_attempt": true,
+            "two_failed_measurements": true,
+            "available_evidence_reviewed": false
+          }
+        }
+      },
+      {
+        "id": 168,
+        "created_at": "2026-10-10 19:02:40.877100+00:00",
+        "text": "The next step is to run an authorized recheck of your equipment and service status to gather accurate diagnostic data beyond the visual inspection. This will help identify the exact issue causing no Internet connectivity. After the recheck, please let me know if you are able to access the Internet.",
+        "provenance": {
+          "effective_provider": "openai",
+          "classification_call_attempted": true,
+          "reply_call_attempted": true,
+          "fallback_used": false,
+          "response_source": "openai_generated",
+          "intent": "PHOTO_QUESTION",
+          "fallback_reason": null,
+          "answer_provider": "openai",
+          "tool_result": {
+            "executed": false,
+            "reason": "no_new_evidence",
+            "result_code": "CPE_UNREACHABLE",
+            "source": "simulation"
+          },
+          "handoff_state": "SELF_SERVICE",
+          "handoff_result": {
+            "requested": false,
+            "accepted": false,
+            "ticket_created_this_turn": false
+          },
+          "model_call_attempted": true,
+          "model_call_succeeded": true,
+          "classification_succeeded": true,
+          "reply_succeeded": true,
+          "proposed_action": "recheck",
+          "executed_action": "reuse",
+          "decision": {
+            "proposed": {
+              "action": "RUN_AUTHORIZED_RECHECK",
+              "required_fact": "Customer has attempted accessible physical checks of cable path and power as per",
+              "reason": "Customer reports attempted checks and supplied cable_path and power evidence; a recheck is appropriate to verify network status."
+            },
+            "authorized": {
+              "action": "RUN_AUTHORIZED_RECHECK",
+              "required_fact": "",
+              "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+            },
+            "executed": "ANSWER_CUSTOMER",
+            "tool_execution": "reuse",
+            "tool_result": {
+              "executed": false,
+              "reason": "no_new_evidence",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation"
+            }
+          },
+          "reply_validated": true,
+          "model": "gpt-4.1-mini",
+          "review_predicates": {
+            "policy_enabled": true,
+            "simulated_cpe_failure": true,
+            "fresh_result": true,
+            "unresolved_outage": true,
+            "guide_presented": true,
+            "reported_attempt": true,
+            "two_failed_measurements": true,
+            "available_evidence_reviewed": false
+          }
+        }
+      },
+      {
+        "id": 170,
+        "created_at": "2026-10-10 19:03:02.011216+00:00",
+        "text": "The photo shows the network device has Ethernet connections with indicator lights on, including some green and some red lights. While the cable appears connected and active, the diagnostic shows the device is unreachable, so the Internet is still not confirmed working. Running an authorized recheck might provide more detailed status and next steps.",
+        "provenance": {
+          "effective_provider": "openai",
+          "classification_call_attempted": true,
+          "reply_call_attempted": true,
+          "fallback_used": false,
+          "response_source": "openai_generated",
+          "intent": "PHOTO_QUESTION",
+          "fallback_reason": null,
+          "answer_provider": "openai",
+          "tool_result": {
+            "executed": false,
+            "reason": "no_new_evidence",
+            "result_code": "CPE_UNREACHABLE",
+            "source": "simulation"
+          },
+          "handoff_state": "SELF_SERVICE",
+          "handoff_result": {
+            "requested": false,
+            "accepted": false,
+            "ticket_created_this_turn": false
+          },
+          "model_call_attempted": true,
+          "model_call_succeeded": true,
+          "classification_succeeded": true,
+          "reply_succeeded": true,
+          "proposed_action": "recheck",
+          "executed_action": "reuse",
+          "decision": {
+            "proposed": {
+              "action": "RUN_AUTHORIZED_RECHECK",
+              "required_fact": "Result of the authorized recheck",
+              "reason": "The customer has attempted basic connectivity and power checks with uncertain results, and the current evidence is insufficient to confirm or resolve the no Internet issue."
+            },
+            "authorized": {
+              "action": "RUN_AUTHORIZED_RECHECK",
+              "required_fact": "",
+              "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+            },
+            "executed": "ANSWER_CUSTOMER",
+            "tool_execution": "reuse",
+            "tool_result": {
+              "executed": false,
+              "reason": "no_new_evidence",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation"
+            }
+          },
+          "reply_validated": true,
+          "model": "gpt-4.1-mini",
+          "review_predicates": {
+            "policy_enabled": true,
+            "simulated_cpe_failure": true,
+            "fresh_result": true,
+            "unresolved_outage": true,
+            "guide_presented": true,
+            "reported_attempt": true,
+            "two_failed_measurements": true,
+            "available_evidence_reviewed": false
+          }
+        }
+      }
+    ]
+  },
+  "browser": {
+    "provider": "demo",
+    "sdk_blocked": true,
+    "conversation_id": 1,
+    "diagnostics": [
+      {
+        "id": 6,
+        "result_code": "CPE_UNREACHABLE",
+        "created_at": "2026-10-10 19:55:02.438904",
+        "completed_at": "2026-10-10 19:55:02.438135"
+      },
+      {
+        "id": 7,
+        "result_code": "CPE_UNREACHABLE",
+        "created_at": "2026-10-10 19:55:06.901341",
+        "completed_at": "2026-10-10 19:55:06.899650"
+      }
+    ],
+    "tickets": [
+      {
+        "number": "ISP-DDD8F12242C1",
+        "status": "OPEN",
+        "created_at": "2026-10-10 19:55:06.908363"
+      }
+    ],
+    "responses": [
+      {
+        "id": 2,
+        "created_at": "2026-10-10 19:55:02.442985",
+        "text": "The CPE is not responding in the simulation; the cause is unconfirmed. Check the PoE injector power and indicators and safely accessible cables and connectors. PoE is only one possible cause. Do not climb onto the roof or handle electrical wiring. Tell me when you have completed the checks so I can run the diagnostic again.",
+        "provenance": {
+          "effective_provider": "demo",
+          "classification_call_attempted": false,
+          "reply_call_attempted": false,
+          "fallback_used": false,
+          "response_source": "django_template",
+          "intent": "NO_INTERNET",
+          "fallback_reason": null,
+          "answer_provider": "django",
+          "tool_result": {
+            "executed": true,
+            "reason": "authorized_simulation",
+            "result_code": "CPE_UNREACHABLE",
+            "source": "simulation",
+            "diagnostic_id": 6,
+            "completed_at": "2026-10-10T19:55:02.438135+00:00",
+            "fresh": true,
+            "metrics": {
+              "cpe_online": false,
+              "rssi_dbm": null,
+              "snr_db": null,
+              "latency_ms": null,
+              "packet_loss_percent": null,
+              "download_mbps": null
+            }
+          },
+          "handoff_state": "SELF_SERVICE",
+          "handoff_result": {
+            "requested": false,
+            "accepted": false,
+            "ticket_created_this_turn": false
+          },
+          "model_call_attempted": false,
+          "model_call_succeeded": false,
+          "classification_succeeded": true,
+          "reply_succeeded": false,
+          "proposed_action": "none",
+          "executed_action": "recheck",
+          "decision": {
+            "proposed": {
+              "action": "ANSWER_CUSTOMER",
+              "required_fact": "none",
+              "reason": ""
+            },
+            "authorized": {
+              "action": "RUN_AUTHORIZED_RECHECK",
+              "required_fact": "",
+              "reason": "Initial authorized service assessment required."
+            },
+            "executed": "RUN_AUTHORIZED_RECHECK",
+            "tool_execution": "recheck",
+            "tool_result": {
+              "executed": true,
+              "reason": "authorized_simulation",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation",
+              "diagnostic_id": 6,
+              "completed_at": "2026-10-10T19:55:02.438135+00:00",
+              "fresh": true,
+              "metrics": {
+                "cpe_online": false,
+                "rssi_dbm": null,
+                "snr_db": null,
+                "latency_ms": null,
+                "packet_loss_percent": null,
+                "download_mbps": null
+              }
+            }
+          },
+          "reply_validated": false,
+          "model": null,
+          "review_predicates": {
+            "policy_enabled": true,
+            "simulated_cpe_failure": true,
+            "fresh_result": true,
+            "unresolved_outage": true,
+            "guide_presented": true,
+            "reported_attempt": false,
+            "two_failed_measurements": false,
+            "available_evidence_reviewed": false
+          }
+        }
+      },
+      {
+        "id": 4,
+        "created_at": "2026-10-10 19:55:06.916675",
+        "text": "Thank you for completing those accessible checks. The new simulated diagnostic still receives no response from the CPE. The issue has been escalated for technical review; you do not need to repeat the same checks now. Your issue is recorded under ticket ISP-DDD8F12242C1. No visit or repair has been confirmed.",
+        "provenance": {
+          "effective_provider": "demo",
+          "classification_call_attempted": false,
+          "reply_call_attempted": false,
+          "fallback_used": false,
+          "response_source": "django_template",
+          "intent": "CONFIRM_PHYSICAL_CHECK",
+          "fallback_reason": null,
+          "answer_provider": "django",
+          "tool_result": {
+            "executed": true,
+            "reason": "authorized_simulation",
+            "result_code": "CPE_UNREACHABLE",
+            "source": "simulation",
+            "diagnostic_id": 7,
+            "completed_at": "2026-10-10T19:55:06.899650+00:00",
+            "fresh": true,
+            "metrics": {
+              "cpe_online": false,
+              "rssi_dbm": null,
+              "snr_db": null,
+              "latency_ms": null,
+              "packet_loss_percent": null,
+              "download_mbps": null
+            }
+          },
+          "handoff_state": "SELF_SERVICE",
+          "handoff_result": {
+            "requested": false,
+            "accepted": false,
+            "ticket_created_this_turn": true
+          },
+          "model_call_attempted": false,
+          "model_call_succeeded": false,
+          "classification_succeeded": true,
+          "reply_succeeded": false,
+          "proposed_action": "none",
+          "executed_action": "recheck",
+          "decision": {
+            "proposed": {
+              "action": "ANSWER_CUSTOMER",
+              "required_fact": "none",
+              "reason": ""
+            },
+            "authorized": {
+              "action": "REQUEST_TECHNICAL_REVIEW",
+              "required_fact": "",
+              "reason": "Existing confirmed-check escalation policy executed after the authorized result."
+            },
+            "executed": "REQUEST_TECHNICAL_REVIEW",
+            "tool_execution": "recheck",
+            "tool_result": {
+              "executed": true,
+              "reason": "authorized_simulation",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation",
+              "diagnostic_id": 7,
+              "completed_at": "2026-10-10T19:55:06.899650+00:00",
+              "fresh": true,
+              "metrics": {
+                "cpe_online": false,
+                "rssi_dbm": null,
+                "snr_db": null,
+                "latency_ms": null,
+                "packet_loss_percent": null,
+                "download_mbps": null
+              }
+            }
+          },
+          "reply_validated": false,
+          "model": null,
+          "review_predicates": {
+            "policy_enabled": true,
+            "simulated_cpe_failure": true,
+            "fresh_result": true,
+            "unresolved_outage": true,
+            "guide_presented": true,
+            "reported_attempt": true,
+            "two_failed_measurements": true,
+            "available_evidence_reviewed": false
+          }
+        }
+      },
+      {
+        "id": 6,
+        "created_at": "2026-10-10 19:55:17.103903",
+        "text": "Your connection problem remains recorded for technical review. You do not need to repeat the same checks now. The latest simulated check still cannot reach the outdoor equipment; the cause is unconfirmed. Ticket ISP-DDD8F12242C1: OPEN.",
+        "provenance": {
+          "effective_provider": "demo",
+          "classification_call_attempted": false,
+          "reply_call_attempted": false,
+          "fallback_used": false,
+          "response_source": "django_template",
+          "intent": "NO_INTERNET",
+          "fallback_reason": null,
+          "answer_provider": "django",
+          "tool_result": {
+            "executed": false,
+            "reason": "no_new_evidence",
+            "result_code": "CPE_UNREACHABLE",
+            "source": "simulation",
+            "diagnostic_id": 7,
+            "completed_at": "2026-10-10T19:55:06.899650+00:00",
+            "fresh": true
+          },
+          "handoff_state": "SELF_SERVICE",
+          "handoff_result": {
+            "requested": false,
+            "accepted": false,
+            "ticket_created_this_turn": false
+          },
+          "model_call_attempted": false,
+          "model_call_succeeded": false,
+          "classification_succeeded": true,
+          "reply_succeeded": false,
+          "proposed_action": "none",
+          "executed_action": "reuse",
+          "decision": {
+            "proposed": {
+              "action": "ANSWER_CUSTOMER",
+              "required_fact": "none",
+              "reason": ""
+            },
+            "authorized": {
+              "action": "REPORT_EXISTING_TICKET",
+              "required_fact": "",
+              "reason": "Existing authorized ticket; no further questionnaire."
+            },
+            "executed": "REPORT_EXISTING_TICKET",
+            "tool_execution": "reuse",
+            "tool_result": {
+              "executed": false,
+              "reason": "no_new_evidence",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation",
+              "diagnostic_id": 7,
+              "completed_at": "2026-10-10T19:55:06.899650+00:00",
+              "fresh": true
+            }
+          },
+          "reply_validated": false,
+          "model": null,
+          "review_predicates": {
+            "policy_enabled": true,
+            "simulated_cpe_failure": true,
+            "fresh_result": true,
+            "unresolved_outage": true,
+            "guide_presented": true,
+            "reported_attempt": true,
+            "two_failed_measurements": true,
+            "available_evidence_reviewed": false
+          }
+        }
+      }
+    ]
+  },
+  "regressions": {
+    "conversations.test_confirmed_recheck.ConfirmedRecheckTests.test_confirmation_executes_recheck_and_ticket_without_photo": {
+      "before": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:24.791621+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        }
+      ],
+      "after": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:24.791621+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        },
+        {
+          "id": 7,
+          "completed_at": "2026-10-10 20:00:24.810844+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        }
+      ],
+      "result": {
+        "conversation_id": 1,
+        "message": "The simulated result is CPE_UNREACHABLE. Ticket ISP-1951C321EB4A: OPEN.",
+        "language": "en",
+        "intent": "CONFIRM_PHYSICAL_CHECK",
+        "diagnostic": {
+          "id": 7,
+          "result_code": "CPE_UNREACHABLE",
+          "result": "FAILED",
+          "source": "simulation",
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          },
+          "explanation": "Thank you for completing those accessible checks. The new simulated diagnostic still receives no response from the CPE. The issue has been escalated for technical review; you do not need to repeat the same checks now."
+        },
+        "ticket": {
+          "id": "4359cc3e-94fa-4787-b2bd-3776b9cb51f6",
+          "number": "ISP-1951C321EB4A",
+          "status": "OPEN"
+        },
+        "requires_action": "WAIT_FOR_TECHNICAL_REVIEW",
+        "provider_status": "ok",
+        "images": [],
+        "citations": [],
+        "debug": {
+          "chat": {
+            "effective_provider": "openai",
+            "classification_call_attempted": true,
+            "reply_call_attempted": true,
+            "fallback_used": false,
+            "response_source": "openai_generated",
+            "intent": "CONFIRM_PHYSICAL_CHECK",
+            "fallback_reason": null,
+            "answer_provider": "openai",
+            "tool_result": {
+              "executed": true,
+              "reason": "authorized_simulation",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation",
+              "diagnostic_id": 7,
+              "completed_at": "2026-10-10T20:00:24.810844+00:00",
+              "fresh": true,
+              "metrics": {
+                "cpe_online": false,
+                "rssi_dbm": null,
+                "snr_db": null,
+                "latency_ms": null,
+                "packet_loss_percent": null,
+                "download_mbps": null
+              }
+            },
+            "escalation_policy": "confirmed_report_existing_policy",
+            "handoff_state": "HANDOFF_PENDING",
+            "handoff_result": {
+              "requested": false,
+              "accepted": false,
+              "ticket_created_this_turn": true
+            },
+            "model_call_attempted": true,
+            "model_call_succeeded": true,
+            "classification_succeeded": true,
+            "reply_succeeded": true,
+            "proposed_action": "none",
+            "executed_action": "recheck",
+            "decision": {
+              "proposed": {
+                "action": "RUN_AUTHORIZED_RECHECK",
+                "required_fact": "",
+                "reason": "Customer reports completed basic checks."
+              },
+              "authorized": {
+                "action": "REQUEST_TECHNICAL_REVIEW",
+                "required_fact": "",
+                "reason": "Existing confirmed-check escalation policy executed after the authorized result."
+              },
+              "executed": "REQUEST_TECHNICAL_REVIEW",
+              "tool_execution": "recheck",
+              "tool_result": {
+                "executed": true,
+                "reason": "authorized_simulation",
+                "result_code": "CPE_UNREACHABLE",
+                "source": "simulation",
+                "diagnostic_id": 7,
+                "completed_at": "2026-10-10T20:00:24.810844+00:00",
+                "fresh": true,
+                "metrics": {
+                  "cpe_online": false,
+                  "rssi_dbm": null,
+                  "snr_db": null,
+                  "latency_ms": null,
+                  "packet_loss_percent": null,
+                  "download_mbps": null
+                }
+              }
+            },
+            "reply_validated": true,
+            "model": "gpt-4.1-mini",
+            "review_predicates": {
+              "policy_enabled": true,
+              "simulated_cpe_failure": true,
+              "fresh_result": true,
+              "unresolved_outage": true,
+              "guide_presented": true,
+              "reported_attempt": true,
+              "two_failed_measurements": true,
+              "available_evidence_reviewed": false
+            }
+          },
+          "knowledge": {
+            "retrieved_sections": [],
+            "retrieved_sources": [],
+            "equipment_model": null,
+            "conflict": false,
+            "source_mismatch": false,
+            "usage": "none",
+            "retrieval_attempted": true,
+            "retrieval_succeeded": false,
+            "retrieval_error": null,
+            "customer_displayed": false,
+            "internal_citations_retained": false,
+            "citation_origin": "none",
+            "context_injected": false,
+            "injection_reason": "no_matching_sources",
+            "similar_cases": [],
+            "case_context_injected": false
+          }
+        }
+      },
+      "ticket_count": 1,
+      "authorized_recheck_calls": 1,
+      "create_ticket_calls": 1
+    },
+    "conversations.test_confirmed_recheck.ConfirmedRecheckTests.test_confirmation_with_photo_executes_recheck_and_ticket": {
+      "before": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:24.869800+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        }
+      ],
+      "after": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:24.869800+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        },
+        {
+          "id": 7,
+          "completed_at": "2026-10-10 20:00:24.904006+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        }
+      ],
+      "result": {
+        "conversation_id": 1,
+        "message": "The simulated result is CPE_UNREACHABLE. Ticket ISP-3C8E9464BBC7: OPEN.",
+        "language": "en",
+        "intent": "CONFIRM_PHYSICAL_CHECK",
+        "diagnostic": {
+          "id": 7,
+          "result_code": "CPE_UNREACHABLE",
+          "result": "FAILED",
+          "source": "simulation",
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          },
+          "explanation": "Thank you for completing those accessible checks. The new simulated diagnostic still receives no response from the CPE. The issue has been escalated for technical review; you do not need to repeat the same checks now."
+        },
+        "ticket": {
+          "id": "521872d3-c17f-415b-aa77-72dab3b27b7d",
+          "number": "ISP-3C8E9464BBC7",
+          "status": "OPEN"
+        },
+        "requires_action": "WAIT_FOR_TECHNICAL_REVIEW",
+        "provider_status": "ok",
+        "images": [],
+        "citations": [],
+        "debug": {
+          "chat": {
+            "effective_provider": "openai",
+            "classification_call_attempted": true,
+            "reply_call_attempted": true,
+            "fallback_used": false,
+            "response_source": "openai_generated",
+            "intent": "CONFIRM_PHYSICAL_CHECK",
+            "fallback_reason": null,
+            "answer_provider": "openai",
+            "tool_result": {
+              "executed": true,
+              "reason": "authorized_simulation",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation",
+              "diagnostic_id": 7,
+              "completed_at": "2026-10-10T20:00:24.904006+00:00",
+              "fresh": true,
+              "metrics": {
+                "cpe_online": false,
+                "rssi_dbm": null,
+                "snr_db": null,
+                "latency_ms": null,
+                "packet_loss_percent": null,
+                "download_mbps": null
+              }
+            },
+            "escalation_policy": "confirmed_report_existing_policy",
+            "handoff_state": "HANDOFF_PENDING",
+            "handoff_result": {
+              "requested": false,
+              "accepted": false,
+              "ticket_created_this_turn": true
+            },
+            "model_call_attempted": true,
+            "model_call_succeeded": true,
+            "classification_succeeded": true,
+            "reply_succeeded": true,
+            "proposed_action": "none",
+            "executed_action": "recheck",
+            "decision": {
+              "proposed": {
+                "action": "RUN_AUTHORIZED_RECHECK",
+                "required_fact": "",
+                "reason": "Customer reports completed basic checks."
+              },
+              "authorized": {
+                "action": "REQUEST_TECHNICAL_REVIEW",
+                "required_fact": "",
+                "reason": "Existing confirmed-check escalation policy executed after the authorized result."
+              },
+              "executed": "REQUEST_TECHNICAL_REVIEW",
+              "tool_execution": "recheck",
+              "tool_result": {
+                "executed": true,
+                "reason": "authorized_simulation",
+                "result_code": "CPE_UNREACHABLE",
+                "source": "simulation",
+                "diagnostic_id": 7,
+                "completed_at": "2026-10-10T20:00:24.904006+00:00",
+                "fresh": true,
+                "metrics": {
+                  "cpe_online": false,
+                  "rssi_dbm": null,
+                  "snr_db": null,
+                  "latency_ms": null,
+                  "packet_loss_percent": null,
+                  "download_mbps": null
+                }
+              }
+            },
+            "reply_validated": true,
+            "model": "gpt-4.1-mini",
+            "review_predicates": {
+              "policy_enabled": true,
+              "simulated_cpe_failure": true,
+              "fresh_result": true,
+              "unresolved_outage": true,
+              "guide_presented": true,
+              "reported_attempt": true,
+              "two_failed_measurements": true,
+              "available_evidence_reviewed": false
+            }
+          },
+          "knowledge": {
+            "retrieved_sections": [],
+            "retrieved_sources": [],
+            "equipment_model": null,
+            "conflict": false,
+            "source_mismatch": false,
+            "usage": "none",
+            "retrieval_attempted": true,
+            "retrieval_succeeded": false,
+            "retrieval_error": null,
+            "customer_displayed": false,
+            "internal_citations_retained": false,
+            "citation_origin": "none",
+            "context_injected": false,
+            "injection_reason": "no_matching_sources",
+            "similar_cases": [],
+            "case_context_injected": false
+          }
+        },
+        "request_id": "d704e0cc-65dc-4be7-851b-ebef9f30ca8d"
+      },
+      "ticket_count": 1,
+      "authorized_recheck_calls": 1,
+      "create_ticket_calls": 1
+    },
+    "conversations.test_confirmed_recheck.ConfirmedRecheckTests.test_future_recheck_prose_cannot_replace_completed_operations": {
+      "before": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:24.964097+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        }
+      ],
+      "after": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:24.964097+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        },
+        {
+          "id": 7,
+          "completed_at": "2026-10-10 20:00:24.981050+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        }
+      ],
+      "result": {
+        "conversation_id": 1,
+        "message": "You reported power, cable path. These local observations do not prove Internet access. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed. Ticket ISP-85C98C7E534E: OPEN.",
+        "language": "en",
+        "intent": "CONFIRM_PHYSICAL_CHECK",
+        "diagnostic": {
+          "id": 7,
+          "result_code": "CPE_UNREACHABLE",
+          "result": "FAILED",
+          "source": "simulation",
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          },
+          "explanation": "Thank you for completing those accessible checks. The new simulated diagnostic still receives no response from the CPE. The issue has been escalated for technical review; you do not need to repeat the same checks now."
+        },
+        "ticket": {
+          "id": "7632d958-c999-4393-8551-c065162ecbfd",
+          "number": "ISP-85C98C7E534E",
+          "status": "OPEN"
+        },
+        "requires_action": "WAIT_FOR_TECHNICAL_REVIEW",
+        "provider_status": "ok",
+        "images": [],
+        "citations": [],
+        "debug": {
+          "chat": {
+            "effective_provider": "openai",
+            "classification_call_attempted": true,
+            "reply_call_attempted": true,
+            "fallback_used": true,
+            "response_source": "django_template",
+            "intent": "CONFIRM_PHYSICAL_CHECK",
+            "fallback_reason": "missing_ticket_result",
+            "answer_provider": "django",
+            "tool_result": {
+              "executed": true,
+              "reason": "authorized_simulation",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation",
+              "diagnostic_id": 7,
+              "completed_at": "2026-10-10T20:00:24.981050+00:00",
+              "fresh": true,
+              "metrics": {
+                "cpe_online": false,
+                "rssi_dbm": null,
+                "snr_db": null,
+                "latency_ms": null,
+                "packet_loss_percent": null,
+                "download_mbps": null
+              }
+            },
+            "escalation_policy": "confirmed_report_existing_policy",
+            "handoff_state": "HANDOFF_PENDING",
+            "handoff_result": {
+              "requested": false,
+              "accepted": false,
+              "ticket_created_this_turn": true
+            },
+            "model_call_attempted": true,
+            "model_call_succeeded": false,
+            "classification_succeeded": true,
+            "reply_succeeded": false,
+            "proposed_action": "none",
+            "executed_action": "recheck",
+            "decision": {
+              "proposed": {
+                "action": "RUN_AUTHORIZED_RECHECK",
+                "required_fact": "",
+                "reason": "Customer reports completed basic checks."
+              },
+              "authorized": {
+                "action": "REQUEST_TECHNICAL_REVIEW",
+                "required_fact": "",
+                "reason": "Existing confirmed-check escalation policy executed after the authorized result."
+              },
+              "executed": "REQUEST_TECHNICAL_REVIEW",
+              "tool_execution": "recheck",
+              "tool_result": {
+                "executed": true,
+                "reason": "authorized_simulation",
+                "result_code": "CPE_UNREACHABLE",
+                "source": "simulation",
+                "diagnostic_id": 7,
+                "completed_at": "2026-10-10T20:00:24.981050+00:00",
+                "fresh": true,
+                "metrics": {
+                  "cpe_online": false,
+                  "rssi_dbm": null,
+                  "snr_db": null,
+                  "latency_ms": null,
+                  "packet_loss_percent": null,
+                  "download_mbps": null
+                }
+              }
+            },
+            "reply_validated": false,
+            "model": "gpt-4.1-mini",
+            "review_predicates": {
+              "policy_enabled": true,
+              "simulated_cpe_failure": true,
+              "fresh_result": true,
+              "unresolved_outage": true,
+              "guide_presented": true,
+              "reported_attempt": true,
+              "two_failed_measurements": true,
+              "available_evidence_reviewed": false
+            }
+          },
+          "knowledge": {
+            "retrieved_sections": [],
+            "retrieved_sources": [],
+            "equipment_model": null,
+            "conflict": false,
+            "source_mismatch": false,
+            "usage": "none",
+            "retrieval_attempted": true,
+            "retrieval_succeeded": false,
+            "retrieval_error": null,
+            "customer_displayed": false,
+            "internal_citations_retained": false,
+            "citation_origin": "none",
+            "context_injected": false,
+            "injection_reason": "no_matching_sources",
+            "similar_cases": [],
+            "case_context_injected": false
+          }
+        }
+      },
+      "ticket_count": 1,
+      "authorized_recheck_calls": 1,
+      "create_ticket_calls": 1
+    },
+    "conversations.test_confirmed_recheck.ConfirmedRecheckTests.test_inaccessible_after_attempt_uses_existing_review_policy": {
+      "before": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:25.037058+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        }
+      ],
+      "after": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:25.037058+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        },
+        {
+          "id": 7,
+          "completed_at": "2026-10-10 20:00:25.049853+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        }
+      ],
+      "result": {
+        "conversation_id": 1,
+        "message": "The simulated result is CPE_UNREACHABLE. Ticket ISP-5D8556B752B5: OPEN.",
+        "language": "en",
+        "intent": "PHOTO_QUESTION",
+        "diagnostic": {
+          "id": 7,
+          "result_code": "CPE_UNREACHABLE",
+          "result": "FAILED",
+          "source": "simulation",
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          },
+          "explanation": "The CPE is not responding in the simulation; the cause is unconfirmed. Check the PoE injector power and indicators and safely accessible cables and connectors. PoE is only one possible cause. Do not climb onto the roof or handle electrical wiring. Tell me when you have completed the checks so I can run the diagnostic again."
+        },
+        "ticket": {
+          "id": "fdae6f28-c7d1-48d2-aff5-6acd9b85a232",
+          "number": "ISP-5D8556B752B5",
+          "status": "OPEN"
+        },
+        "requires_action": "WAIT_FOR_TECHNICAL_REVIEW",
+        "provider_status": "ok",
+        "images": [],
+        "citations": [],
+        "debug": {
+          "chat": {
+            "effective_provider": "openai",
+            "classification_call_attempted": true,
+            "reply_call_attempted": true,
+            "fallback_used": false,
+            "response_source": "openai_generated",
+            "intent": "PHOTO_QUESTION",
+            "fallback_reason": null,
+            "answer_provider": "openai",
+            "tool_result": {
+              "executed": true,
+              "reason": "authorized_simulation",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation",
+              "diagnostic_id": 7,
+              "completed_at": "2026-10-10T20:00:25.049853+00:00",
+              "fresh": true,
+              "metrics": {
+                "cpe_online": false,
+                "rssi_dbm": null,
+                "snr_db": null,
+                "latency_ms": null,
+                "packet_loss_percent": null,
+                "download_mbps": null
+              }
+            },
+            "escalation_policy": "inconclusive_review_existing_policy",
+            "handoff_state": "HANDOFF_PENDING",
+            "handoff_result": {
+              "requested": false,
+              "accepted": false,
+              "ticket_created_this_turn": true
+            },
+            "model_call_attempted": true,
+            "model_call_succeeded": true,
+            "classification_succeeded": true,
+            "reply_succeeded": true,
+            "proposed_action": "none",
+            "executed_action": "technical_review",
+            "decision": {
+              "proposed": {
+                "action": "RUN_AUTHORIZED_RECHECK",
+                "required_fact": "",
+                "reason": "Customer reports completed basic checks."
+              },
+              "authorized": {
+                "action": "REQUEST_TECHNICAL_REVIEW",
+                "required_fact": "",
+                "reason": "Existing technical-review predicates satisfied by actual measurements and reported evidence."
+              },
+              "executed": "REQUEST_TECHNICAL_REVIEW",
+              "tool_execution": "technical_review",
+              "tool_result": {
+                "executed": true,
+                "reason": "authorized_simulation",
+                "result_code": "CPE_UNREACHABLE",
+                "source": "simulation",
+                "diagnostic_id": 7,
+                "completed_at": "2026-10-10T20:00:25.049853+00:00",
+                "fresh": true,
+                "metrics": {
+                  "cpe_online": false,
+                  "rssi_dbm": null,
+                  "snr_db": null,
+                  "latency_ms": null,
+                  "packet_loss_percent": null,
+                  "download_mbps": null
+                }
+              }
+            },
+            "reply_validated": true,
+            "model": "gpt-4.1-mini",
+            "review_predicates": {
+              "policy_enabled": true,
+              "simulated_cpe_failure": true,
+              "fresh_result": true,
+              "unresolved_outage": true,
+              "guide_presented": true,
+              "reported_attempt": true,
+              "two_failed_measurements": true,
+              "available_evidence_reviewed": true
+            }
+          },
+          "knowledge": {
+            "retrieved_sections": [],
+            "retrieved_sources": [],
+            "equipment_model": null,
+            "conflict": false,
+            "source_mismatch": false,
+            "usage": "none",
+            "retrieval_attempted": true,
+            "retrieval_succeeded": false,
+            "retrieval_error": null,
+            "customer_displayed": false,
+            "internal_citations_retained": false,
+            "citation_origin": "none",
+            "context_injected": false,
+            "injection_reason": "no_matching_sources",
+            "similar_cases": [],
+            "case_context_injected": false
+          }
+        }
+      },
+      "ticket_count": 1,
+      "authorized_recheck_calls": 1,
+      "create_ticket_calls": 1
+    },
+    "conversations.test_confirmed_recheck.ConfirmedRecheckTests.test_initial_healthy_service_has_one_measurement_no_ticket": {
+      "passed": true
+    },
+    "conversations.test_confirmed_recheck.ConfirmedRecheckTests.test_invalid_output_preserves_confirmation_and_executes": {
+      "before": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:25.153486+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        }
+      ],
+      "after": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:25.153486+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        },
+        {
+          "id": 7,
+          "completed_at": "2026-10-10 20:00:25.173417+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        }
+      ],
+      "result": {
+        "conversation_id": 1,
+        "message": "Thank you for completing those accessible checks. The new simulated diagnostic still receives no response from the CPE. The issue has been escalated for technical review; you do not need to repeat the same checks now. Your issue is recorded under ticket ISP-AEF899B42004. No visit or repair has been confirmed.",
+        "language": "en",
+        "intent": "CONFIRM_PHYSICAL_CHECK",
+        "diagnostic": {
+          "id": 7,
+          "result_code": "CPE_UNREACHABLE",
+          "result": "FAILED",
+          "source": "simulation",
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          },
+          "explanation": "Thank you for completing those accessible checks. The new simulated diagnostic still receives no response from the CPE. The issue has been escalated for technical review; you do not need to repeat the same checks now."
+        },
+        "ticket": {
+          "id": "2bc746a7-5ac3-4c29-9886-a62352c34750",
+          "number": "ISP-AEF899B42004",
+          "status": "OPEN"
+        },
+        "requires_action": "WAIT_FOR_TECHNICAL_REVIEW",
+        "provider_status": "unavailable",
+        "images": [],
+        "citations": [],
+        "debug": {
+          "chat": {
+            "effective_provider": "openai",
+            "classification_call_attempted": true,
+            "reply_call_attempted": false,
+            "fallback_used": true,
+            "response_source": "django_template",
+            "intent": "CONFIRM_PHYSICAL_CHECK",
+            "fallback_reason": "invalid_output",
+            "answer_provider": "django",
+            "tool_result": {
+              "executed": true,
+              "reason": "authorized_simulation",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation",
+              "diagnostic_id": 7,
+              "completed_at": "2026-10-10T20:00:25.173417+00:00",
+              "fresh": true,
+              "metrics": {
+                "cpe_online": false,
+                "rssi_dbm": null,
+                "snr_db": null,
+                "latency_ms": null,
+                "packet_loss_percent": null,
+                "download_mbps": null
+              }
+            },
+            "escalation_policy": "confirmed_report_existing_policy",
+            "handoff_state": "HANDOFF_PENDING",
+            "handoff_result": {
+              "requested": false,
+              "accepted": false,
+              "ticket_created_this_turn": true
+            },
+            "model_call_attempted": true,
+            "model_call_succeeded": false,
+            "classification_succeeded": false,
+            "reply_succeeded": false,
+            "proposed_action": "none",
+            "executed_action": "recheck",
+            "decision": {
+              "proposed": {
+                "action": "ANSWER_CUSTOMER",
+                "required_fact": "none",
+                "reason": ""
+              },
+              "authorized": {
+                "action": "REQUEST_TECHNICAL_REVIEW",
+                "required_fact": "",
+                "reason": "Existing confirmed-check escalation policy executed after the authorized result."
+              },
+              "executed": "REQUEST_TECHNICAL_REVIEW",
+              "tool_execution": "recheck",
+              "tool_result": {
+                "executed": true,
+                "reason": "authorized_simulation",
+                "result_code": "CPE_UNREACHABLE",
+                "source": "simulation",
+                "diagnostic_id": 7,
+                "completed_at": "2026-10-10T20:00:25.173417+00:00",
+                "fresh": true,
+                "metrics": {
+                  "cpe_online": false,
+                  "rssi_dbm": null,
+                  "snr_db": null,
+                  "latency_ms": null,
+                  "packet_loss_percent": null,
+                  "download_mbps": null
+                }
+              }
+            },
+            "reply_validated": false,
+            "model": "gpt-4.1-mini",
+            "review_predicates": {
+              "policy_enabled": true,
+              "simulated_cpe_failure": true,
+              "fresh_result": true,
+              "unresolved_outage": true,
+              "guide_presented": true,
+              "reported_attempt": true,
+              "two_failed_measurements": true,
+              "available_evidence_reviewed": false
+            }
+          },
+          "knowledge": {
+            "retrieved_sections": [],
+            "retrieved_sources": [],
+            "equipment_model": null,
+            "conflict": false,
+            "source_mismatch": false,
+            "usage": "none",
+            "retrieval_attempted": true,
+            "retrieval_succeeded": false,
+            "retrieval_error": null,
+            "customer_displayed": false,
+            "internal_citations_retained": false,
+            "citation_origin": "none",
+            "context_injected": false,
+            "injection_reason": "no_generation_call",
+            "similar_cases": [],
+            "case_context_injected": false
+          }
+        }
+      },
+      "ticket_count": 1,
+      "authorized_recheck_calls": 1,
+      "create_ticket_calls": 1
+    },
+    "conversations.test_confirmed_recheck.ConfirmedRecheckTests.test_rate_limit_reuses_actual_result_under_existing_confirmed_check_policy": {
+      "before": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:25.242148+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        }
+      ],
+      "after": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:25.242148+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        }
+      ],
+      "result": {
+        "conversation_id": 1,
+        "message": "You reported power, cable path. These local observations do not prove Internet access. The recheck rate limit was reached; the existing result was reused. The available simulated check cannot reach the outdoor equipment; the cause remains unconfirmed. Ticket ISP-AC9F520E3EFC: OPEN.",
+        "language": "en",
+        "intent": "CONFIRM_PHYSICAL_CHECK",
+        "diagnostic": {
+          "id": 6,
+          "result_code": "CPE_UNREACHABLE",
+          "result": "FAILED",
+          "source": "simulation",
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          },
+          "explanation": "Thank you for completing those accessible checks. The new simulated diagnostic still receives no response from the CPE. The issue has been escalated for technical review; you do not need to repeat the same checks now."
+        },
+        "ticket": {
+          "id": "d83ba10b-a332-4017-bd10-2eab4f54a1df",
+          "number": "ISP-AC9F520E3EFC",
+          "status": "OPEN"
+        },
+        "requires_action": "WAIT_FOR_TECHNICAL_REVIEW",
+        "provider_status": "ok",
+        "images": [],
+        "citations": [],
+        "debug": {
+          "chat": {
+            "effective_provider": "openai",
+            "classification_call_attempted": true,
+            "reply_call_attempted": true,
+            "fallback_used": true,
+            "response_source": "django_template",
+            "intent": "CONFIRM_PHYSICAL_CHECK",
+            "fallback_reason": "missing_tool_reuse_reason",
+            "answer_provider": "django",
+            "tool_result": {
+              "executed": false,
+              "reason": "frequency_limit",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation",
+              "diagnostic_id": 6,
+              "completed_at": "2026-10-10T20:00:25.242148+00:00",
+              "fresh": true
+            },
+            "escalation_policy": "confirmed_report_existing_policy",
+            "handoff_state": "HANDOFF_PENDING",
+            "handoff_result": {
+              "requested": false,
+              "accepted": false,
+              "ticket_created_this_turn": true
+            },
+            "model_call_attempted": true,
+            "model_call_succeeded": false,
+            "classification_succeeded": true,
+            "reply_succeeded": false,
+            "proposed_action": "none",
+            "executed_action": "reuse",
+            "decision": {
+              "proposed": {
+                "action": "RUN_AUTHORIZED_RECHECK",
+                "required_fact": "",
+                "reason": "Customer reports completed basic checks."
+              },
+              "authorized": {
+                "action": "REQUEST_TECHNICAL_REVIEW",
+                "required_fact": "",
+                "reason": "Existing confirmed-check escalation policy executed after the authorized result."
+              },
+              "executed": "REQUEST_TECHNICAL_REVIEW",
+              "tool_execution": "reuse",
+              "tool_result": {
+                "executed": false,
+                "reason": "frequency_limit",
+                "result_code": "CPE_UNREACHABLE",
+                "source": "simulation",
+                "diagnostic_id": 6,
+                "completed_at": "2026-10-10T20:00:25.242148+00:00",
+                "fresh": true
+              }
+            },
+            "reply_validated": false,
+            "model": "gpt-4.1-mini",
+            "review_predicates": {
+              "policy_enabled": true,
+              "simulated_cpe_failure": true,
+              "fresh_result": true,
+              "unresolved_outage": true,
+              "guide_presented": true,
+              "reported_attempt": true,
+              "two_failed_measurements": false,
+              "available_evidence_reviewed": false
+            }
+          },
+          "knowledge": {
+            "retrieved_sections": [],
+            "retrieved_sources": [],
+            "equipment_model": null,
+            "conflict": false,
+            "source_mismatch": false,
+            "usage": "none",
+            "retrieval_attempted": true,
+            "retrieval_succeeded": false,
+            "retrieval_error": null,
+            "customer_displayed": false,
+            "internal_citations_retained": false,
+            "citation_origin": "none",
+            "context_injected": false,
+            "injection_reason": "no_matching_sources",
+            "similar_cases": [],
+            "case_context_injected": false
+          }
+        }
+      },
+      "ticket_count": 1,
+      "authorized_recheck_calls": 1,
+      "create_ticket_calls": 1
+    },
+    "conversations.test_confirmed_recheck.ConfirmedRecheckTests.test_restored_service_does_not_create_ticket": {
+      "before": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:25.316555+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        }
+      ],
+      "after": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:25.316555+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        },
+        {
+          "id": 7,
+          "completed_at": "2026-10-10 20:00:25.335529+00:00",
+          "result_code": "NO_FAULT_DETECTED"
+        }
+      ],
+      "result": {
+        "conversation_id": 1,
+        "message": "The simulated result is NO_FAULT_DETECTED.",
+        "language": "en",
+        "intent": "CONFIRM_PHYSICAL_CHECK",
+        "diagnostic": {
+          "id": 7,
+          "result_code": "NO_FAULT_DETECTED",
+          "result": "PASSED",
+          "source": "simulation",
+          "metrics": {
+            "cpe_online": true,
+            "rssi_dbm": -58,
+            "snr_db": 30,
+            "latency_ms": 12,
+            "packet_loss_percent": 0,
+            "download_mbps": 95.0
+          },
+          "explanation": "The new simulated metrics show no connectivity fault. Please confirm whether you can browse; this does not prove a repair on real equipment."
+        },
+        "ticket": null,
+        "requires_action": "CONFIRM_WITH_CUSTOMER",
+        "provider_status": "ok",
+        "images": [],
+        "citations": [],
+        "debug": {
+          "chat": {
+            "effective_provider": "openai",
+            "classification_call_attempted": true,
+            "reply_call_attempted": true,
+            "fallback_used": false,
+            "response_source": "openai_generated",
+            "intent": "CONFIRM_PHYSICAL_CHECK",
+            "fallback_reason": null,
+            "answer_provider": "openai",
+            "tool_result": {
+              "executed": true,
+              "reason": "authorized_simulation",
+              "result_code": "NO_FAULT_DETECTED",
+              "source": "simulation",
+              "diagnostic_id": 7,
+              "completed_at": "2026-10-10T20:00:25.335529+00:00",
+              "fresh": true,
+              "metrics": {
+                "cpe_online": true,
+                "rssi_dbm": -58,
+                "snr_db": 30,
+                "latency_ms": 12,
+                "packet_loss_percent": 0,
+                "download_mbps": 95.0
+              }
+            },
+            "escalation_policy": "not_applied",
+            "handoff_state": "SELF_SERVICE",
+            "handoff_result": {
+              "requested": false,
+              "accepted": false,
+              "ticket_created_this_turn": false
+            },
+            "model_call_attempted": true,
+            "model_call_succeeded": true,
+            "classification_succeeded": true,
+            "reply_succeeded": true,
+            "proposed_action": "none",
+            "executed_action": "recheck",
+            "decision": {
+              "proposed": {
+                "action": "RUN_AUTHORIZED_RECHECK",
+                "required_fact": "",
+                "reason": "Customer reports completed basic checks."
+              },
+              "authorized": {
+                "action": "RUN_AUTHORIZED_RECHECK",
+                "required_fact": "",
+                "reason": "Guided checks attempted; read-only measurement is more useful than port labels."
+              },
+              "executed": "RUN_AUTHORIZED_RECHECK",
+              "tool_execution": "recheck",
+              "tool_result": {
+                "executed": true,
+                "reason": "authorized_simulation",
+                "result_code": "NO_FAULT_DETECTED",
+                "source": "simulation",
+                "diagnostic_id": 7,
+                "completed_at": "2026-10-10T20:00:25.335529+00:00",
+                "fresh": true,
+                "metrics": {
+                  "cpe_online": true,
+                  "rssi_dbm": -58,
+                  "snr_db": 30,
+                  "latency_ms": 12,
+                  "packet_loss_percent": 0,
+                  "download_mbps": 95.0
+                }
+              }
+            },
+            "reply_validated": true,
+            "model": "gpt-4.1-mini",
+            "review_predicates": {
+              "policy_enabled": true,
+              "simulated_cpe_failure": false,
+              "fresh_result": true,
+              "unresolved_outage": true,
+              "guide_presented": true,
+              "reported_attempt": true,
+              "two_failed_measurements": false,
+              "available_evidence_reviewed": false
+            }
+          },
+          "knowledge": {
+            "retrieved_sections": [],
+            "retrieved_sources": [],
+            "equipment_model": null,
+            "conflict": false,
+            "source_mismatch": false,
+            "usage": "none",
+            "retrieval_attempted": true,
+            "retrieval_succeeded": false,
+            "retrieval_error": null,
+            "customer_displayed": false,
+            "internal_citations_retained": false,
+            "citation_origin": "none",
+            "context_injected": false,
+            "injection_reason": "no_matching_sources",
+            "similar_cases": [],
+            "case_context_injected": false
+          }
+        }
+      },
+      "ticket_count": 0,
+      "authorized_recheck_calls": 1,
+      "create_ticket_calls": 0
+    },
+    "conversations.test_confirmed_recheck.ConfirmedRecheckTests.test_reused_actual_measurement_cannot_be_described_as_future_recheck": {
+      "passed": true
+    },
+    "conversations.test_confirmed_recheck.ConfirmedRecheckTests.test_spanish_confirmation_executes": {
+      "before": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:25.459281+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        }
+      ],
+      "after": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:25.459281+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        },
+        {
+          "id": 7,
+          "completed_at": "2026-10-10 20:00:25.477793+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        }
+      ],
+      "result": {
+        "conversation_id": 1,
+        "message": "El resultado simulado es CPE_UNREACHABLE. Ticket ISP-7CE5B1619C02: OPEN.",
+        "language": "es",
+        "intent": "CONFIRM_PHYSICAL_CHECK",
+        "diagnostic": {
+          "id": 7,
+          "result_code": "CPE_UNREACHABLE",
+          "result": "FAILED",
+          "source": "simulation",
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          },
+          "explanation": "Gracias por realizar esas comprobaciones accesibles. El nuevo diagnóstico simulado sigue sin obtener respuesta de la CPE. La incidencia queda escalada para revisión técnica; no necesitas repetir ahora las mismas comprobaciones."
+        },
+        "ticket": {
+          "id": "3fb88c55-8c2e-43d1-b8dd-4ab8dbfec7cd",
+          "number": "ISP-7CE5B1619C02",
+          "status": "OPEN"
+        },
+        "requires_action": "WAIT_FOR_TECHNICAL_REVIEW",
+        "provider_status": "ok",
+        "images": [],
+        "citations": [],
+        "debug": {
+          "chat": {
+            "effective_provider": "openai",
+            "classification_call_attempted": true,
+            "reply_call_attempted": true,
+            "fallback_used": false,
+            "response_source": "openai_generated",
+            "intent": "CONFIRM_PHYSICAL_CHECK",
+            "fallback_reason": null,
+            "answer_provider": "openai",
+            "tool_result": {
+              "executed": true,
+              "reason": "authorized_simulation",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation",
+              "diagnostic_id": 7,
+              "completed_at": "2026-10-10T20:00:25.477793+00:00",
+              "fresh": true,
+              "metrics": {
+                "cpe_online": false,
+                "rssi_dbm": null,
+                "snr_db": null,
+                "latency_ms": null,
+                "packet_loss_percent": null,
+                "download_mbps": null
+              }
+            },
+            "escalation_policy": "confirmed_report_existing_policy",
+            "handoff_state": "HANDOFF_PENDING",
+            "handoff_result": {
+              "requested": false,
+              "accepted": false,
+              "ticket_created_this_turn": true
+            },
+            "model_call_attempted": true,
+            "model_call_succeeded": true,
+            "classification_succeeded": true,
+            "reply_succeeded": true,
+            "proposed_action": "none",
+            "executed_action": "recheck",
+            "decision": {
+              "proposed": {
+                "action": "RUN_AUTHORIZED_RECHECK",
+                "required_fact": "",
+                "reason": "Customer reports completed basic checks."
+              },
+              "authorized": {
+                "action": "REQUEST_TECHNICAL_REVIEW",
+                "required_fact": "",
+                "reason": "Existing confirmed-check escalation policy executed after the authorized result."
+              },
+              "executed": "REQUEST_TECHNICAL_REVIEW",
+              "tool_execution": "recheck",
+              "tool_result": {
+                "executed": true,
+                "reason": "authorized_simulation",
+                "result_code": "CPE_UNREACHABLE",
+                "source": "simulation",
+                "diagnostic_id": 7,
+                "completed_at": "2026-10-10T20:00:25.477793+00:00",
+                "fresh": true,
+                "metrics": {
+                  "cpe_online": false,
+                  "rssi_dbm": null,
+                  "snr_db": null,
+                  "latency_ms": null,
+                  "packet_loss_percent": null,
+                  "download_mbps": null
+                }
+              }
+            },
+            "reply_validated": true,
+            "model": "gpt-4.1-mini",
+            "review_predicates": {
+              "policy_enabled": true,
+              "simulated_cpe_failure": true,
+              "fresh_result": true,
+              "unresolved_outage": true,
+              "guide_presented": true,
+              "reported_attempt": true,
+              "two_failed_measurements": true,
+              "available_evidence_reviewed": false
+            }
+          },
+          "knowledge": {
+            "retrieved_sections": [],
+            "retrieved_sources": [],
+            "equipment_model": null,
+            "conflict": false,
+            "source_mismatch": false,
+            "usage": "none",
+            "retrieval_attempted": true,
+            "retrieval_succeeded": false,
+            "retrieval_error": null,
+            "customer_displayed": false,
+            "internal_citations_retained": false,
+            "citation_origin": "none",
+            "context_injected": false,
+            "injection_reason": "no_matching_sources",
+            "similar_cases": [],
+            "case_context_injected": false
+          }
+        }
+      },
+      "ticket_count": 1,
+      "authorized_recheck_calls": 1,
+      "create_ticket_calls": 1
+    },
+    "conversations.test_confirmed_recheck.ConfirmedRecheckTests.test_stale_rate_limited_result_is_not_used_to_create_ticket": {
+      "passed": true
+    },
+    "conversations.test_confirmed_recheck.ConfirmedRecheckTests.test_timeout_preserves_confirmation_and_executes": {
+      "before": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:25.593117+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        }
+      ],
+      "after": [
+        {
+          "id": 6,
+          "completed_at": "2026-10-10 20:00:25.593117+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        },
+        {
+          "id": 7,
+          "completed_at": "2026-10-10 20:00:25.611630+00:00",
+          "result_code": "CPE_UNREACHABLE"
+        }
+      ],
+      "result": {
+        "conversation_id": 1,
+        "message": "Thank you for completing those accessible checks. The new simulated diagnostic still receives no response from the CPE. The issue has been escalated for technical review; you do not need to repeat the same checks now. Your issue is recorded under ticket ISP-0F169CAB9CCF. No visit or repair has been confirmed.",
+        "language": "en",
+        "intent": "CONFIRM_PHYSICAL_CHECK",
+        "diagnostic": {
+          "id": 7,
+          "result_code": "CPE_UNREACHABLE",
+          "result": "FAILED",
+          "source": "simulation",
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          },
+          "explanation": "Thank you for completing those accessible checks. The new simulated diagnostic still receives no response from the CPE. The issue has been escalated for technical review; you do not need to repeat the same checks now."
+        },
+        "ticket": {
+          "id": "47650e6b-ef93-4aad-bbae-ad7c549ca23e",
+          "number": "ISP-0F169CAB9CCF",
+          "status": "OPEN"
+        },
+        "requires_action": "WAIT_FOR_TECHNICAL_REVIEW",
+        "provider_status": "unavailable",
+        "images": [],
+        "citations": [],
+        "debug": {
+          "chat": {
+            "effective_provider": "openai",
+            "classification_call_attempted": true,
+            "reply_call_attempted": false,
+            "fallback_used": true,
+            "response_source": "django_template",
+            "intent": "CONFIRM_PHYSICAL_CHECK",
+            "fallback_reason": "timeout",
+            "answer_provider": "django",
+            "tool_result": {
+              "executed": true,
+              "reason": "authorized_simulation",
+              "result_code": "CPE_UNREACHABLE",
+              "source": "simulation",
+              "diagnostic_id": 7,
+              "completed_at": "2026-10-10T20:00:25.611630+00:00",
+              "fresh": true,
+              "metrics": {
+                "cpe_online": false,
+                "rssi_dbm": null,
+                "snr_db": null,
+                "latency_ms": null,
+                "packet_loss_percent": null,
+                "download_mbps": null
+              }
+            },
+            "escalation_policy": "confirmed_report_existing_policy",
+            "handoff_state": "HANDOFF_PENDING",
+            "handoff_result": {
+              "requested": false,
+              "accepted": false,
+              "ticket_created_this_turn": true
+            },
+            "model_call_attempted": true,
+            "model_call_succeeded": false,
+            "classification_succeeded": false,
+            "reply_succeeded": false,
+            "proposed_action": "none",
+            "executed_action": "recheck",
+            "decision": {
+              "proposed": {
+                "action": "ANSWER_CUSTOMER",
+                "required_fact": "none",
+                "reason": ""
+              },
+              "authorized": {
+                "action": "REQUEST_TECHNICAL_REVIEW",
+                "required_fact": "",
+                "reason": "Existing confirmed-check escalation policy executed after the authorized result."
+              },
+              "executed": "REQUEST_TECHNICAL_REVIEW",
+              "tool_execution": "recheck",
+              "tool_result": {
+                "executed": true,
+                "reason": "authorized_simulation",
+                "result_code": "CPE_UNREACHABLE",
+                "source": "simulation",
+                "diagnostic_id": 7,
+                "completed_at": "2026-10-10T20:00:25.611630+00:00",
+                "fresh": true,
+                "metrics": {
+                  "cpe_online": false,
+                  "rssi_dbm": null,
+                  "snr_db": null,
+                  "latency_ms": null,
+                  "packet_loss_percent": null,
+                  "download_mbps": null
+                }
+              }
+            },
+            "reply_validated": false,
+            "model": "gpt-4.1-mini",
+            "review_predicates": {
+              "policy_enabled": true,
+              "simulated_cpe_failure": true,
+              "fresh_result": true,
+              "unresolved_outage": true,
+              "guide_presented": true,
+              "reported_attempt": true,
+              "two_failed_measurements": true,
+              "available_evidence_reviewed": false
+            }
+          },
+          "knowledge": {
+            "retrieved_sections": [],
+            "retrieved_sources": [],
+            "equipment_model": null,
+            "conflict": false,
+            "source_mismatch": false,
+            "usage": "none",
+            "retrieval_attempted": true,
+            "retrieval_succeeded": false,
+            "retrieval_error": null,
+            "customer_displayed": false,
+            "internal_citations_retained": false,
+            "citation_origin": "none",
+            "context_injected": false,
+            "injection_reason": "no_generation_call",
+            "similar_cases": [],
+            "case_context_injected": false
+          }
+        }
+      },
+      "ticket_count": 1,
+      "authorized_recheck_calls": 1,
+      "create_ticket_calls": 1
+    },
+    "conversations.test_confirmed_recheck.ConfirmedRecheckTests.test_tool_failure_never_claims_second_measurement_or_ticket": {
+      "passed": true
+    }
+  }
+}

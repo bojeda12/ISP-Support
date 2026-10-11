@@ -1,0 +1,677 @@
+{
+  "before_actual_conversation_14": [
+    {
+      "sender": "customer",
+      "text": "i dont have internet",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "It appears your customer premises equipment (CPE) is unreachable, meaning the device that connects you to the internet is not currently accessible. This could be due to the device being offline or disconnected from the network. Do you have access to the device's label or model to help identify it?",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": false,
+        "response_source": "openai_generated",
+        "intent": "NO_INTERNET",
+        "fallback_reason": null,
+        "answer_provider": "openai",
+        "tool_result": {
+          "executed": true,
+          "reason": "authorized_simulation",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation",
+          "diagnostic_id": 35,
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          }
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "yes ithink everithing looks fine, cables are connected",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "The modem or router has Ethernet cables plugged into both the first Ethernet port and the Internet port. Each of these ports shows both red and green LED lights, which indicates some activity but does not clearly confirm proper network connectivity. To better understand the status, could you please check if the Ethernet ports have any labels or names near them?",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": false,
+        "response_source": "openai_generated",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": null,
+        "answer_provider": "openai",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "no it doest not have any labels",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "The device in the photo appears to be a modem or router with several Ethernet ports, some of which have cables visibly plugged in. The Ethernet ports show red and green LED lights, which suggests some level of connection activity, but without labels on the ports, it's unclear which is the Internet or LAN port. Could you please confirm if any port near the plugged cables has printed text or symbols nearby, even if not a full label? This will help determine the correct connections.",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": false,
+        "response_source": "openai_generated",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": null,
+        "answer_provider": "openai",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "the tellow wire says internet and the back one is connected to  ethernet, power is connected too",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "You mentioned the yellow wire labeled 'Internet' is connected to the device's Internet port, and another cable is connected to an Ethernet port, with power also connected. This matches the observed photo showing cables plugged into the Internet and Ethernet ports with some red and green lights on LEDs. Since the LED colors are unclear for status and the diagnostic says the device is unreachable, can you please confirm the exact label on the Ethernet port cable?",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": false,
+        "response_source": "openai_generated",
+        "intent": "EQUIPMENT_CLARIFICATION",
+        "fallback_reason": null,
+        "answer_provider": "openai",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "is number 4 i think",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "I can give limited guidance based on the information currently available. I cannot confirm whether this is normal from a photo alone. Look at the label beside the light and whether it is steady or blinking; that helps distinguish power from an Ethernet link. Visually check accessible Ethernet plugs for a seated connector and obvious cable damage, then observe the labeled link indicator without unplugging unfamiliar wiring. A connected plug does not prove cable integrity or Internet access. Which connection are you uncertain about?",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": true,
+        "response_source": "reply_error_fallback",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": "invalid_output",
+        "answer_provider": "django",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "black one is connected in port 4",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "You mentioned the black cable is connected to port 4, but the photo shows cables in the first Ethernet port and the Internet port. Also, the LED lights on those ports show red and green, whose exact status is unclear. Could you please confirm if port 4 is visible in another photo, or if the black cable in port 4 has any LED lights on near it?",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": false,
+        "response_source": "openai_generated",
+        "intent": "EQUIPMENT_CLARIFICATION",
+        "fallback_reason": null,
+        "answer_provider": "openai",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "yeo that has red and green light",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "The device shows red and green lights near the Ethernet ports, which usually indicate some form of link and activity or speed, but their exact meaning is unclear here. The cables appear seated in Ethernet port 4 and the Internet port as stated, but we can't confirm connectivity from the lights alone. Could you please confirm if either Ethernet port has a label or number visible?",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": false,
+        "response_source": "openai_generated",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": null,
+        "answer_provider": "openai",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "yes are visible is port foru already told you",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "You confirmed that the black Ethernet cable is connected to port 4 on your device, and this port shows red and green lights. These lights usually indicate some link and activity, but without exact model details, we can't be sure. To help further, could you please confirm what label, if any, is on or near port 4?",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": false,
+        "response_source": "openai_generated",
+        "intent": "EQUIPMENT_CLARIFICATION",
+        "fallback_reason": null,
+        "answer_provider": "openai",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "i dont understan the question i already give you all the information i have",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "I see you have Ethernet cables connected, including the one labeled \"internet\", and the LED lights on port 4 and the Internet port show red and green colors. However, the meaning of these lights is unclear and the equipment's internet connectivity cannot be confirmed from the photo. Could you please provide a photo showing the front or other side of the device to check for any additional indicators or labels?",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": false,
+        "response_source": "openai_generated",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": null,
+        "answer_provider": "openai",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "is this goo",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "I can give limited guidance based on the information currently available. I cannot confirm whether this is normal from a photo alone. The equipment is a Fontera model modem/router. The image does not clearly show the presence or absence of any goo or sticky substance on the device. Visually check accessible Ethernet plugs for a seated connector and obvious cable damage, then observe the labeled link indicator without unplugging unfamiliar wiring. A connected plug does not prove cable integrity or Internet access. Could you show the front of that device, without private information, so we can inspect its labeled indicators?",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": true,
+        "response_source": "reply_error_fallback",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": "redundant_evidence_request",
+        "answer_provider": "django",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "i still dont have internet and i showed you the device internet is connected i have one black wire conected and the lights you see in the last pic is everithing i have",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "Your device is a Fontera modem/router with several green lights on the front panel, indicating some power and device activity. The Ethernet ports have cables plugged in, with red and green lights visible on port 4 and the Internet port, which usually indicate link and activity, but their exact meaning for your model is unclear. Since connectivity isn’t confirmed and the diagnostic shows the device is currently unreachable, could you please provide a clear photo showing the back of the device with all connected cables and their port labels? This will help confirm the correct connections.",
+      "provenance": {
+        "effective_provider": "openai",
+        "classification_call_attempted": true,
+        "reply_call_attempted": true,
+        "fallback_used": false,
+        "response_source": "openai_generated",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": null,
+        "answer_provider": "openai",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        }
+      }
+    }
+  ],
+  "after_isolated_demo_exact_sequence": [
+    {
+      "turn": 2,
+      "message": "This is simulated analysis: the photo was not interpreted. I can provide general guidance, but cannot verify the visible lights or connections. Visually check accessible Ethernet plugs for a seated connector and obvious cable damage, then observe the labeled link indicator without unplugging unfamiliar wiring. A connected plug does not prove cable integrity or Internet access. Could you show the front of that device, without private information, so we can inspect its labeled indicators?",
+      "trace": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "demo_template",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": null,
+        "answer_provider": "demo",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "request_photo",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      },
+      "ticket": null,
+      "diagnostic": null
+    },
+    {
+      "turn": 3,
+      "message": "We are still working on your reported connection problem. Are you describing the photographed equipment, an indicator, or checks you completed? The latest simulated check still cannot reach the outdoor equipment; the cause is unconfirmed.",
+      "trace": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "demo_template",
+        "intent": "OTHER",
+        "fallback_reason": null,
+        "answer_provider": "demo",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      },
+      "ticket": null,
+      "diagnostic": null
+    },
+    {
+      "turn": 4,
+      "message": "This is simulated analysis: the photo was not interpreted. I can provide general guidance, but cannot verify the visible lights or connections. Visually check accessible Ethernet plugs for a seated connector and obvious cable damage, then observe the labeled link indicator without unplugging unfamiliar wiring. A connected plug does not prove cable integrity or Internet access. The latest simulated check still cannot reach the outdoor equipment; the cause is unconfirmed.",
+      "trace": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "demo_template",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": null,
+        "answer_provider": "demo",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      },
+      "ticket": null,
+      "diagnostic": null
+    },
+    {
+      "turn": 5,
+      "message": "We are still working on your reported connection problem. Are you describing the photographed equipment, an indicator, or checks you completed? The latest simulated check still cannot reach the outdoor equipment; the cause is unconfirmed.",
+      "trace": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "demo_template",
+        "intent": "OTHER",
+        "fallback_reason": null,
+        "answer_provider": "demo",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      },
+      "ticket": null,
+      "diagnostic": null
+    },
+    {
+      "turn": 6,
+      "message": "We are still working on your reported connection problem. Are you describing the photographed equipment, an indicator, or checks you completed? The latest simulated check still cannot reach the outdoor equipment; the cause is unconfirmed.",
+      "trace": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "demo_template",
+        "intent": "OTHER",
+        "fallback_reason": null,
+        "answer_provider": "demo",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      },
+      "ticket": null,
+      "diagnostic": null
+    },
+    {
+      "turn": 7,
+      "message": "We are still working on your reported connection problem. Are you describing the photographed equipment, an indicator, or checks you completed? The latest simulated check still cannot reach the outdoor equipment; the cause is unconfirmed.",
+      "trace": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "demo_template",
+        "intent": "OTHER",
+        "fallback_reason": null,
+        "answer_provider": "demo",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      },
+      "ticket": null,
+      "diagnostic": null
+    },
+    {
+      "turn": 8,
+      "message": "We are still working on your reported connection problem. Are you describing the photographed equipment, an indicator, or checks you completed? The latest simulated check still cannot reach the outdoor equipment; the cause is unconfirmed.",
+      "trace": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "demo_template",
+        "intent": "OTHER",
+        "fallback_reason": null,
+        "answer_provider": "demo",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      },
+      "ticket": null,
+      "diagnostic": null
+    },
+    {
+      "turn": 9,
+      "message": "We are still working on your reported connection problem. Are you describing the photographed equipment, an indicator, or checks you completed? The latest simulated check still cannot reach the outdoor equipment; the cause is unconfirmed.",
+      "trace": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "demo_template",
+        "intent": "OTHER",
+        "fallback_reason": null,
+        "answer_provider": "demo",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      },
+      "ticket": null,
+      "diagnostic": null
+    },
+    {
+      "turn": 10,
+      "message": "The simulated network check still cannot reach your outdoor equipment. Your troubleshooting attempts provide enough information for technical review; further uncertain checks are not required now. Your issue is recorded under ticket ISP-68F5C3EC3828. No visit or repair has been confirmed.",
+      "trace": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "demo_template",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": null,
+        "answer_provider": "demo",
+        "tool_result": {
+          "executed": true,
+          "reason": "authorized_simulation",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation",
+          "diagnostic_id": 7,
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          }
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "technical_review",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": true,
+          "available_evidence_reviewed": true
+        }
+      },
+      "ticket": {
+        "id": "e3dfc923-11df-4755-bdea-401f27df65b4",
+        "number": "ISP-68F5C3EC3828",
+        "status": "OPEN"
+      },
+      "diagnostic": {
+        "id": 7,
+        "result_code": "CPE_UNREACHABLE",
+        "result": "FAILED",
+        "source": "simulation",
+        "metrics": {
+          "cpe_online": false,
+          "rssi_dbm": null,
+          "snr_db": null,
+          "latency_ms": null,
+          "packet_loss_percent": null,
+          "download_mbps": null
+        },
+        "explanation": "The CPE is not responding in the simulation; the cause is unconfirmed. Check the PoE injector power and indicators and safely accessible cables and connectors. PoE is only one possible cause. Do not climb onto the roof or handle electrical wiring. Tell me when you have completed the checks so I can run the diagnostic again."
+      }
+    },
+    {
+      "turn": 11,
+      "message": "The simulated network check still cannot reach your outdoor equipment. Your troubleshooting attempts provide enough information for technical review; further uncertain checks are not required now. Your issue is recorded under ticket ISP-68F5C3EC3828. No visit or repair has been confirmed.",
+      "trace": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "demo_template",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": null,
+        "answer_provider": "demo",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "technical_review",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": true,
+          "available_evidence_reviewed": true
+        }
+      },
+      "ticket": {
+        "id": "e3dfc923-11df-4755-bdea-401f27df65b4",
+        "number": "ISP-68F5C3EC3828",
+        "status": "OPEN"
+      },
+      "diagnostic": {
+        "id": 7,
+        "result_code": "CPE_UNREACHABLE",
+        "result": "FAILED",
+        "source": "simulation",
+        "metrics": {
+          "cpe_online": false,
+          "rssi_dbm": null,
+          "snr_db": null,
+          "latency_ms": null,
+          "packet_loss_percent": null,
+          "download_mbps": null
+        },
+        "explanation": "The CPE is not responding in the simulation; the cause is unconfirmed. Check the PoE injector power and indicators and safely accessible cables and connectors. PoE is only one possible cause. Do not climb onto the roof or handle electrical wiring. Tell me when you have completed the checks so I can run the diagnostic again."
+      }
+    }
+  ]
+}

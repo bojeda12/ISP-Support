@@ -16,7 +16,7 @@ from rest_framework.exceptions import ValidationError
 
 from .ai import ProviderError, get_provider
 from .models import ConversationPhoto, Message
-from .services import ensure_session
+from .services import ensure_session, trace_logger
 from .visual_schema import VisualAnalysis
 
 logger = logging.getLogger(__name__)
@@ -34,11 +34,13 @@ def photo_storage():
 def validate_photo(upload) -> tuple[bytes, int, int]:
     if not upload or upload.size > settings.PHOTO_MAX_BYTES:
         raise ValidationError({"photo": "Photo exceeds the 5 MiB limit or is missing."})
-    formats = {"image/jpeg": "JPEG", "image/png": "PNG"}
-    suffixes = {"JPEG": {".jpg", ".jpeg"}, "PNG": {".png"}}
+    if Path(upload.name).suffix.lower() in {'.heic', '.heif'} or upload.content_type in {'image/heic', 'image/heif', 'image/heic-sequence', 'image/heif-sequence'}:
+        raise ValidationError({"photo": "HEIC/HEIF decoding is unavailable in this demo. Export the photo as JPEG, PNG or WebP and try again."})
+    formats = {"image/jpeg": "JPEG", "image/png": "PNG", "image/webp": "WEBP"}
+    suffixes = {"JPEG": {".jpg", ".jpeg"}, "PNG": {".png"}, "WEBP": {".webp"}}
     expected = formats.get(upload.content_type)
     if expected is None or Path(upload.name).suffix.lower() not in suffixes[expected]:
-        raise ValidationError({"photo": "Only JPEG and PNG photos are allowed."})
+        raise ValidationError({"photo": "Only JPEG, PNG and WebP photos are supported. Convert HEIC/HEIF to one of these formats."})
     raw = upload.read(settings.PHOTO_MAX_BYTES + 1)
     if len(raw) > settings.PHOTO_MAX_BYTES:
         raise ValidationError({"photo": "Photo exceeds the 5 MiB limit."})
@@ -86,7 +88,7 @@ def photo_payload(photo) -> dict:
     }
 
 
-def upload_and_analyze(*, session, conversation, upload):
+def upload_and_analyze(*, session, conversation, upload, message=None, emit_reply=True, question='', stored_keys=None):
     ensure_session(session)
     if (conversation.customer_id != session.internet_service.customer_id or
             conversation.internet_service_id != session.internet_service_id or conversation.status != "OPEN"):
@@ -98,23 +100,29 @@ def upload_and_analyze(*, session, conversation, upload):
     )
     storage = photo_storage()
     key = storage.save(f"photos/{photo.pk.hex}.jpg", ContentFile(image))
+    if stored_keys is not None:
+        stored_keys.append(key)
     try:
         with transaction.atomic():
-            message = Message.objects.create(
-                conversation=conversation, sender=Message.Sender.CUSTOMER,
-                content="Photo uploaded." if conversation.language == "en" else "Fotografía enviada.",
-                metadata={"photo_id": str(photo.pk), "type": "photo"},
-            )
+            if message is None:
+                message = Message.objects.create(
+                    conversation=conversation, sender=Message.Sender.CUSTOMER,
+                    content="Photo uploaded." if conversation.language == "en" else "Fotografía enviada.")
+            message.metadata = {**message.metadata,'photo_id':str(photo.pk),'type':'photo'}
+            message.save(update_fields=['metadata'])
             photo.message, photo.storage_key = message, key
             photo.save()
     except Exception:
         # Compensación del archivo si falla la transacción; el error original se propaga.
         storage.delete(key)
         raise
+    provider = None
     try:
-        analysis = VisualAnalysis.model_validate(get_provider().analyze_photo(
-            image=image, mime_type=photo.mime_type, language=conversation.language,
-        ))
+        provider = get_provider()
+        kwargs = {'image':image,'mime_type':photo.mime_type,'language':conversation.language}
+        if question:
+            kwargs['question'] = question[:2000]
+        analysis = VisualAnalysis.model_validate(provider.analyze_photo(**kwargs))
         photo.analysis = analysis.model_dump(mode="json")
         photo.status = ConversationPhoto.Status.COMPLETED
     except (ProviderError, SchemaValidationError, TimeoutError) as error:
@@ -127,13 +135,21 @@ def upload_and_analyze(*, session, conversation, upload):
             "recommended_actions": ["CONTACT_SUPPORT"], "connectivity_confirmed": False,
         }
         photo.status = ConversationPhoto.Status.FAILED
+    if settings.DEBUG and settings.DJANGO_ENV == 'development':
+        trace_logger.info('photo_runtime %s', {
+            'effective_provider': settings.AI_PROVIDER if settings.AI_PROVIDER in {'demo', 'openai'} else 'unknown',
+            'external_call_attempted': getattr(provider, 'external_call_attempted', False) is True,
+            'fallback_used': photo.status == ConversationPhoto.Status.FAILED,
+            'response_source': 'photo_error' if photo.status == ConversationPhoto.Status.FAILED else
+                'demo_vision' if photo.provider == 'demo' else 'openai_vision',
+        })
     with transaction.atomic():
         photo.save(update_fields=["status", "analysis"])
         disclaimer = "A photograph does not confirm connectivity or electrical safety." if conversation.language == "en" else "Una fotografía no confirma conectividad ni seguridad eléctrica."
         if photo.provider == "demo":
             disclaimer = ("SIMULATED ANALYSIS. " if conversation.language == "en" else "ANÁLISIS SIMULADO. ") + disclaimer
-        Message.objects.create(
-            conversation=conversation, sender=Message.Sender.ASSISTANT, content=disclaimer,
-            metadata={"photo_id": str(photo.pk), "type": "photo_analysis", "status": photo.status},
-        )
+        if emit_reply:
+            Message.objects.create(
+                conversation=conversation, sender=Message.Sender.ASSISTANT, content=disclaimer,
+                metadata={"photo_id": str(photo.pk), "type": "photo_analysis", "status": photo.status})
     return photo

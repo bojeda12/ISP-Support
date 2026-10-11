@@ -1,0 +1,94 @@
+{
+  "21": {
+    "messages": 4,
+    "diagnostics": [
+      {
+        "id": 47,
+        "scenario": "CPE_OFFLINE",
+        "result_code": "CPE_UNREACHABLE",
+        "created_at": "2026-10-10 20:53:27.851390"
+      },
+      {
+        "id": 48,
+        "scenario": "CPE_OFFLINE",
+        "result_code": "CPE_UNREACHABLE",
+        "created_at": "2026-10-10 20:53:52.554676"
+      }
+    ],
+    "tickets": [
+      {
+        "number": "ISP-40016FEEB70A",
+        "status": "CLOSED"
+      }
+    ]
+  },
+  "26": {
+    "messages": 2,
+    "diagnostics": [
+      {
+        "id": 50,
+        "scenario": "WEAK_SIGNAL",
+        "result_code": "SIGNAL_DEGRADED",
+        "created_at": "2026-10-10 22:03:54.044273"
+      }
+    ],
+    "tickets": [
+      {
+        "number": "ISP-167D83516D80",
+        "status": "CLOSED"
+      }
+    ]
+  },
+  "29": {
+    "messages": 2,
+    "diagnostics": [
+      {
+        "id": 54,
+        "scenario": "WEAK_SIGNAL",
+        "result_code": "SIGNAL_DEGRADED",
+        "created_at": "2026-10-10 22:18:21.283041"
+      }
+    ],
+    "tickets": [
+      {
+        "number": "ISP-8714A9714CB0",
+        "status": "OPEN"
+      }
+    ]
+  },
+  "30": {
+    "messages": 8,
+    "diagnostics": [
+      {
+        "id": 55,
+        "scenario": "WEAK_SIGNAL",
+        "result_code": "SIGNAL_DEGRADED",
+        "created_at": "2026-10-10 22:27:54.162363"
+      },
+      {
+        "id": 56,
+        "scenario": "WEAK_SIGNAL",
+        "result_code": "SIGNAL_DEGRADED",
+        "created_at": "2026-10-10 22:28:01.918391"
+      }
+    ],
+    "tickets": [
+      {
+        "number": "ISP-EF7DB1923488",
+        "status": "OPEN"
+      }
+    ]
+  },
+  "31": {
+    "messages": 2,
+    "diagnostics": [
+      {
+        "id": 57,
+        "scenario": "CPE_OFFLINE",
+        "result_code": "CPE_UNREACHABLE",
+        "created_at": "2026-10-10 22:53:36.859622"
+      }
+    ],
+    "tickets": []
+  }
+}

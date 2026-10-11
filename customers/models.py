@@ -5,6 +5,7 @@ from django.db import models
 
 
 class Customer(models.Model):
+    organization = models.ForeignKey('knowledge.SupportOrganization',null=True,blank=True,on_delete=models.PROTECT,related_name='customers')
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200)
     email = models.EmailField(blank=True)

@@ -1,0 +1,650 @@
+{
+  "provider": "DemoAI; no live provider calls",
+  "checkpoint_a_completion": [
+    {
+      "sender": "customer",
+      "text": "I don't have Internet.",
+      "intent": "NO_INTERNET",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "The CPE is not responding in the simulation; the cause is unconfirmed. Check the PoE injector power and indicators and safely accessible cables and connectors. PoE is only one possible cause. Do not climb onto the roof or handle electrical wiring. Tell me when you have completed the checks so I can run the diagnostic again.",
+      "intent": "NO_INTERNET",
+      "provenance": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "django_template",
+        "intent": "NO_INTERNET",
+        "fallback_reason": null,
+        "answer_provider": "django",
+        "tool_result": {
+          "executed": true,
+          "reason": "authorized_simulation",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation",
+          "diagnostic_id": 6,
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          }
+        },
+        "handoff_state": "SELF_SERVICE",
+        "handoff_result": {
+          "requested": false,
+          "accepted": false,
+          "ticket_created_this_turn": false
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "recheck",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": false,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "Photo uploaded.",
+      "intent": "PHOTO_QUESTION",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "This is simulated analysis: the photo was not interpreted. I can provide general guidance, but cannot verify the visible lights or connections. Visually check accessible Ethernet plugs for a seated connector and obvious cable damage, then observe the labeled link indicator without unplugging unfamiliar wiring. A connected plug does not prove cable integrity or Internet access. Could you show the front of that device, without private information, so we can inspect its labeled indicators?",
+      "intent": "PHOTO_QUESTION",
+      "provenance": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "demo_template",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": null,
+        "answer_provider": "demo",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "handoff_state": "SELF_SERVICE",
+        "handoff_result": {
+          "requested": false,
+          "accepted": false,
+          "ticket_created_this_turn": false
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": false,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "The yellow cable comes from the PoE injector and is connected to the Internet port.",
+      "intent": "PHOTO_QUESTION",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "I have retained your reports about cable routing, ports; they are not independently verified. The latest simulated check still cannot reach the outdoor equipment; the cause is unconfirmed.",
+      "intent": "PHOTO_QUESTION",
+      "provenance": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "demo_template",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": null,
+        "answer_provider": "demo",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "handoff_state": "SELF_SERVICE",
+        "handoff_result": {
+          "requested": false,
+          "accepted": false,
+          "ticket_created_this_turn": false
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "The other cable is connected to Ethernet port 3.",
+      "intent": "PHOTO_QUESTION",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "I have retained your reports about ports; they are not independently verified. The latest simulated check still cannot reach the outdoor equipment; the cause is unconfirmed.",
+      "intent": "PHOTO_QUESTION",
+      "provenance": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "demo_template",
+        "intent": "PHOTO_QUESTION",
+        "fallback_reason": null,
+        "answer_provider": "demo",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "handoff_state": "SELF_SERVICE",
+        "handoff_result": {
+          "requested": false,
+          "accepted": false,
+          "ticket_created_this_turn": false
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "The lights are green and orange.",
+      "intent": "REPORT_INDICATORS",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "I have retained your indicator report; local router lights do not prove outdoor CPE connectivity. The latest simulated check still cannot reach the outdoor equipment; the cause is unconfirmed.",
+      "intent": "REPORT_INDICATORS",
+      "provenance": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "demo_template",
+        "intent": "REPORT_INDICATORS",
+        "fallback_reason": null,
+        "answer_provider": "demo",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "handoff_state": "SELF_SERVICE",
+        "handoff_result": {
+          "requested": false,
+          "accepted": false,
+          "ticket_created_this_turn": false
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "The PoE connects to the outdoor antenna and then to my router.",
+      "intent": "OTHER",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "I have retained your reports about cable routing, equipment roles; they are not independently verified. The latest simulated check still cannot reach the outdoor equipment; the cause is unconfirmed.",
+      "intent": "OTHER",
+      "provenance": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "demo_template",
+        "intent": "OTHER",
+        "fallback_reason": null,
+        "answer_provider": "demo",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "handoff_state": "SELF_SERVICE",
+        "handoff_result": {
+          "requested": false,
+          "accepted": false,
+          "ticket_created_this_turn": false
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "I already gave you all the information I have.",
+      "intent": "OTHER",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "The simulated network check still cannot reach your outdoor equipment. Your troubleshooting attempts provide enough information for technical review; further uncertain checks are not required now. Your issue is recorded under ticket ISP-20FD37D6C4BF. No visit or repair has been confirmed.",
+      "intent": "OTHER",
+      "provenance": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "demo_template",
+        "intent": "OTHER",
+        "fallback_reason": null,
+        "answer_provider": "demo",
+        "tool_result": {
+          "executed": true,
+          "reason": "authorized_simulation",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation",
+          "diagnostic_id": 7,
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          }
+        },
+        "handoff_state": "SELF_SERVICE",
+        "handoff_result": {
+          "requested": false,
+          "accepted": false,
+          "ticket_created_this_turn": true
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "technical_review",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": true,
+          "two_failed_measurements": true,
+          "available_evidence_reviewed": true
+        }
+      }
+    }
+  ],
+  "checkpoint_a_handoff": [
+    {
+      "sender": "customer",
+      "text": "I don't have Internet.",
+      "intent": "NO_INTERNET",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "The CPE is not responding in the simulation; the cause is unconfirmed. Check the PoE injector power and indicators and safely accessible cables and connectors. PoE is only one possible cause. Do not climb onto the roof or handle electrical wiring. Tell me when you have completed the checks so I can run the diagnostic again.",
+      "intent": "NO_INTERNET",
+      "provenance": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "django_template",
+        "intent": "NO_INTERNET",
+        "fallback_reason": null,
+        "answer_provider": "django",
+        "tool_result": {
+          "executed": true,
+          "reason": "authorized_simulation",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation",
+          "diagnostic_id": 6,
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          }
+        },
+        "handoff_state": "SELF_SERVICE",
+        "handoff_result": {
+          "requested": false,
+          "accepted": false,
+          "ticket_created_this_turn": false
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "recheck",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": false,
+          "two_failed_measurements": false,
+          "available_evidence_reviewed": false
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "I need a human.",
+      "intent": "REQUEST_TECHNICIAN",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "Your connection problem remains recorded for technical review. You do not need to repeat the same checks now. The latest simulated check still cannot reach the outdoor equipment; the cause is unconfirmed. Ticket ISP-A3B176DA86A8: OPEN.",
+      "intent": "REQUEST_TECHNICIAN",
+      "provenance": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "django_template",
+        "intent": "REQUEST_TECHNICIAN",
+        "fallback_reason": null,
+        "answer_provider": "django",
+        "tool_result": {
+          "executed": true,
+          "reason": "authorized_simulation",
+          "result_code": "CPE_UNREACHABLE",
+          "source": "simulation",
+          "diagnostic_id": 7,
+          "metrics": {
+            "cpe_online": false,
+            "rssi_dbm": null,
+            "snr_db": null,
+            "latency_ms": null,
+            "packet_loss_percent": null,
+            "download_mbps": null
+          }
+        },
+        "handoff_state": "HANDOFF_PENDING",
+        "handoff_result": {
+          "requested": true,
+          "accepted": true,
+          "ticket_created_this_turn": true
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "handoff",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": false,
+          "two_failed_measurements": true,
+          "available_evidence_reviewed": false
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "I still have no Internet.",
+      "intent": "CHECK_TICKET",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "Ticket ISP-A3B176DA86A8: OPEN.",
+      "intent": "CHECK_TICKET",
+      "provenance": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "django_template",
+        "intent": "CHECK_TICKET",
+        "fallback_reason": null,
+        "answer_provider": "django",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "handoff_state": "HANDOFF_PENDING",
+        "handoff_result": {
+          "requested": false,
+          "accepted": false,
+          "ticket_created_this_turn": false
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": false,
+          "two_failed_measurements": true,
+          "available_evidence_reviewed": false
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "Please open a support ticket.",
+      "intent": "CHECK_TICKET",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "Ticket ISP-A3B176DA86A8: OPEN.",
+      "intent": "CHECK_TICKET",
+      "provenance": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "django_template",
+        "intent": "CHECK_TICKET",
+        "fallback_reason": null,
+        "answer_provider": "django",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "handoff_state": "HANDOFF_PENDING",
+        "handoff_result": {
+          "requested": true,
+          "accepted": true,
+          "ticket_created_this_turn": false
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "handoff",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": false,
+          "two_failed_measurements": true,
+          "available_evidence_reviewed": false
+        }
+      }
+    },
+    {
+      "sender": "customer",
+      "text": "I already answered that.",
+      "intent": "CHECK_TICKET",
+      "provenance": null
+    },
+    {
+      "sender": "assistant",
+      "text": "Ticket ISP-A3B176DA86A8: OPEN.",
+      "intent": "CHECK_TICKET",
+      "provenance": {
+        "effective_provider": "demo",
+        "classification_call_attempted": false,
+        "reply_call_attempted": false,
+        "fallback_used": false,
+        "response_source": "django_template",
+        "intent": "CHECK_TICKET",
+        "fallback_reason": null,
+        "answer_provider": "django",
+        "tool_result": {
+          "executed": false,
+          "reason": "not_requested"
+        },
+        "handoff_state": "HANDOFF_PENDING",
+        "handoff_result": {
+          "requested": false,
+          "accepted": false,
+          "ticket_created_this_turn": false
+        },
+        "model_call_attempted": false,
+        "model_call_succeeded": false,
+        "classification_succeeded": true,
+        "reply_succeeded": false,
+        "proposed_action": "none",
+        "executed_action": "none",
+        "review_predicates": {
+          "policy_enabled": true,
+          "simulated_cpe_failure": true,
+          "fresh_result": true,
+          "unresolved_outage": true,
+          "guide_presented": true,
+          "reported_attempt": false,
+          "two_failed_measurements": true,
+          "available_evidence_reviewed": false
+        }
+      }
+    }
+  ],
+  "checkpoint_b_simulated_recurrences": [
+    {
+      "case__category__code": "NO_INTERNET",
+      "revision": 1,
+      "reason": {
+        "category_match": true,
+        "diagnostic_match": true,
+        "symptom_matches": 2,
+        "equipment_scoped": false
+      },
+      "external_context_injected": false
+    },
+    {
+      "case__category__code": "SLOW_INTERNET",
+      "revision": 1,
+      "reason": {
+        "category_match": true,
+        "diagnostic_match": false,
+        "symptom_matches": 1,
+        "equipment_scoped": false
+      },
+      "external_context_injected": false
+    },
+    {
+      "case__category__code": "SLOW_INTERNET",
+      "revision": 1,
+      "reason": {
+        "category_match": true,
+        "diagnostic_match": true,
+        "symptom_matches": 4,
+        "equipment_scoped": false
+      },
+      "external_context_injected": false
+    }
+  ]
+}

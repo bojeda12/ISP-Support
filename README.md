@@ -1,5 +1,8 @@
 # ISP Support
 
+Base documental privada y envío conjunto de foto/pregunta: [configuración y API](docs/day5/knowledge-and-combined-turns.md).
+RAG observable, respuestas breves y pasos de prueba: [informe de verificación](docs/day5/rag-short-answers-verification.md).
+
 Local Django support demo for a US Internet service provider. Python 3.14.5,
 Django REST Framework, temporary SQLite, simulated diagnostics, bilingual
 conversations, automatic tickets, private photo analysis and a Bootstrap widget.
@@ -84,7 +87,7 @@ customer messages and unrecognized free-form notes.
   protected photo references, diagnostics, guide references and current tickets.
 - `GET /api/instructions/?language=en` (or `es`): replaceable guide catalog.
 - `GET /api/instructions/<id>/`: authorized SVG image, private/no-store.
-- `POST /api/conversations/<id>/photos/`: multipart `photo`, JPEG or PNG only.
+- `POST /api/conversations/<id>/photos/`: multipart `photo`, JPEG, PNG or WebP.
 - `GET /api/conversations/<id>/photos/`: authorized photo metadata list.
 - `GET /api/photos/<uuid>/` and `/content/`: authorized metadata and image.
 - `GET /demo/state/`: selected service, conversation, confirmation and timezone.
@@ -115,6 +118,8 @@ Upload only fictional or authorized equipment photos, without passwords or
 personal information. Start a conversation before attaching a photo. The server
 checks real file format, a 5 MiB limit, dimensions (4096 per side / 12 megapixels),
 corruption and animation. Pillow normalizes images to JPEG and removes EXIF.
+WebP is supported; HEIC/HEIF must be exported to JPEG, PNG or WebP because this
+environment has no compatible decoder. GIF and uploaded SVG are rejected.
 Private files stay under `private_media/`, excluded from Git and never served by
 a public media route. Cross-service access is rejected for history and photos.
 Arbitrary remote image URLs are not accepted.
@@ -212,3 +217,26 @@ Day 6 development has not started.
 
 Conversational context fixes, effective provider inspection, test results and
 manual reproduction: [verification report](docs/day5/conversational-context.md).
+
+Memoria acotada, continuidad entre fotografías y validación de formatos:
+[informe y prueba manual](docs/day5/memory-and-image-uploads.md).
+
+Generación conversacional y proveedor efectivo: ejecutar `python manage.py ai_runtime`
+(sin llamadas ni secretos) y consultar el [informe de runtime](docs/day5/openai-runtime-and-replies.md).
+
+Diagnóstico adaptativo, prevención de escalamiento prematuro y pruebas del flujo
+de dos fotografías: [informe de verificación](docs/day5/adaptive-troubleshooting.md).
+
+Visibilidad del conocimiento interno y política configurable de revisión técnica
+por intentos inconclusos: [implementación y pruebas](docs/day5/internal-knowledge-proactive-review.md).
+
+Finalización conversacional, entrega humana y aprendizaje mediante casos técnicos revisados:
+[arquitectura, configuración de Admin y resultados](docs/day5/completion-and-reviewed-learning.md).
+
+Recuperación de diagnóstico e historial: véase [informe de regresión](docs/day5/regression-recovery.md). Mantener DJANGO_SECRET_KEY persistente en .env (excluido de Git), reiniciar el servidor después de configurarla e iniciar sesión nuevamente. La cuota del simulador se conserva; una conversación nueva no la reinicia.
+
+Continuidad y selección de conversaciones: [informe y verificación](docs/day5/conversation-continuity.md). En la demo, seleccionar el servicio y usar Previous chats / Retomar o New chat / Nuevo chat para elegir explícitamente el contexto.
+# Vista del cliente
+
+La vista previa sin herramientas de gestión está en `/demo/customer/`; los operadores conservan la selección de servicios y conversaciones en `/demo/`. Consulta [continuidad, permisos y verificación](docs/day5/customer-preview.md).
+

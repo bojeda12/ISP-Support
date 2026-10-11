@@ -88,3 +88,15 @@ class ConversationPhoto(models.Model):
     provider = models.CharField(max_length=20)
     analysis = models.JSONField(default=dict, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class ChatTurn(models.Model):
+    """Clave idempotente por sesión para envíos multipart atómicos."""
+    session = models.ForeignKey(DemoChatSession, on_delete=models.CASCADE)
+    request_id = models.UUIDField()
+    fingerprint = models.CharField(max_length=64)
+    response = models.JSONField(default=dict)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['session','request_id'], name='unique_session_chat_turn')]

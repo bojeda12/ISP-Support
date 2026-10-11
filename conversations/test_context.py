@@ -46,7 +46,7 @@ class ContextTests(TestCase):
         result = self.follow("It's a Frontier router.")
         self.assertEqual(result['intent'], 'EQUIPMENT_CLARIFICATION')
         self.assertIn('different from a PoE injector', result['message'])
-        self.assertIn('CPE_UNREACHABLE', result['message'])
+        self.assertIn('cannot reach the outdoor equipment', result['message'])
         context = conversation_context(self.conversation)
         self.assertEqual(context['reported_issue'], 'NO_INTERNET')
         self.assertFalse(context['equipment_claim']['verified'])
@@ -80,14 +80,14 @@ class ContextTests(TestCase):
         result = self.follow('What does that light mean?')
         self.assertIn('simulated', result['message'])
         self.assertIn('not interpreted', result['message'])
-        self.assertIn('model', result['message'])
+        self.assertIn('general guidance', result['message'])
 
     def test_green_lights_neither_verify_recovery_nor_complete_checks(self):
         self.start()
         result = self.follow('All the lights are green.')
         self.assertEqual(result['intent'], 'REPORT_INDICATORS')
         self.assertIn('do not prove outdoor CPE connectivity', result['message'])
-        self.assertIn('simulated diagnostic reports CPE_UNREACHABLE', result['message'])
+        self.assertIn('simulated check still cannot reach the outdoor equipment', result['message'])
         self.assertFalse(conversation_context(self.conversation)['customer_claims'][-1]['verified'])
         self.assertEqual(Ticket.objects.count(), 0)
         self.assertEqual(self.conversation.diagnostic_runs.count(), 1)
@@ -101,7 +101,7 @@ class ContextTests(TestCase):
         self.assertNotIn('Check the PoE injector', result['diagnostic']['explanation'])
         explicit = self.follow('Show the guide again')
         self.assertEqual(len(explicit['images']), 4)
-        self.assertEqual(self.conversation.diagnostic_runs.count(), 2)
+        self.assertEqual(self.conversation.diagnostic_runs.count(), 1)
 
     def test_unknown_injector_and_equipment_mismatch_ask_useful_questions(self):
         self.start()
@@ -155,8 +155,10 @@ class ContextTests(TestCase):
         with patch('conversations.services.get_provider', side_effect=ProviderError('timeout')):
             result = self.follow('I checked the cables')
         self.assertEqual(result['provider_status'], 'unavailable')
-        self.assertEqual(DiagnosticRun.objects.count(), before)
-        self.assertEqual(Ticket.objects.count(), 0)
+        self.assertEqual(DiagnosticRun.objects.count(), before + 1)
+        self.assertTrue(result['debug']['chat']['tool_result']['executed'])
+        self.assertEqual(Ticket.objects.count(), 1)
+        self.assertIn(result['ticket']['number'], result['message'])
         self.assertEqual(conversation_context(self.conversation)['reported_issue'], 'NO_INTERNET')
 
     def test_context_bounded_and_ticket_status_refreshed_from_database(self):

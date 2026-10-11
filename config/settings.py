@@ -57,11 +57,13 @@ INSTALLED_APPS = [
     'diagnostics.apps.DiagnosticsConfig',
     'tickets.apps.TicketsConfig',
     'messaging.apps.MessagingConfig',
+    'knowledge.apps.KnowledgeConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'knowledge.middleware.ReferenceUploadMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -145,6 +147,13 @@ REST_FRAMEWORK = {
 DJANGO_ENV = os.getenv("DJANGO_ENV", "development")
 ENABLE_DEMO_CHAT = os.getenv("ENABLE_DEMO_CHAT", "false").lower() == "true"
 AI_PROVIDER = os.getenv("AI_PROVIDER", "demo")
+CHAT_DIAGNOSTIC_WINDOW_SECONDS = 30
+CHAT_DIAGNOSTIC_MAX_PER_WINDOW = 2
+CHAT_DIAGNOSTIC_MAX_PER_HOUR = 6
+CHAT_DIAGNOSTIC_TIMEOUT_SECONDS = 5
+CHAT_ALLOW_INCONCLUSIVE_REVIEW = os.environ.get('CHAT_ALLOW_INCONCLUSIVE_REVIEW', 'true').lower() == 'true'
+CHAT_REVIEW_MIN_REVIEWED_PHOTOS = 2
+CHAT_REVIEW_DIAGNOSTIC_MAX_AGE_SECONDS = 300
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "")
 try:
@@ -161,3 +170,14 @@ PRIVATE_MEDIA_ROOT = BASE_DIR / "private_media"
 PHOTO_MAX_BYTES = 5 * 1024 * 1024
 PHOTO_MAX_PIXELS = 12_000_000
 PHOTO_MAX_DIMENSION = 4096
+KNOWLEDGE_ALLOW_EXTERNAL_AI = os.getenv('KNOWLEDGE_ALLOW_EXTERNAL_AI', 'false').lower() == 'true'
+
+# Solo rutas y procedencia; nunca contenido, fotografías o secretos.
+LOGGING = {
+    'version': 1, 'disable_existing_loggers': False,
+    'filters': {'development_debug': {'()': 'django.utils.log.RequireDebugTrue'}},
+    'handlers': {'runtime_console': {'class': 'logging.StreamHandler',
+                                   'filters': ['development_debug']}},
+    'loggers': {'conversations.runtime': {'handlers': ['runtime_console'],
+                                         'level': 'INFO', 'propagate': False}},
+}
